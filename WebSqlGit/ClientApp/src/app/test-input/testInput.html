@@ -1,0 +1,11 @@
+<h2> Тестирую тебя !</h2>
+<input [(ngModel)]="name" placeholder="name"/>
+
+<h3  *ngIf="test">Молодец. {{name}} , успешно прошел тест!</h3>
+<h3 *ngIf="!test">Время сейчас: {{Hours}}:{{Minutes}} {{Day}}.{{Month}}.{{Year}} ! (это сохранять)</h3>
+<form action="/" method="get">
+  <textarea name="MyText" rows=24 cols=140>
+
+</textarea>
+  <button (click)="saveCode()">Click me!</button>
+</form>
