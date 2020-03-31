@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { TestInput } from './test-input/TestInput.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { TestInput } from './test-input/TestInput.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    TestInput
+    TestInput,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +32,9 @@ import { TestInput } from './test-input/TestInput.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'test-input', component: TestInput }
+      { path: 'test-input', component: TestInput },
+      { path: 'app-login', component: LoginComponent },
+      { path: 'app-register', component: RegisterComponent },
     ])
   ],
   providers: [],
