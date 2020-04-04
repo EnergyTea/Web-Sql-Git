@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { ProductComponent } from './Product/product.component';
+import { EditComponent } from './edit/edit-code.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    ProductComponent
+    ProductComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -23,12 +25,16 @@ import { ProductComponent } from './Product/product.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'app-product', component: ProductComponent },
+      { path: 'app-edit', component: EditComponent },
     ])
   ],
   providers: [],
   bootstrap: [
     AppComponent,
-    ProductComponent
+    HomeComponent,
+    NavMenuComponent,
+    ProductComponent,
+    EditComponent
   ]
 })
 export class AppModule { }
