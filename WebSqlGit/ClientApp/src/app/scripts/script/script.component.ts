@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css', './light.min.css']
+  selector: 'scr',
+  templateUrl: './script.component.html',
+  styleUrls: ['./script.component.css', './light.min.css']
 })
-export class HomeComponent {
+export class ScriptComponent {
   code =
 `CREATE TABLE [dbo].[Author] (
 	[AuthorId] [int] IDENTITY(1,1) NOT NULL CONSTRAINT PK_Author PRIMARY KEY,

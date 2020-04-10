@@ -1,0 +1,10 @@
+.create {
+  margin: 15px 25px;
+}
+.read {
+  padding: 20px 0px;
+}
+textarea {
+  height: 55vh;
+  background-color: #f9f9f9;
+}

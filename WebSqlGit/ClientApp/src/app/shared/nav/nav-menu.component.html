@@ -1,0 +1,34 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">WebSqlGit</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="isExpanded"
+            (click)="toggle()"
+            data-target="#navbarsExample09"
+            aria-controls="navbarsExample09"
+            aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse"
+         [ngClass]="{ show: isExpanded }">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/scripts/scr">Script<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/scripts/edit">Edit Script<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/scripts/create">Create Script<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-md-0">
+        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+  </nav>
+</header>
