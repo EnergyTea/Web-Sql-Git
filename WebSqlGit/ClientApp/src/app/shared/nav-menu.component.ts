@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavComponent {
+export class NavMenuComponent {
   isExpanded = false;
 
   collapse() {

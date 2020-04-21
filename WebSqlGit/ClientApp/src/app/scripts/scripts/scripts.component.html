@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-sm-3 left">
+    <h3>Список категорий</h3>
+    <div class="list-group">
+      <a class="category" *ngFor="let category of categories"
+         (click)="onSelect(category)">{{category.name}}</a>
+    </div>
+  </div>
+
+  <div *ngIf="selectedCategory" class="category-vid">
+    <h2>{{selectedCategory.name}}</h2>
+    <div>
+      <span>script id: </span>
+      <ul>
+        <li *ngFor="let scriptId of selectedCategory.scriptId"><a href="scripts/{{scriptId}}">{{scriptId}}</a></li>
+      </ul>
+    </div>
+    <button (click)=" off()">back</button>
+  </div>
+
+  <div class="col-sm-9">
+    <router-outlet *ngIf="!(selectedCategory)"></router-outlet>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-    <a class="navbar-brand" href="/">WebSqlGit</a>
+    <a class="navbar-brand" [routerLink]="['/']">WebSqlGit</a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -17,13 +17,13 @@
          [ngClass]="{ show: isExpanded }">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/scripts/scr">Script<span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink]="['/scripts']">Script<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/scripts/edit">Edit Script<span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink]="['/scripts/edit']">Edit Script<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="/scripts/create">Create Script<span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink]="['/scripts/create']">Create Script<span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-md-0">
@@ -32,3 +32,4 @@
     </div>
   </nav>
 </header>
+

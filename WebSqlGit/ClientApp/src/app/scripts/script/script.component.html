@@ -1,8 +1,12 @@
-<div>
-  <h3>{{tags[2]}}: Название кода (просмотр)</h3>
-  <div class="border rounded plot-code">
-    <pre><code class="code">{{code}}</code></pre>
-  </div>
+<div *ngIf="script">
+  <ul class="scipt">
+    <li>
+      <h3>{{script.name}}</h3>
+      <div class="border rounded plot-code">
+        <pre><code class="code">{{script.script}}</code></pre>
+      </div>
+    </li>
+  </ul>
   <div class="d-flex flex-row-reverse">
   </div>
 </div>

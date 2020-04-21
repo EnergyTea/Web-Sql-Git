@@ -1,45 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
+import { Script } from '../shared/Script';
+import { ScriptService } from '../script.service'
 
 @Component({
-  selector: 'scr',
-  templateUrl: './script.component.html',
-  styleUrls: ['./script.component.css', './light.min.css']
+    selector: 'app-script',
+    templateUrl: './script.component.html',
+     styleUrls: ['./script.component.css', './light.min.css']
 })
-export class ScriptComponent {
-  code =
-`CREATE TABLE [dbo].[Author] (
-	[AuthorId] [int] IDENTITY(1,1) NOT NULL CONSTRAINT PK_Author PRIMARY KEY,
-	[FirstName] [nvarchar](256) NULL,
-	[LastName] [nvarchar](256) NOT NULL,
-	[Birthday] [datetime] NULL )
-	
-CREATE TABLE [dbo].[Post] (
-	[PostId] [INT] IDENTITY(1,1) NOT NULL CONSTRAINT PK_Post PRIMARY KEY,
-	[Title] [NVARCHAR](256) NOT NULL,
-	[Body] [NVARCHAR](MAX) NOT NULL,
-	[AuthorId] [INT] NOT NULL)
+/** script component*/
+export class ScriptComponent implements OnInit {
+/** script ctor */
+  script: Script;
 
-ALTER TABLE [dbo].[Post] 
-ADD [CreationDateTime] [DATETIME] NOT NULL DEFAULT(GETDATE())
+  constructor(
+    private route: ActivatedRoute,
+    private scriptScrvice: ScriptService,
+    private location: Location
+  ) { }
 
- 
-INSERT INTO [Author]([FirstName], [LastName], [Birthday])
-VALUES( 'Ivan', 'Ivanov', '1990-02-03' )
+  ngOnInit(): void {
+    this.getScript();
+  }
 
-INSERT INTO [Author]([FirstName], [LastName], [Birthday])
-VALUES( 'Adriel', 'Perez', '1990-02-03' ), ( 'Eric', 'Miller', '1998-11-13' )
-
-INSERT INTO [Post]([Title], [Body], [AuthorId])
-VALUES('SQL Introduction', 'Some text about SQL', 1)
-
-INSERT INTO [Post]([Title], [Body], [AuthorId])
-VALUES('SELECT Syntax', 'Some text about SELECT Syntax', 1)
+  getScript(): void {
+    const id = + this.route.snapshot.paramMap.get('id');
+    this.scriptScrvice.getScript(id)
+      .subscribe(script => this.script = script);
+  }
 
 
-UPDATE [Post] 
-SET [CreationDateTime] = GETDATE()
-WHERE Title = 'SQL Introduction'
-
-DELETE FROM [Author]`;
-  tags = ["Tom", "Bob", "Sam", "Bill", "Tom", "Bob", "Sam", "Bill", "Tom", "Bob", "Sam", "Bill", "Tom", "Bob", "Sam", "Bill", "Tom", "Bob", "Sam", "Bill", "Tom", "Bob"];
 }
