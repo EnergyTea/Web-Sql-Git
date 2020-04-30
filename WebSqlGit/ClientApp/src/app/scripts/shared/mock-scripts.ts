@@ -2,7 +2,7 @@ import { Script } from './Script';
 
 export const SCRIPTS: Script[] = [
   {
-    id: 1, name: 'Script One', script: `CREATE TABLE [dbo].[Author] (
+    id: 1, name: 'Script One', body: `CREATE TABLE [dbo].[Author] (
 	[AuthorId] [int] IDENTITY(1,1) NOT NULL CONSTRAINT PK_Author PRIMARY KEY,
 	[FirstName] [nvarchar](256) NULL,
 	[LastName] [nvarchar](256) NOT NULL,
@@ -37,7 +37,7 @@ WHERE Title = 'SQL Introduction'
 
 DELETE FROM [Author]`},
   {
-    id: 2, name: 'Script Two', script: `CREATE TABLE [dbo].[Author] (
+    id: 2, name: 'Script Two', body: `CREATE TABLE [dbo].[Author] (
 	[AuthorId] [int] IDENTITY(1,1) NOT NULL CONSTRAINT PK_Author PRIMARY KEY,
 	[FirstName] [nvarchar](256) NULL,
 	[LastName] [nvarchar](256) NOT NULL,
@@ -72,7 +72,7 @@ WHERE Title = 'SQL Introduction'
 
 DELETE FROM [Author]`},
   {
-    id: 3, name: 'Script End', script: `CREATE TABLE [dbo].[Author] (
+    id: 3, name: 'Script End', body: `CREATE TABLE [dbo].[Author] (
 	[AuthorId] [int] IDENTITY(1,1) NOT NULL CONSTRAINT PK_Author PRIMARY KEY,
 	[FirstName] [nvarchar](256) NULL,
 	[LastName] [nvarchar](256) NOT NULL,

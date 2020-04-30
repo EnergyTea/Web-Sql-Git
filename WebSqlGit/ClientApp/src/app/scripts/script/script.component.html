@@ -1,12 +1,23 @@
 <div *ngIf="script">
-  <ul class="scipt">
-    <li>
+  <div *ngIf="!edit">
+    <div>
       <h3>{{script.name}}</h3>
       <div class="border rounded plot-code">
-        <pre><code class="code">{{script.script}}</code></pre>
+        <pre><code class="code">{{script.body}}</code></pre>
       </div>
-    </li>
-  </ul>
-  <div class="d-flex flex-row-reverse">
+    </div>
+    <div class="d-flex flex-row-reverse">
+      <button (click)="edit = !edit" type="button" class="btn btn-dark">Edit Code</button>
+    </div>
+  </div>
+  <div *ngIf="edit">
+    <div class="read">
+      <input [(ngModel)]="script.name" name="name" value="{{script.name}}" class="form-control form-control-lg name-script" />
+      <pre><code class="code"><textarea class="form-control" id="" [(ngModel)]="script.body">{{script.body}}</textarea></code></pre>
+    </div>
+    <div class="d-flex flex-row-reverse">
+      <button type="button" class="btn btn-dark">Удалить</button>
+      <button (click)="save(); edit = !edit" type="button" class="btn btn-dark">Save Code</button>
+    </div>
   </div>
 </div>

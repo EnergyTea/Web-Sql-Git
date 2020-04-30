@@ -14,11 +14,12 @@ import { ScriptService } from '../script.service'
 export class ScriptComponent implements OnInit {
 /** script ctor */
   script: Script;
+  edit: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private scriptScrvice: ScriptService,
-    private location: Location
+    private location: Location,
   ) { }
 
   ngOnInit(): void {
@@ -31,5 +32,13 @@ export class ScriptComponent implements OnInit {
       .subscribe(script => this.script = script);
   }
 
+  goBack(): void {
+    this.location.back();
+  }
+
+  save(): void {
+    this.scriptScrvice.upDateScript(this.script)
+      .subscribe(() => this.goBack());
+  }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Script } from '../Script';
-import { SCRIPTS } from '../mock-scripts';
+import { ScriptService } from '../../script.service';
 
 @Component({
     selector: 'app-script-list',
@@ -10,10 +10,25 @@ import { SCRIPTS } from '../mock-scripts';
 /** script-list component*/
 export class ScriptListComponent implements OnInit {
 
-  scripts = SCRIPTS;
-  selectScripts: Script
+  scripts: Script[];
+  selectScripts: Script;
 
-  ngOnInit() { }
+
+  constructor(private scriptService: ScriptService) {}
+
+  ngOnInit() {
+    this.getScripts();
+  }
+
+  getScripts(): void {
+    this.scriptService.getScripts()
+    .subscribe(scripts => this.scripts = scripts)
+  }
+
+  delete(script: Script): void {
+    this.scripts = this.scripts.filter(s => s !== script);
+    this.scriptService.deleteScript(script.id);
+  }
 
   onSelect(script: Script): void {
     this.selectScripts = script;

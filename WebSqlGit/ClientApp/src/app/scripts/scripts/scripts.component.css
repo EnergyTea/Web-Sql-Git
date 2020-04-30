@@ -45,3 +45,54 @@ h3 {
 textarea {
   height: 80vh;
 }
+
+.script-id {
+  padding: 30px 0;
+  border: 1px solid #000;
+  border-radius: 8px;
+  margin: 10px 20px;
+  max-width: 750px;
+}
+
+
+.id-conteiner a {
+  padding: 30px 140px 30px 40px;
+  color: #000;
+  text-decoration: none;
+}
+
+
+h3 {
+  margin: 10px 0 0 20px;
+}
+
+.row {
+  margin-top: 10px;
+}
+
+.read {
+  padding: 20px 40px;
+}
+
+textarea {
+  height: 75vh;
+  background-color: #f9f9f9;
+}
+.btnCat {
+  margin-left: auto;
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+  padding: 0 2px 2px 0
+}
+
+.editCat {
+    margin-left: 10px;
+}
+
+.creatCategoey {
+    margin: 5px auto
+}
+.addCat {
+    margin-left: 10px;
+}

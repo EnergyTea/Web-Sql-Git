@@ -1,6 +1,6 @@
 
 pre {
-  height: 80vh;
+  height: 70vh;
 }
 
 .hljs[_ngcontent-ng-cli-universal-c3] {
@@ -40,4 +40,33 @@ pre::-webkit-scrollbar {
 pre::-webkit-scrollbar-thumb {
   border-radius: 5px;
   background-color: #cccccc;
+}
+
+.btn {
+  margin-right: 40px;
+}
+
+h3 {
+  margin: 10px 0 0 20px;
+}
+
+.row {
+  margin-top: 10px;
+}
+
+.read {
+  padding: 0 20px ;
+}
+
+textarea {
+  height: 70vh;
+  background-color: #f9f9f9;
+}
+
+.plot-code {
+  margin: 15px 
+}
+
+.name-script {
+    margin: 10px 0
 }
