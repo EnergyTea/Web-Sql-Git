@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using WebSqlGit.Data.Interface;
@@ -9,6 +12,12 @@ namespace WebSqlGit.Data
 {
     public class CategoryRepository : ICategoryInterface
     {
+        string conneectionString = null;
+        public CategoryRepository(string conn)
+        {
+            conneectionString = conn;
+        }
+
          private List<Category> Categories = new List<Category>()
             {
                new Category { 
@@ -29,9 +38,9 @@ namespace WebSqlGit.Data
                     ScriptId = new int[1] { 2 } },
             };
 
-        public Category CreateCategory(string name = null)
+        public Category CreateCategory(Category category)
         {
-            var category = new Category { Id = Categories.Count > 0 ? Categories.Max(c => c.Id) + 1 : 1, Name = name};
+            category = new Category { Id = Categories.Count > 0 ? Categories.Max(c => c.Id) + 1 : 1, /*Name = name*/};
             Categories.Add(category);
             return new Category
             {
@@ -63,9 +72,33 @@ namespace WebSqlGit.Data
             {
                 Id = c.Id,
                 Name = c.Name,
-                ScriptId = c.ScriptId
             });
             return categories.ToList();
+        }
+
+
+
+       /* public IEnumerable<Category> GetAll()
+        {
+            using (IDbConnection db = new SqlConnection(conneectionString))
+            {
+                return db.Query<Category>("SELECT * FROM Categories").ToList();
+            }
+        }*/
+
+        public Category GetCategory(int id)
+        {
+            var category = Categories.FirstOrDefault(c => c.Id == id);
+            if (category == null)
+            {
+                return null;
+            }
+            return new Category
+            {
+                Id = category.Id,
+                Name = category.Name,
+                ScriptId = category.ScriptId
+            };
         }
     }
 }

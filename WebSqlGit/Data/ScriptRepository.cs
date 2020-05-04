@@ -82,7 +82,7 @@ namespace WebSqlGit.Data
                 Id = script.Id,
                 Name = script.Name,
                 Body = script.Body,
-                DataTime = script.DataTime
+                DataTime = script.DataTime  
             };
         }
 

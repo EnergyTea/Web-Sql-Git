@@ -16,7 +16,7 @@ namespace WebSqlGit.Controllers
     {
         private readonly ICategoryInterface _categoryInterface;
 
-        public CategoryController( ICategoryInterface categoryInterface )
+        public CategoryController(ICategoryInterface categoryInterface)
         {
             _categoryInterface = categoryInterface;
         }
@@ -27,20 +27,26 @@ namespace WebSqlGit.Controllers
             var category = _categoryInterface.GetAll();
             return category.ToList();
         }
-        [HttpDelete]
-        public IActionResult DeleteCategory(int id)
+        [HttpGet("{id}")]
+        public IActionResult GetCategory(int id)
         {
-            Category category = _categoryInterface.DeleteCategory(id);
+            Category category = _categoryInterface.GetCategory(id);
             if (category == null)
             {
                 return NotFound();
             }
             return Ok(category);
         }
-        [HttpPost]
-        public IActionResult CreateCategory([FromForm] Category category)
+        [HttpDelete]
+        public IActionResult DeleteCategory(int id)
         {
-            Category created = _categoryInterface.CreateCategory(category.Name);
+            _categoryInterface.DeleteCategory(id);
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult CreateCategory(Category category)
+        {
+            Category created = _categoryInterface.CreateCategory(category);
             return Ok(created);
         }
     }

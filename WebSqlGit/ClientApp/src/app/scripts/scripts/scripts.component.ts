@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../shared/category/Category';
 import { CategoryService } from '../shared/category/category.service';
+import { Script } from '../shared/Script';
+import { ScriptService } from '../script.service';
 
 
 @Component({
@@ -10,49 +12,27 @@ import { CategoryService } from '../shared/category/category.service';
 })
 /** scripts component*/
 export class ScriptsComponent implements OnInit {
-/** scripts ctor */
+  scripts: Script[];
+  selectScripts: Script;
 
 
-  categories: Category[];
-  selectedCategory: Category;
-  created: boolean;
-  constructor(private categoryService: CategoryService) { }
-
+  constructor(private scriptService: ScriptService) { }
 
   ngOnInit() {
-    this.getCategory();
+    this.getScripts();
   }
 
-  getCategory(): void {
-    this.categoryService.getCategory()
-      .subscribe(categories => this.categories = categories)
+  getScripts(): void {
+    this.scriptService.getScripts()
+      .subscribe(scripts => this.scripts = scripts)
   }
 
-  delete(category: Category): void {
-    this.categories = this.categories.filter(c => c !== category);
-    this.categoryService.deleteCategory(category.id)
-    .subscribe(data => this.getCategory())
+  delete(script: Script): void {
+    this.scripts = this.scripts.filter(s => s !== script);
+    this.scriptService.deleteScript(script.id);
   }
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.categoryService.addCategory({ name } as Category)
-      .subscribe(category => { this.categories.push(category) })
-  }
-
-  off(): void {
-    this.selectedCategory = null
-  }
-
-  crate(): void {
-    this.created = !this.created
-  }
-  //getScripts(): Script[] {
-  //  //return scriptService.getScripts();
-  //}
-
-  onSelect(category: Category): void {
-    this.selectedCategory = category;
+  onSelect(script: Script): void {
+    this.selectScripts = script;
   }
 }

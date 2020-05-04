@@ -22,7 +22,11 @@ namespace pRODJECR
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ICategoryInterface, CategoryRepository>();
+
+            //string connectionString = "Server=(localdb)\\mssqllocaldb;Database=sqlcode;Trusted_Connection=True;MultipleActiveResultSets=true";
+            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rusva\\source\\repos\\Web-Sql-Git\\WebSqlGit\\sqlcode.mdf;Integrated Security=True";
+            services.AddTransient<ICategoryInterface, CategoryRepository>(provider => new CategoryRepository(connectionString));
+
             services.AddTransient<IScriptInterface, ScriptRepository>();
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
@@ -77,3 +81,18 @@ namespace pRODJECR
         }
     }
 }
+
+
+/*public void Create(User user)
+{
+    using (IDbConnection db = new SqlConnection(connectionString))
+    {
+        var sqlQuery = "INSERT INTO Users (Name, Age) VALUES(@Name, @Age)";
+        db.Execute(sqlQuery, user);
+
+        // если мы хотим получить id добавленного пользователя
+        //var sqlQuery = "INSERT INTO Users (Name, Age) VALUES(@Name, @Age); SELECT CAST(SCOPE_IDENTITY() as int)";
+        //int? userId = db.Query<int>(sqlQuery, user).FirstOrDefault();
+        //user.Id = userId.Value;
+    }
+}*/

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScriptService } from '../script.service';
 import { Script } from '../shared/Script';
-import { release } from 'os';
 
 @Component({
   selector: 'app-create',

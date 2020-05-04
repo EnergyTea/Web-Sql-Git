@@ -9,7 +9,8 @@ namespace WebSqlGit.Data.Interface
     public interface ICategoryInterface
     {
         IEnumerable<Category> GetAll();
+        Category GetCategory(int id);
         Category DeleteCategory(int id);
-        Category CreateCategory(string name);
+        Category CreateCategory(Category category);
     }
 }

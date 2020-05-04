@@ -3,22 +3,27 @@ import { RouterModule, Routes, Router } from '@angular/router';
 
 import { ScriptsComponent } from './scripts/scripts.component';
 import { CreateComponent } from './create/create.component';
-import { EditComponent } from './edit/edit.component';
 import { ScriptComponent } from './script/script.component';
-import { ScriptListComponent } from './shared/script-list/script-list.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { OneCategoryComponent } from './one-category/one-category.component';
 
 const scriptRoutes: Routes = [
-  { path: 'list', component: ScriptListComponent},
-  { path: 'edit', component: EditComponent },
   { path: 'create', component: CreateComponent },
   { path: ':id', component: ScriptComponent }
 ]
 
+const scriptsRoutes: Routes = [
+  { path: 'scripts', component: ScriptsComponent, children: scriptRoutes },
+]
+
+const categoryRoutes: Routes = [
+  {path: ':id', component: OneCategoryComponent, children: scriptsRoutes}
+]
+
 const routes: Routes = [
-  { path: '', redirectTo: '/scripts/list', pathMatch: 'full' },
-  { path: 'scripts', redirectTo: '/scripts/list', pathMatch: 'full' },
+  { path: '', redirectTo: '/scripts', pathMatch: 'full' },
   { path: 'scripts', component: ScriptsComponent},
-  { path: 'scripts', component: ScriptsComponent, children: scriptRoutes}
+  { path: 'category', component: CategoriesComponent, children: categoryRoutes}
 ]
 
 @NgModule({

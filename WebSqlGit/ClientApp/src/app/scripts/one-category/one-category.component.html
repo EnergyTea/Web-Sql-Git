@@ -1,0 +1,8 @@
+<div style="border: 1px solid red">
+  <h3>{{category.name}}</h3>
+  {{category.scriptId}}
+  <div *ngFor="let id of category.scriptId" class="id-conteiner" ><a href="category/{{category.id}}/scripts/{{id}}">{{id}}</a></div>
+</div>
+<div>
+  <router-outlet></router-outlet>
+</div>
