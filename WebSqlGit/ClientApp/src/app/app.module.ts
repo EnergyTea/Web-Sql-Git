@@ -5,24 +5,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { ScriptModule } from './scripts/script.module';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './shared/nav-menu.component'
+import { NavMenuComponent } from './shared/nav-menu/nav-menu.component';
 import { ScriptsComponent } from './scripts/scripts/scripts.component';
-import { CreateComponent } from './scripts/create/create.component';
-import { ScriptComponent } from './scripts/script/script.component';
-import { CategoryComponent } from './shared/category/category.component';
-import { CategoriesComponent } from './scripts/categories/categories.component';
-import { OneCategoryComponent } from './scripts/one-category/one-category.component';
+import { NavCategoryComponent } from './shared/nav-category/nav-category.component';
+import { CategoryComponent } from './categories/category/category.component';
+import { CreateScriptComponent } from './scripts/create-script/create-script.component';
+import { EditScriptComponent } from './scripts/edit-script/edit-script.component';
+import { ScriptComponent } from './scripts/script-view/script.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
+    NavCategoryComponent,
     CategoryComponent,
-    CategoriesComponent,
-    CreateComponent,
     ScriptComponent,
     ScriptsComponent,
-    OneCategoryComponent
+    CreateScriptComponent,
+    EditScriptComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

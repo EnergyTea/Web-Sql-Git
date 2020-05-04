@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ScriptService } from '../script.service';
 import { Script } from '../shared/Script';
+import { ScriptService } from '../shared/script.service';
 
 @Component({
   selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css']
+  templateUrl: './create-script.component.html',
+  styleUrls: ['./create-script.component.css']
 })
 /** create component*/
-export class CreateComponent implements OnInit {
+export class CreateScriptComponent implements OnInit {
   /** create ctor */
   scripts: Script[];
 

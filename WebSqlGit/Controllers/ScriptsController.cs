@@ -22,7 +22,7 @@ namespace WebSqlGit.Controllers
         [HttpGet]
         public List<Script> ScriptsList(string name)
         {
-            var scripts = _scriptInterface.GetScripts(name);
+            var scripts = _scriptInterface.GetAll(name);
 
             return scripts.ToList();
         }

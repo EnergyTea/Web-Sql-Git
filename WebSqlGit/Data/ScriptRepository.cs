@@ -55,7 +55,7 @@ namespace WebSqlGit.Data
             }
         };              
 
-        public List<Script> GetScripts(string name = null)
+        public List<Script> GetAll(string name = null)
         {
             var scripts = Scripts.Select(s => new Script
             {
@@ -136,7 +136,12 @@ namespace WebSqlGit.Data
                 Body = script.Body,
                 DataTime = script.DataTime
             };
-            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Script> GetScripts(int categoryId)
+        {
+            IEnumerable<Script> scripts = Scripts.Where(s => s.CategoryId == categoryId);
+            return scripts.ToList();
         }
     }
 }

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { SCRIPTS } from './shared/mock-scripts';
-import { Script } from './shared/Script';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { scrypt } from 'crypto';
+import { Script } from './Script';
 
 @Injectable({ providedIn: 'root' })
 export class ScriptService {
@@ -24,8 +22,8 @@ export class ScriptService {
     return this.http.put(this.scriptsUrl, script, this.httpOptions);
   }
 
-  getScript(id: number): Observable<Script> {
-    const url = `${this.scriptsUrl}/${id}`;
+  getScript(ScriptId: number): Observable<Script> {
+    const url = `${this.scriptsUrl}/${ScriptId}`;
     return this.http.get<Script>(url);
   }
 

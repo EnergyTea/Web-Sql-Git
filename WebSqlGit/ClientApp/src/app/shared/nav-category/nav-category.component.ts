@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from '../../scripts/shared/category/Category';
-import { CategoryService } from '../../scripts/shared/category/category.service';
+import { Category } from '../../categories/shared/Category';
+import { CategoryService } from '../../categories/shared/category.service';
 
 @Component({
-    selector: 'category',
-    templateUrl: './category.component.html',
-    styleUrls: ['./category.component.css']
+    selector: 'nav-category',
+    templateUrl: './nav-category.component.html',
+    styleUrls: ['./nav-category.component.css']
 })
 /** category component*/
-export class CategoryComponent implements OnInit {
+export class NavCategoryComponent implements OnInit {
     /** category ctor */
   categories: Category[];
   selectedCategory: Category;

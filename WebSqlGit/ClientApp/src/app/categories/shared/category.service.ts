@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Category } from './Category';
+import { Script } from '../../scripts/shared/Script';
 
 @Injectable({providedIn: 'root'})
 export class CategoryService {
@@ -14,8 +15,8 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getCategory(id: number): Observable<Category> {
-    const url = `${this.categotyUrl}/${id}`;
+  getCategory(CategoryId: number): Observable<Category> {
+    const url = `${this.categotyUrl}/${CategoryId}`;
     return this.http.get<Category>(url);
 
   }
@@ -29,6 +30,11 @@ export class CategoryService {
     const url = `${this.categotyUrl}/${id}`;
 
     return this.http.delete<Category>(url, this.httpOptions)
+  }
+
+  getScripts(CategoryId: number): Observable<Script[]> {
+    const url = `${this.categotyUrl}/${CategoryId}`;
+    return this.http.get<Script[]>(url)
   }
 
   addCategory(category: Category): Observable<Category> {

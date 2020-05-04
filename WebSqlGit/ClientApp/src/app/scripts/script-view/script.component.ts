@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Script } from '../shared/Script';
-import { ScriptService } from '../script.service'
+import { ScriptService } from '../shared/script.service';
 
 @Component({
     selector: 'app-script',
@@ -27,8 +27,8 @@ export class ScriptComponent implements OnInit {
   }
 
   getScript(): void {
-    const id = + this.route.snapshot.paramMap.get('id');
-    this.scriptScrvice.getScript(id)
+    const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
+    this.scriptScrvice.getScript(ScriptId)
       .subscribe(script => this.script = script);
   }
 

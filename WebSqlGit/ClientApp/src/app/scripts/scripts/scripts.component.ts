@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from '../shared/category/Category';
-import { CategoryService } from '../shared/category/category.service';
 import { Script } from '../shared/Script';
-import { ScriptService } from '../script.service';
+import { ScriptService } from '../shared/script.service';
 
 
 @Component({

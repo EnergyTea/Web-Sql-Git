@@ -8,7 +8,8 @@ namespace WebSqlGit.Data.Interface
 {
     public interface IScriptInterface
     {
-        List<Script> GetScripts(string name);
+        IEnumerable<Script> GetScripts(int CategoryId);
+        List<Script> GetAll(string name);
         Script GetScript(int id);
         Script CreateScript(string name, string body);
         Script DeleteScript(int id);
