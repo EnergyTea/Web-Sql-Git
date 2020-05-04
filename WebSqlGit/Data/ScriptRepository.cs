@@ -15,43 +15,50 @@ namespace WebSqlGit.Data
             {
                 Id = 1,
                 Name = "Код для школы 1",
-                Body = "sdwdazs12",                
+                Body = "sdwdazs12",
+                CategoryId = 3
             },
             new Script
             {
                 Id = 2,
                 Name = "Проверить 2",
                 Body = "sdwda qq q qzs12",
+                CategoryId = 3
             },
             new Script
             {
                 Id = 3,
                 Name = "В первую очередь 3",
                 Body = "sd12312 1 1w12",
+                CategoryId = 3
             },
             new Script
             {
                 Id = 4,
                 Name = " Ukfdyfz очередь 3",
                 Body = "sdwda   aas zs12",
+                CategoryId = 1
             },
             new Script
             {
                 Id = 5,
                 Name = "В первую 1",
                 Body = "sdwdaasdasd zs12",
+                CategoryId = 2
             },
             new Script
             {
                 Id = 6,
                 Name = "Free cods",
                 Body = "sdwdazs1 sld ';lsm ';as;kdm flas 2",
+                CategoryId = 1
             },
             new Script
             {
                 Id = 7,
                 Name = "SQL код  23",
-                Body = "CREATE TABLE [dbo].[Author] ("
+                Body = "CREATE TABLE [dbo].[Author] (",
+                CategoryId = 4
             }
         };              
 
@@ -61,7 +68,8 @@ namespace WebSqlGit.Data
             {
                 Id = s.Id,
                 Name = s.Name,
-                Body = s.Body
+                Body = s.Body,
+                CategoryId = s.CategoryId
             });
             if (!String.IsNullOrWhiteSpace(name))
             {
@@ -82,7 +90,9 @@ namespace WebSqlGit.Data
                 Id = script.Id,
                 Name = script.Name,
                 Body = script.Body,
-                DataTime = script.DataTime  
+                DataTime = script.DataTime,
+                CategoryId = script.CategoryId
+                
             };
         }
 
@@ -94,7 +104,8 @@ namespace WebSqlGit.Data
             {
                 Id = script.Id,
                 Name = script.Name,
-                Body = script.Body
+                Body = script.Body,
+                CategoryId = script.CategoryId
 
             };
         }
@@ -111,6 +122,7 @@ namespace WebSqlGit.Data
                 Id = script.Id,
                 Name = script.Name,
                 Body = script.Body,
+                CategoryId = script.CategoryId
             };
         }
 
@@ -134,14 +146,15 @@ namespace WebSqlGit.Data
                 Id = script.Id,
                 Name = script.Name,
                 Body = script.Body,
-                DataTime = script.DataTime
+                DataTime = script.DataTime,
+                CategoryId = script.CategoryId
             };
         }
 
         public IEnumerable<Script> GetScripts(int categoryId)
         {
-            IEnumerable<Script> scripts = Scripts.Where(s => s.CategoryId == categoryId);
-            return scripts.ToList();
+            Scripts = Scripts.Where(s => s.CategoryId == categoryId).ToList();
+            return Scripts;
         }
     }
 }

@@ -26,14 +26,14 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategory(): void {
-    const id = + this.route.snapshot.paramMap.get('CategoryId');
-    this.categoryService.getCategory(id)
+    const CategoryId = + this.route.snapshot.paramMap.get('CategoryId');
+    this.categoryService.getCategory(CategoryId)
       .subscribe(category => this.category = category)
   }
 
   getScripts(): void {
-    const id = + this.route.snapshot.paramMap.get('CategoryId');
-    this.categoryService.getScripts(id)
+    const CategoryId = + this.route.snapshot.paramMap.get('CategoryId');
+    this.categoryService.getScripts(CategoryId)
       .subscribe(scripts => this.scripts = scripts)
   }
 

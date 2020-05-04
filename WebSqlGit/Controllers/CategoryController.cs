@@ -15,7 +15,6 @@ namespace WebSqlGit.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryInterface _categoryInterface;
-        private readonly IScriptInterface _scriptInterface;
 
         public CategoryController(ICategoryInterface categoryInterface)
         {
@@ -49,12 +48,6 @@ namespace WebSqlGit.Controllers
         {
             Category created = _categoryInterface.CreateCategory(category);
             return Ok(created);
-        }
-        [HttpGet("{id}")]
-        public List<Script> ScriptsList(int CategoryId)
-        {
-            var scripts = _scriptInterface.GetScripts(CategoryId);
-            return scripts.ToList();
         }
     }
 }
