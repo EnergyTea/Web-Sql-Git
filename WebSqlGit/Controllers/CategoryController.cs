@@ -46,8 +46,8 @@ namespace WebSqlGit.Controllers
         [HttpPost]
         public IActionResult CreateCategory(Category category)
         {
-            Category created = _categoryInterface.CreateCategory(category);
-            return Ok(created);
+            _categoryInterface.CreateCategory(category);
+            return Ok();
         }
     }
 }

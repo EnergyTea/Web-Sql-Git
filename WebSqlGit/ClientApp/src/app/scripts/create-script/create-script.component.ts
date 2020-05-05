@@ -16,10 +16,16 @@ export class CreateScriptComponent implements OnInit {
 
   ngOnInit() { }
 
-  add(name: string): void {
-    name = name.trim();
+  add(script: Script): void {
+    script.name = "";
+    script.body = "";
+    script.author = "";
+    script.categoryId = 0;
+    script.version = 0;
+    script.updateDataTime = 0;
+    script.isLastVersion = true;
     if (!name) { return; }
-    this.scriptService.addScript({ name } as Script)
+    this.scriptService.addScript(script)
     .subscribe(script => this.scripts.push(script))
   }
 

@@ -27,7 +27,7 @@ namespace pRODJECR
             string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rusva\\source\\repos\\Web-Sql-Git\\WebSqlGit\\sqlcode.mdf;Integrated Security=True";
             services.AddTransient<ICategoryInterface, CategoryRepository>(provider => new CategoryRepository(connectionString));
 
-            services.AddTransient<IScriptInterface, ScriptRepository>();
+            services.AddTransient<IScriptInterface, ScriptRepository>(provide => new ScriptRepository(connectionString));
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

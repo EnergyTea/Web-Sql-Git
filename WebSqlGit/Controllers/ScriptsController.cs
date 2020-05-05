@@ -20,10 +20,9 @@ namespace WebSqlGit.Controllers
         }
 
         [HttpGet]
-        public List<Script> ScriptsList(string name)
+        public List<Script> ScriptsList()
         {
-            var scripts = _scriptInterface.GetAll(name);
-
+            var scripts = _scriptInterface.GetAll();
             return scripts.ToList();
         }
 
@@ -41,34 +40,22 @@ namespace WebSqlGit.Controllers
         [HttpPost]
         public IActionResult CreateScript([FromForm]Script script)
         {
-            Script created = _scriptInterface.CreateScript(script.Name, script.Body);
-
-            return Ok(created);
+            _scriptInterface.CreateScript(script);
+            return Ok();
         }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteScript(int id)
         {
-            Script script = _scriptInterface.DeleteScript(id);
-            if (script == null)
-            {
-                return NotFound();
-            }
-            return Ok(script);
+            _scriptInterface.DeleteScript(id);
+            return Ok();
         }
+
         [HttpPut("{id}")]
-        public IActionResult UpdateScreipt(int id, [FromForm]Script script)
+        public IActionResult UpdateScreipt([FromForm]Script script)
         {
-            Script updated = _scriptInterface.UpdateScript(id, script.Body, script.Body);
-        if (updated == null)
-            {
-                return NotFound();
-            }
-            return Ok(updated);
+            _scriptInterface.UpdateScript(script);        
+            return Ok();
         }
-        // [HttpPost("")]
-
-        // [Delete]
-
-        // [Put]
     }
 }

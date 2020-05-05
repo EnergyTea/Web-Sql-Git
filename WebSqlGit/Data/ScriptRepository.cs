@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using WebSqlGit.Data.Interface;
 using WebSqlGit.Model;
@@ -8,153 +11,57 @@ namespace WebSqlGit.Data
 {
     public class ScriptRepository : IScriptInterface
     {
-
-        private List<Script> Scripts = new List<Script> { 
-            
-            new Script
-            {
-                Id = 1,
-                Name = "Код для школы 1",
-                Body = "sdwdazs12",
-                CategoryId = 3
-            },
-            new Script
-            {
-                Id = 2,
-                Name = "Проверить 2",
-                Body = "sdwda qq q qzs12",
-                CategoryId = 3
-            },
-            new Script
-            {
-                Id = 3,
-                Name = "В первую очередь 3",
-                Body = "sd12312 1 1w12",
-                CategoryId = 3
-            },
-            new Script
-            {
-                Id = 4,
-                Name = " Ukfdyfz очередь 3",
-                Body = "sdwda   aas zs12",
-                CategoryId = 1
-            },
-            new Script
-            {
-                Id = 5,
-                Name = "В первую 1",
-                Body = "sdwdaasdasd zs12",
-                CategoryId = 2
-            },
-            new Script
-            {
-                Id = 6,
-                Name = "Free cods",
-                Body = "sdwdazs1 sld ';lsm ';as;kdm flas 2",
-                CategoryId = 1
-            },
-            new Script
-            {
-                Id = 7,
-                Name = "SQL код  23",
-                Body = "CREATE TABLE [dbo].[Author] (",
-                CategoryId = 4
-            }
-        };              
-
-        public List<Script> GetAll(string name = null)
+        readonly string connectionString;
+        public ScriptRepository(string conn)
         {
-            var scripts = Scripts.Select(s => new Script
+            connectionString = conn;
+        }
+
+        public List<Script> GetAll()
+        {
+            using IDbConnection db = new SqlConnection(connectionString);
+            List<Script> scripts = db.Query<Script>("SELECT * FROM Scripts").ToList();
+            var scripts1 = scripts.Select(s => new Script
             {
                 Id = s.Id,
-                Name = s.Name,
-                Body = s.Body,
-                CategoryId = s.CategoryId
+                CategoryId = s.CategoryId,
+                CreationDataTime = s.CreationDataTime,
+                // нужно выводить Name из ScriptHistory
             });
-            if (!String.IsNullOrWhiteSpace(name))
-            {
-                scripts = scripts.Where(s => s.Name == name); // сделать conteins поиск 
-            }
-            return scripts.ToList();
+            return scripts1.ToList();
         }
 
         public Script GetScript(int id)
         {
-            var script = Scripts.FirstOrDefault(s => s.Id == id);
-            if (script == null)
-            {
-                return null;
-            }
-            return new Script
-            {
-                Id = script.Id,
-                Name = script.Name,
-                Body = script.Body,
-                DataTime = script.DataTime,
-                CategoryId = script.CategoryId
-                
-            };
+            using IDbConnection db = new SqlConnection(connectionString);
+            return db.Query<Script>("SELECT * FROM ScriptsHistory WHERE Id = @id", new { id }).FirstOrDefault(); // Добавить проверку на bool IsLastVersion
         }
 
-        public Script CreateScript(string name = null, string body = null)
+        public void CreateScript(Script script)
         {
-            var script = new Script { Id = Scripts.Count > 0 ? Scripts.Max(s => s.Id) + 1 : 1, Name = name, Body = body };
-            Scripts.Add(script);
-            return new Script
-            {
-                Id = script.Id,
-                Name = script.Name,
-                Body = script.Body,
-                CategoryId = script.CategoryId
-
-            };
+            using IDbConnection db = new SqlConnection(connectionString);
+            var sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CategoryId, Version, Name, Body, Author, CreationDataTime, UpdateDataTime, IsLastVersion) VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @CreationDataTime, @UpdateDataTime, @IsLastVersion)";
+            db.Execute(sqlQuery, script);
         }
 
-        public Script DeleteScript(int id)
+        public void DeleteScript(int id)
         {
-            var script = Scripts.FirstOrDefault(s => s.Id == id);
-            if (script == null)
-            {
-                return null;
-            }
-            Scripts = Scripts.Where(s => s.Id != id).ToList();
-            return new Script { 
-                Id = script.Id,
-                Name = script.Name,
-                Body = script.Body,
-                CategoryId = script.CategoryId
-            };
+            using IDbConnection db = new SqlConnection(connectionString);
+            var sqlQuery = "DELETE FROM Scripts WHERE Id = @id";
+            db.Execute(sqlQuery, new { id });
         }
 
-        public Script UpdateScript(int id, string name = null, string body = null)
+        public void UpdateScript(Script script) // При создании скрипта, у нас должно что-то увеличиваться. 
         {
-            Script script = Scripts.FirstOrDefault(s => s.Id == id);
-            if (script == null)
-            {
-                return null;
-            }
-            if (!String.IsNullOrWhiteSpace(name))
-            {
-                script.Name = name;
-            }
-            if (!String.IsNullOrWhiteSpace(body))
-            {
-                script.Body = body;
-            }
-            return new Script
-            {
-                Id = script.Id,
-                Name = script.Name,
-                Body = script.Body,
-                DataTime = script.DataTime,
-                CategoryId = script.CategoryId
-            };
+            using IDbConnection db = new SqlConnection(connectionString);
+            var sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CategoryId, Version, Name, Body, Author, CreationDataTime, UpdateDataTime, IsLastVersion) VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @CreationDataTime, @UpdateDataTime, @IsLastVersion)";
+            db.Execute(sqlQuery, script);
         }
 
-        public IEnumerable<Script> GetScripts(int categoryId)
+        public List<Script> GetScriptsForCategory(int categoryId)
         {
-            Scripts = Scripts.Where(s => s.CategoryId == categoryId).ToList();
-            return Scripts;
+            using IDbConnection db = new SqlConnection(connectionString);
+            return db.Query<Script>("SELECT * FROM ScriptsHistory WHERE Id = @id", new { categoryId }).ToList(); // Добавить проверку на bool IsLastVersion
         }
     }
 }
