@@ -1,3 +1,4 @@
+
 export interface Script {
   id: number;
   name: string;
@@ -5,6 +6,7 @@ export interface Script {
   author: string;
   categoryId: number;
   version: number;
-  updateDataTime: number;
+  updateDataTime: Date;
   isLastVersion: boolean;
+  creationDataTime: Date;
 }

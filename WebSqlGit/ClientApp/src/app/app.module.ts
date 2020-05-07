@@ -6,12 +6,12 @@ import { ScriptModule } from './scripts/script.module';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './shared/nav-menu/nav-menu.component';
-import { ScriptsComponent } from './scripts/scripts/scripts.component';
 import { NavCategoryComponent } from './shared/nav-category/nav-category.component';
 import { CategoryComponent } from './categories/category/category.component';
-import { CreateScriptComponent } from './scripts/create-script/create-script.component';
-import { EditScriptComponent } from './scripts/edit-script/edit-script.component';
+import { EditScriptComponent } from './scripts/script-edit/script-edit.component';
 import { ScriptComponent } from './scripts/script-view/script.component';
+import { ScriptsComponent } from './scripts/script-list/script-list.component';
+import { CreateScriptComponent } from './scripts/script-create/script-create.component';
 
 @NgModule({
   declarations: [

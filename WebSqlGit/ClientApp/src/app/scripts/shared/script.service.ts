@@ -28,26 +28,13 @@ export class ScriptService {
   }
 
   addScript(script: Script): Observable<Script> {
-    return this.http.post<Script>(this.scriptsUrl, script, this.httpOptions)       
+    return this.http.post<Script>(this.scriptsUrl, script, this.httpOptions);
   }
-
+  
   deleteScript(script: Script | number): Observable<Script> {
     const id = typeof script === 'number' ? script : script.id;
     const url = `${this.scriptsUrl}/${id}`;
 
     return this.http.delete<Script>(url, this.httpOptions)
   }
- /* getScript(id: number): Observable<Script> {
-    return of(SCRIPTS.find(script => script.id === id))
-  }*/
-
 }
-
-
-  //getScripts(): Observable<Script[]> {    
-  //  return this.http.get<Script[]>(this.scriptsUrl + '/push')
-  //}
-
-  //http.post<WeatherForecast[]> (heroesUrl + '/create').subscribe(result => {
-  //  return = result;
-  //}

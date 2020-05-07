@@ -39,7 +39,11 @@ namespace WebSqlGit.Data
 
         public void CreateScript(Script script)
         {
-            using IDbConnection db = new SqlConnection(connectionString);
+            using IDbConnection db = new SqlConnection(connectionString); // НЕ ПРИХОДИТ CategoryId
+            script.ScriptId = script.Id;
+            script.Version = 1; // Сделать 1.00
+            script.CreationDataTime = DateTime.Now;
+            script.UpdateDataTime = DateTime.Now; // Должно быть 2 запроса. Для создания Script`a и создания ScriptsHistory
             var sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CategoryId, Version, Name, Body, Author, CreationDataTime, UpdateDataTime, IsLastVersion) VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @CreationDataTime, @UpdateDataTime, @IsLastVersion)";
             db.Execute(sqlQuery, script);
         }
@@ -51,7 +55,7 @@ namespace WebSqlGit.Data
             db.Execute(sqlQuery, new { id });
         }
 
-        public void UpdateScript(Script script) // При создании скрипта, у нас должно что-то увеличиваться. 
+        public void UpdateScript(Script script) // При создании скрипта, у нас должно что-то увеличиваться. А что-то остается const
         {
             using IDbConnection db = new SqlConnection(connectionString);
             var sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CategoryId, Version, Name, Body, Author, CreationDataTime, UpdateDataTime, IsLastVersion) VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @CreationDataTime, @UpdateDataTime, @IsLastVersion)";

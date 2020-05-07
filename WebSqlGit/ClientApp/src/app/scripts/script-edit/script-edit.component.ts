@@ -6,8 +6,8 @@ import { ScriptService } from '../shared/script.service';
 
 @Component({
     selector: 'app-edit',
-    templateUrl: './edit-script.component.html',
-    styleUrls: ['./edit-script.component.css']
+    templateUrl: './script-edit.component.html',
+    styleUrls: ['./script-edit.component.css']
 })
 /** edit component*/
 export class EditScriptComponent implements OnInit {

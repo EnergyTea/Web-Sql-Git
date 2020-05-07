@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, Router } from '@angular/router';
-import { ScriptsComponent } from './scripts/scripts.component';
 import { CategoryComponent } from '../categories/category/category.component';
-import { CreateScriptComponent } from './create-script/create-script.component';
-import { EditScriptComponent } from './edit-script/edit-script.component';
+import { EditScriptComponent } from './script-edit/script-edit.component';
 import { ScriptComponent } from './script-view/script.component';
+import { ScriptsComponent } from './script-list/script-list.component';
+import { CreateScriptComponent } from './script-create/script-create.component';
 
 
 

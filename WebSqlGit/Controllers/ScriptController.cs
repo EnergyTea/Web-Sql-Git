@@ -1,20 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebSqlGit.Data;
 using WebSqlGit.Data.Interface;
+using WebSqlGit.Data.Model;
 using WebSqlGit.Model;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebSqlGit.Controllers
 {
     [Route("api/scripts")]
-    public class ScriptsController : ControllerBase
+    [ApiController]
+    public class ScriptController : Controller
     {
         private readonly IScriptInterface _scriptInterface;
         // GET: /<controller>/
-        public ScriptsController(IScriptInterface scriptInterface)
+        public ScriptController(IScriptInterface scriptInterface)
         {
             _scriptInterface = scriptInterface;
         }
@@ -38,7 +40,7 @@ namespace WebSqlGit.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateScript([FromForm]Script script)
+        public IActionResult CreateScript(Script script)
         {
             _scriptInterface.CreateScript(script);
             return Ok();
@@ -54,7 +56,7 @@ namespace WebSqlGit.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateScreipt([FromForm]Script script)
         {
-            _scriptInterface.UpdateScript(script);        
+            _scriptInterface.UpdateScript(script);
             return Ok();
         }
     }
