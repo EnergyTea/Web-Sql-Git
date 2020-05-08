@@ -37,4 +37,7 @@ export class CategoryComponent implements OnInit {
       .subscribe(scripts => this.scripts = scripts)
   }
 
+  deleteOfCategor(): void {
+   //Изменять категориId на 0
+  }
 }

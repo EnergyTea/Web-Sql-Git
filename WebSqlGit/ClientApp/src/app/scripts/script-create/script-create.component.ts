@@ -36,8 +36,7 @@ export class CreateScriptComponent implements OnInit {
     newScript.name = create.value.name;
     newScript.body = create.value.body;
     newScript.author = create.value.author;
-    /*newScript.categoryId = create.value.categoryId;*/
-
+    newScript.categoryId = Number(create.value.categoryId);
     console.log(newScript);
     this.scriptService.addScript(newScript)
       .subscribe(script =>  this.scripts.push(script))

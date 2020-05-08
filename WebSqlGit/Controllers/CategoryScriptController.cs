@@ -22,9 +22,9 @@ namespace WebSqlGit.Controllers
 
 
         [HttpGet("{id}")]
-        public List<Script> ScriptsList(int CategoryId)
+        public List<Script> ScriptsList(int id)
         {
-            var scripts = _scriptInterface.GetScriptsForCategory(CategoryId);
+            var scripts = _scriptInterface.GetScriptsForCategory(id);
             return scripts.ToList();
         }
     }

@@ -1,8 +1,11 @@
-<div style="border: 1px solid red">
+<div class="list-category-script">
   <h3>{{category.name}}</h3>
 
   <!-- Выводить скрипты -->
-  <div *ngFor="let script of scripts" >
-    {{script.name}}
+  <div *ngFor="let script of scripts" class="script-blick link d-flex">
+    <a href="scripts/{{script.id}}">
+      {{script.name}}
+    </a>
+    <button class="btn script-del" (click)="deleteOfCategory(script)">Удалить</button>
   </div>
 </div>

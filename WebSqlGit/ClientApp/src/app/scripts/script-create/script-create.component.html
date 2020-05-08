@@ -7,7 +7,7 @@
     <div class="form-group">
       <label for="select">Категория</label>
       <select ngModel name="categoryId">
-        <option *ngFor="let category of categories" [value] = "category.id">{{category.name}}</option>
+        <option ngModel name="categoryId" *ngFor="let category of categories" [value] = "category.id">{{category.name}}</option>
       </select>
     </div>
     <div class="read">

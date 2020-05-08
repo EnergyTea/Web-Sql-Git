@@ -20,13 +20,14 @@ namespace WebSqlGit.Data
         public List<Script> GetAll()
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            List<Script> scripts = db.Query<Script>("SELECT * FROM Scripts").ToList();
+            List<Script> scripts = db.Query<Script>("SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM Scripts, ScriptsHistory").ToList(); // заджойнить Name из ScriptHistory
+                                                                                                                    //"LEFT JOIN ( SELECT ScriptsHistory.Name FROM ScriptsHistory"
             var scripts1 = scripts.Select(s => new Script
             {
                 Id = s.Id,
+                Name = s.Name,
                 CategoryId = s.CategoryId,
                 CreationDataTime = s.CreationDataTime,
-                // нужно выводить Name из ScriptHistory
             });
             return scripts1.ToList();
         }
@@ -34,24 +35,29 @@ namespace WebSqlGit.Data
         public Script GetScript(int id)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            return db.Query<Script>("SELECT * FROM ScriptsHistory WHERE Id = @id", new { id }).FirstOrDefault(); // Добавить проверку на bool IsLastVersion
+            return db.Query<Script>("SELECT * FROM ScriptsHistory WHERE ScriptId = @id", new { id }).FirstOrDefault(); // Добавить проверку на bool IsLastVersion
         }
 
         public void CreateScript(Script script)
         {
-            using IDbConnection db = new SqlConnection(connectionString); // НЕ ПРИХОДИТ CategoryId
-            script.ScriptId = script.Id;
+            using IDbConnection db = new SqlConnection(connectionString);
+            script.ScriptId = 7;  //"SELECT MAX(Id) FROM Scripts"
             script.Version = 1; // Сделать 1.00
             script.CreationDataTime = DateTime.Now;
             script.UpdateDataTime = DateTime.Now; // Должно быть 2 запроса. Для создания Script`a и создания ScriptsHistory
-            var sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CategoryId, Version, Name, Body, Author, CreationDataTime, UpdateDataTime, IsLastVersion) VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @CreationDataTime, @UpdateDataTime, @IsLastVersion)";
+            //var sqlQuery1 = "INSERT INTO Scripts (CategoryId, CreationDataTime) VALUES(@CategoryId, @CreationDataTime)";
+                
+            var sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CategoryId, Version, Name, Body, Author, CreationDataTime, UpdateDataTime, IsLastVersion) " +
+                "VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @CreationDataTime, @UpdateDataTime, @IsLastVersion) " +
+                "INSERT INTO Scripts (CategoryId, CreationDataTime)" +
+                "VALUES(@CategoryId,  @CreationDataTime )";
             db.Execute(sqlQuery, script);
         }
 
         public void DeleteScript(int id)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            var sqlQuery = "DELETE FROM Scripts WHERE Id = @id";
+            var sqlQuery = "UPDATE Scripts SET Deleted = 1 WHERE Id = @id";
             db.Execute(sqlQuery, new { id });
         }
 
@@ -62,10 +68,10 @@ namespace WebSqlGit.Data
             db.Execute(sqlQuery, script);
         }
 
-        public List<Script> GetScriptsForCategory(int categoryId)
+        public List<Script> GetScriptsForCategory(int id)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            return db.Query<Script>("SELECT * FROM ScriptsHistory WHERE Id = @id", new { categoryId }).ToList(); // Добавить проверку на bool IsLastVersion
+            return db.Query<Script>("SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM Scripts, ScriptsHistory WHERE Scripts.CategoryId = @id", new { id }).ToList(); // Добавить проверку на bool IsLastVersion
         }
     }
 }

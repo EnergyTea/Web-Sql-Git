@@ -33,8 +33,8 @@ export class ScriptService {
   
   deleteScript(script: Script | number): Observable<Script> {
     const id = typeof script === 'number' ? script : script.id;
-    const url = `${this.scriptsUrl}/${id}`;
+    const url = `${this.scriptsUrl}/delete/${id}`;
 
-    return this.http.delete<Script>(url, this.httpOptions)
+    return this.http.put<Script>(url, this.httpOptions)
   }
 }
