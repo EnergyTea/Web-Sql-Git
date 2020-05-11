@@ -15,10 +15,12 @@ namespace WebSqlGit.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryInterface _categoryInterface;
+        private readonly IScriptInterface _scriptInterface;
 
-        public CategoryController(ICategoryInterface categoryInterface)
+        public CategoryController(ICategoryInterface categoryInterface, IScriptInterface scriptInterface)
         {
             _categoryInterface = categoryInterface;
+            _scriptInterface = scriptInterface;
         }
 
         [HttpGet]
@@ -37,7 +39,7 @@ namespace WebSqlGit.Controllers
             }
             return Ok(category);
         }
-        [HttpDelete]
+        [HttpPost("{id}")]
         public IActionResult DeleteCategory(int id)
         {
             _categoryInterface.DeleteCategory(id);
@@ -48,6 +50,12 @@ namespace WebSqlGit.Controllers
         {
             _categoryInterface.CreateCategory(category);
             return Ok();
+        }
+        [HttpGet("{id}/scripts")]
+        public List<Script> ScriptsList(int id)
+        {
+            var scripts = _scriptInterface.GetScriptsForCategory(id);
+            return scripts.ToList();
         }
     }
 }

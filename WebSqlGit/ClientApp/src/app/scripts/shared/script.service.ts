@@ -18,8 +18,9 @@ export class ScriptService {
     return this.http.get<Script[]>(this.scriptsUrl);
   }
 
-  upDateScript(script: Script): Observable<any> {
-    return this.http.put(this.scriptsUrl, script, this.httpOptions);
+  upDateScript(script: Script): Observable<Script> {
+    const url = `${this.scriptsUrl}/${script.scriptId}/edit`;
+    return this.http.post<Script>(url, script, this.httpOptions);
   }
 
   getScript(ScriptId: number): Observable<Script> {
@@ -35,6 +36,6 @@ export class ScriptService {
     const id = typeof script === 'number' ? script : script.id;
     const url = `${this.scriptsUrl}/delete/${id}`;
 
-    return this.http.put<Script>(url, this.httpOptions)
+    return this.http.post<Script>(url, this.httpOptions)
   }
 }

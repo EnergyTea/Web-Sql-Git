@@ -28,20 +28,20 @@ namespace WebSqlGit.Data
         public void DeleteCategory(int id)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            var sqlQuery = "UPDATE Scripts SET (Deleted = 1) WHERE (Id = @id)";
+            var sqlQuery = "UPDATE Categories SET Deleted = 1 WHERE (Id = @id)";
             db.Execute(sqlQuery, new { id });
         }
 
         public IEnumerable<Category> GetAll()
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            return db.Query<Category>("SELECT * FROM Categories WHERE Deleted = 0");
+            return db.Query<Category>("SELECT * FROM Categories WHERE Deleted IS NULL");
         }
 
         public Category GetCategory(int id)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            return db.Query<Category>("SELECT * FROM Categories WHERE Id = @id", new { id }).FirstOrDefault();
+            return db.Query<Category>("SELECT * FROM Categories WHERE Id = @id AND Deleted IS NULL", new { id }).FirstOrDefault();
         }
     }
 }

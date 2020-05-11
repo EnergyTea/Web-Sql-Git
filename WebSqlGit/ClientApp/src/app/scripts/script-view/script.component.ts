@@ -29,7 +29,7 @@ export class ScriptComponent implements OnInit {
   getScript(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
     this.scriptScrvice.getScript(ScriptId)
-      .subscribe(script => this.script = script);
+      .subscribe(script => this.script = script)
   }
 
   goBack(): void {

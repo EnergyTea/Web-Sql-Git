@@ -8,7 +8,6 @@ import { Script } from '../../scripts/shared/Script';
 export class CategoryService {
 
   private categotyUrl = 'api/categories';
-  private categotyScriptUrl = 'api/category/script';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -30,11 +29,11 @@ export class CategoryService {
     const id = typeof category === 'number' ? category : category.id;
     const url = `${this.categotyUrl}/${id}`;
 
-    return this.http.delete<Category>(url, this.httpOptions)
+    return this.http.post<Category>(url, this.httpOptions)
   }
 
   getScripts(CategoryId: number): Observable<Script[]> {
-    const url = `${this.categotyScriptUrl}/${CategoryId}`;
+    const url = `${this.categotyUrl}/${CategoryId}/scripts`;
     return this.http.get<Script[]>(url)
   }
 
