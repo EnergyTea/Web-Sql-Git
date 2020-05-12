@@ -14,6 +14,7 @@ import { ScriptService } from '../shared/script.service';
 export class ScriptComponent implements OnInit {
 /** script ctor */
   script: Script;
+  scripts: Script[];
   edit: boolean;
 
   constructor(
@@ -24,6 +25,7 @@ export class ScriptComponent implements OnInit {
 
   ngOnInit(): void {
     this.getScript();
+    this.getAll();
   }
 
   getScript(): void {
@@ -41,4 +43,9 @@ export class ScriptComponent implements OnInit {
       .subscribe(() => this.goBack());
   }
 
+  getAll(): void {
+    const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
+    this.scriptScrvice.getVersionScript(ScriptId)
+    .subscribe(scripts => this.scripts = scripts)
+  }
 }

@@ -1,22 +1,26 @@
 <div class="create">
   <h3>Создание нового скрипта</h3>
   <form #create="ngForm">
-    <label for="formGroupExampleInput">Название</label>
-    <input ngModel name="name" class="form-control form-control-lg" type="text" placeholder="Название скрипта">
-    <input ngModel name="author" class="form-control form-control-lg" type="text" placeholder="author скрипта">
-    <input ngModel name="tags" class="form-control form-control-lg" type="text" placeholder="tag скрипта">
-    <div class="form-group">
-      <label for="select">Категория</label>
-      <select ngModel name="categoryId">
-        <option ngModel name="categoryId" *ngFor="let category of categories" [value] = "category.id">{{category.name}}</option>
-      </select>
+    <div class="row">
+      <div class="col-sm-8 create-script">
+        <label for="formGroupExampleInput">Название</label>
+        <input ngModel name="name" class="form-control form-control-lg" type="text" placeholder="Название скрипта">
+        <input ngModel name="author" class="form-control form-control-lg" type="text" placeholder="author скрипта">
+      </div>        
+      <div class="form-group">
+        <label for="select">Категория</label>
+        <select ngModel name="categoryId">
+          <option ngModel name="categoryId" *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
+        <input ngModel name="tags" class="form-control form-control-lg" type="text" placeholder="tag скрипта">
+      </div>
     </div>
-    <div class="read">
-      <label for="formGroupExampleInput">Код</label>
-      <textarea ngModel name="body" class="form-control" id=""></textarea>
-    </div>
-    <div class="d-flex flex-row-reverse">
-      <button (click)="add(script, create)" type="button" class="btn btn-dark">Создать</button>
-    </div>
-  </form>
+      <div class="read">
+        <label for="formGroupExampleInput">Код</label>
+        <textarea ngModel name="body" class="form-control" id=""></textarea>
+      </div>
+      <div class="d-flex flex-row-reverse">
+        <button (click)="add(script, create)" type="button" class="btn btn-dark">Создать</button>
+      </div>
+</form>
 </div>

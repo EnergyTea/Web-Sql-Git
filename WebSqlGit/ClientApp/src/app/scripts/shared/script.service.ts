@@ -34,8 +34,19 @@ export class ScriptService {
   
   deleteScript(script: Script | number): Observable<Script> {
     const id = typeof script === 'number' ? script : script.id;
-    const url = `${this.scriptsUrl}/delete/${id}`;
-
+    const url = `${this.scriptsUrl}/${id}/delete`;
     return this.http.post<Script>(url, this.httpOptions)
+  }
+
+  deleteVersion(script: Script | number): Observable<Script> {
+    const id = typeof script === 'number' ? script : script.id;
+    console.log(script);
+    const url = `${this.scriptsUrl}/version/${id}/delete`;
+    return this.http.post<Script>(url, this.httpOptions)
+  }
+
+  getVersionScript(ScriptId: number): Observable<Script[]> {
+    const url = `${this.scriptsUrl}/${ScriptId}/all`;
+    return this.http.get<Script[]>(url);
   }
 }

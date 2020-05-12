@@ -27,7 +27,10 @@ export class ScriptsComponent implements OnInit {
 
   delete(script: Script): void {
     this.scripts = this.scripts.filter(s => s !== script);
-    this.scriptService.deleteScript(script.id);
+    this.scriptService.deleteScript(script.id)
+      .subscribe(data => this.getScripts());
+
+    console.log("DELETE", script.id)
   }
 
   onSelect(script: Script): void {

@@ -70,3 +70,18 @@ textarea {
 .name-script {
   margin: 10px 0
 }
+
+.edit-script input {
+  margin: 5px 10px;
+}
+.edit-script .row {
+  margin: 5px;
+}
+.form-group select {
+    border-color: #cccccc;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin: 5px 3px;
+    width: 200px;
+    height: 40px;
+}

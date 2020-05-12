@@ -27,8 +27,7 @@ export class CategoryService {
 
   deleteCategory(category: Category | number): Observable<Category> {
     const id = typeof category === 'number' ? category : category.id;
-    const url = `${this.categotyUrl}/${id}`;
-
+    const url = `${this.categotyUrl}/${id}/delete`;
     return this.http.post<Category>(url, this.httpOptions)
   }
 

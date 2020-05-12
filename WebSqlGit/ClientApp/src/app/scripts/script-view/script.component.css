@@ -70,3 +70,10 @@ textarea {
 .name-script {
     margin: 10px 0
 }
+
+.script-version {
+    margin: 5px 0;
+    background-color: #cccccc ;
+    padding: 3px 5px;
+    border-radius: 3px;
+}

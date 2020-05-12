@@ -44,6 +44,15 @@ export class EditScriptComponent implements OnInit {
       .subscribe(categories => this.categories = categories)
   }
 
+  delete(script: Script): void {
+
+    console.log("DELETE", script.id)
+    this.scriptService.deleteVersion(script.id)
+      .subscribe(data => this.getScript());
+
+    console.log("DELETE2", script.id)
+  }
+
   goBack(): void {
     this.location.back();
   }

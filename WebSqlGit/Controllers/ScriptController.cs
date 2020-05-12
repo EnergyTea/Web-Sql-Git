@@ -35,6 +35,13 @@ namespace WebSqlGit.Controllers
             return Ok(script);
         }
 
+        [HttpGet("{id}/all")]
+        public List<Script> GetScriptsOne(int id)
+        {
+            var scripts = _scriptInterface.GetScriptsOne(id);
+            return scripts.ToList();
+        }
+
         [HttpPost]
         public IActionResult CreateScript(Script script)
         {
@@ -42,10 +49,17 @@ namespace WebSqlGit.Controllers
             return Ok();
         }
 
-        [HttpPost("delete/{id}")]
+        [HttpPost("{id}/delete")]
         public IActionResult DeleteScript(int id)
         {
             _scriptInterface.DeleteScript(id);
+            return Ok();
+        }
+
+        [HttpPost("version/{id}/delete")]
+        public IActionResult DeleteVersionScript(int id)
+        {
+            _scriptInterface.DeleteVersionScript(id);
             return Ok();
         }
 

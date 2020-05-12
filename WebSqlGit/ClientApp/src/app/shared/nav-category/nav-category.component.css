@@ -12,7 +12,7 @@ h3 {
 
 .category {
   padding: 5px 25px;
-  font-size: 20px
+  font-size: 20px;
 }
 
   .category:hover {
@@ -55,8 +55,7 @@ textarea {
 }
 
 
-.id-conteiner a {
-  padding: 30px 140px 30px 40px;
+.category a {
   color: #000;
   text-decoration: none;
 }
@@ -97,4 +96,13 @@ textarea {
 
 .addCat {
   margin-left: 10px;
+
+}
+
+.newName {
+  max-width: 155px;
+  border-color: #cccccc;
+  border-top: none;
+  border-left: none;
+  border-right: none;
 }

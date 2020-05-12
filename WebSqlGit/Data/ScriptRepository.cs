@@ -21,8 +21,11 @@ namespace WebSqlGit.Data
         public List<Script> GetAll()
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            List<Script> scripts = db.Query<Script>("SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory LEFT JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1").ToList(); // заджойнить Name из ScriptHistory
-                                                                                                                    //"LEFT JOIN ( SELECT ScriptsHistory.Name FROM ScriptsHistory ON id = scritid"
+            List<Script> scripts = db.Query<Script>(
+                "SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory " +
+                "LEFT JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1"
+            ).ToList(); 
+                                                                                                                   
             var scripts1 = scripts.Select(s => new Script
             {
                 Id = s.Id,
@@ -36,7 +39,10 @@ namespace WebSqlGit.Data
         public Script GetScript(int id)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            return db.Query<Script>("SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 1 AND ScriptsHistory.Deleted IS NULL", new { id }).FirstOrDefault(); // Добавить проверку на bool IsLastVersion
+            return db.Query<Script>(
+                "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 1 AND ScriptsHistory.Deleted IS NULL", 
+            new { id }
+            ).FirstOrDefault(); // Добавить проверку на bool IsLastVersion
         }
 
         public void CreateScript(Script script)
@@ -60,15 +66,28 @@ namespace WebSqlGit.Data
         public void DeleteScript(int id)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            var sqlQuery = "UPDATE Scripts SET Deleted = 1 WHERE (Id = @id)";
+            var sqlQuery = 
+                "UPDATE Scripts SET Deleted = 1 WHERE (Id = @id); " +
+                "UPDATE ScriptsHistory SET Deleted = 1 WHERE (ScriptId = @id);";
             db.Execute(sqlQuery, new { id });
         }
 
-        public void UpdateScript(Script script) // При создании скрипта, у нас должно что-то увеличиваться. А что-то остается const
+        // Добавить удаление. Когда удалем только версию скрипта. А не сам скрипт!
+        public void DeleteVersionScript(int id)
+        {
+            using IDbConnection db = new SqlConnection(connectionString);
+            var sqlQuery =
+                "UPDATE ScriptsHistory SET Deleted = 1 WHERE (Id = @id);";
+                // Добавть ласт версию на предшествующую версию: "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id;";
+            db.Execute(sqlQuery, new { id });
+        }
+
+        public void UpdateScript(Script script) 
         {
             using IDbConnection db = new SqlConnection(connectionString);
             int id = script.ScriptId;
-            var sqlScript = "SELECT * FROM ScriptsHistory WHERE ScriptId = @id";
+            var sqlScript = 
+                "SELECT * FROM ScriptsHistory WHERE ScriptId = @id";
             Script script2 = db.Query<Script>(sqlScript, new { id } ).First();
             script2.Version += 1;
             script2.UpdateDataTime = DateTime.Now;
@@ -76,17 +95,33 @@ namespace WebSqlGit.Data
             script2.Id = 0;
             script2.Author = script.Author;
             script2.Body = script.Body;
-            var sqlLastVersion = "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id";
+            var sqlLastVersion = 
+                "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id";
             db.Execute(sqlLastVersion, new { id });
             script2.IsLastVersion = true;
-            var sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, UpdateDataTime, IsLastVersion) VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @UpdateDataTime, @IsLastVersion)";
+            var sqlQuery = 
+                "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, UpdateDataTime, IsLastVersion) " +
+                "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @UpdateDataTime, @IsLastVersion)";
             db.Execute(sqlQuery, script2);
         }
 
         public List<Script> GetScriptsForCategory(int id)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            return db.Query<Script>("SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory LEFT JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE Scripts.CategoryId = @id", new { id }).ToList(); // Добавить проверку на bool IsLastVersion
+            return db.Query<Script>(
+                "SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory " +
+                "LEFT JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1 AND Scripts.CategoryId = @id", 
+            new { id }
+            ).ToList();
+        }
+
+        public List<Script> GetScriptsOne(int id)
+        {
+            using IDbConnection db = new SqlConnection(connectionString);
+            return db.Query<Script>(
+                "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND ScriptsHistory.Deleted IS NULL",
+            new { id }
+            ).ToList();
         }
     }
 }

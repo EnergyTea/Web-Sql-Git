@@ -39,7 +39,7 @@ namespace WebSqlGit.Controllers
             }
             return Ok(category);
         }
-        [HttpPost("{id}")]
+        [HttpPost("{id}/delete")]
         public IActionResult DeleteCategory(int id)
         {
             _categoryInterface.DeleteCategory(id);
