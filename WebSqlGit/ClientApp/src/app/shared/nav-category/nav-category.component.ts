@@ -28,14 +28,16 @@ export class NavCategoryComponent implements OnInit {
   delete(category: Category): void {
     this.categories = this.categories.filter(c => c !== category);
     this.categoryService.deleteCategory(category.id)
-      .subscribe(data => this.getCategory())
+      .subscribe(data => this.getCategory());
+    this.getCategory();
   }
 
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
     this.categoryService.addCategory({ name } as Category)
-      .subscribe(category => { this.categories.push(category) })
+      .subscribe(category => { this.categories.push(category) });
+    this.getCategory();
   }
 
   crate(): void {

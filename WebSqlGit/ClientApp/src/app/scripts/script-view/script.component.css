@@ -77,3 +77,13 @@ textarea {
     padding: 3px 5px;
     border-radius: 3px;
 }
+
+.tag {
+    text-align: center;
+    border: 3px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    height: 30px;
+    width: 70px;
+    margin: 10px;
+    
+}

@@ -39,10 +39,13 @@ namespace WebSqlGit.Data
         public Script GetScript(int id)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            return db.Query<Script>(
+            Script script = db.Query<Script>(
                 "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 1 AND ScriptsHistory.Deleted IS NULL", 
             new { id }
-            ).FirstOrDefault(); // Добавить проверку на bool IsLastVersion
+            ).FirstOrDefault();
+            int scriptId = script.Id;
+            script.Tags = db.Query<String>("SELECT Name FROM Tags WHERE ScriptsHistoryId = @scriptId", new { scriptId }).ToArray();
+            return script;
         }
 
         public void CreateScript(Script script)
@@ -51,7 +54,7 @@ namespace WebSqlGit.Data
             script.Version = 1;
             script.CreationDataTime = DateTime.Now;
             script.IsLastVersion = true;
-            script.UpdateDataTime = DateTime.Now; 
+            script.UpdateDataTime = DateTime.Now;
             var SqlScript =
                 @"INSERT INTO  Scripts (CategoryId, CreationDataTime) VALUES(@CategoryId,  @CreationDataTime ); 
                   SELECT CAST(SCOPE_IDENTITY() as int)";
@@ -59,8 +62,16 @@ namespace WebSqlGit.Data
             script.ScriptId = Id;
             var sqlQuery = 
                 "INSERT INTO ScriptsHistory (ScriptId, CategoryId, Version, Name, Body, Author, CreationDataTime, UpdateDataTime, IsLastVersion) " +
-                "VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @CreationDataTime, @UpdateDataTime, @IsLastVersion) ";
-            db.Execute(sqlQuery, script);
+                "VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @CreationDataTime, @UpdateDataTime, @IsLastVersion);" +
+                "SELECT CAST(SCOPE_IDENTITY() as int) ";
+            var ScriptsHistoryId  = db.Query<int>(sqlQuery, script).LastOrDefault();
+
+            for (int i = 0; i < script.Tags.Length; i++)
+            {
+                string tag = script.Tags[i];
+                var sqlTags = "INSERT INTO Tags (Name, ScriptsHistoryId) VALUES(@tag,  @ScriptsHistoryId );";
+                db.Execute(sqlTags, new { tag, ScriptsHistoryId });
+            }
         }
 
         public void DeleteScript(int id)

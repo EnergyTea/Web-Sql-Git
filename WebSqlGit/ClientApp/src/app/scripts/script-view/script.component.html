@@ -1,6 +1,6 @@
 <div class="row"> 
   <div class="col-sm-10">
-    <h3>{{script.name}}</h3>
+    <div class="row"><h3 class="col-sm-5">{{script.name}}</h3> <div *ngFor="let tag of script.tags" class="tag">{{tag}}</div></div>
     <div class="border rounded plot-code">
       <pre><code class="code">{{script.body}}</code></pre>
     </div>

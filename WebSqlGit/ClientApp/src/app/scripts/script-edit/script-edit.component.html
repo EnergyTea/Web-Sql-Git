@@ -6,14 +6,23 @@
         <input ngModel name="author" class="form-control form-control-lg" type="text" value="{{script.author}}">
         
       </div>
-      <div class="form-group">
+      <div class="form-group col-sm-4">
         <label for="select" class="h6">Категория </label>
         <select ngModel name="categoryId">
           <option ngModel name="categoryId" *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
         </select>
-        <input ngModel name="tags" class="form-control form-control-lg" type="text" value="tag скрипта">
+        <div class="row">
+          <input #tagNew class="form-control form-control-lg col-sm-6" type="text" placeholder="tag скрипта">
+          <button (click)="createTags(tagNew.value); tagNewName.value=''" class="addTag" type="button">Добавить</button>
+        </div>
       </div>
-    </div>    
+    </div>
+    <div class="row">
+      <div *ngFor="let tag of script.tags" class="tag">
+        {{tag}}
+        <button (click)="deleteTag(tags.id)" class="deleteTag">x</button>
+      </div>
+    </div>
     
     <div class="read">
       <label>Код</label>

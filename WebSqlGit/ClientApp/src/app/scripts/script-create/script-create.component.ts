@@ -16,11 +16,23 @@ export class CreateScriptComponent implements OnInit {
   scripts: Script[];
   categories: Category[];
   open: boolean = false;
+  tags: string[] = [];
 
   constructor(
     private scriptService: ScriptService,
     private categoryService: CategoryService
   ) { }
+  
+  createTags(tagNew: string) {
+    tagNew = tagNew.trim();
+    if (tagNew !== "") {
+      this.tags.push(tagNew);
+    }
+  }
+  deleteTag(tag) {
+    console.log("id: ", tag);
+    delete this.tags[tag];
+  }
 
   ngOnInit() {
     this.getCategory();
@@ -33,10 +45,11 @@ export class CreateScriptComponent implements OnInit {
 
   add(newScript: Script, create: NgForm) {
     newScript = <Script>{};
+    console.log(this.tags);
     newScript.name = create.value.name;
     newScript.body = create.value.body;
     newScript.author = create.value.author;
-    newScript.tags = [create.value.tag]
+    newScript.tags = this.tags;
     newScript.categoryId = Number(create.value.categoryId);
     console.log(newScript);
     this.scriptService.addScript(newScript)

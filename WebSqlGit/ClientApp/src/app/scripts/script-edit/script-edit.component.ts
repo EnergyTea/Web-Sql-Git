@@ -33,6 +33,13 @@ export class EditScriptComponent implements OnInit {
     this.getScript();
   }
 
+  createTags(tagNew: string) {
+    tagNew = tagNew.trim();
+    if (tagNew !== "") {
+      this.script.tags.push(tagNew);
+    }
+  }
+
   getScript(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
     this.scriptScrvice.getScript(ScriptId)

@@ -33,3 +33,23 @@ textarea {
 .create-script input {
     margin: 5px 0
 }
+.addTag {
+    margin: 10px 0 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+.tag {
+  text-align: center;
+  border: 3px solid rgba(0,0,0,0.1);
+  border-radius: 5px;
+  height: 30px;
+  width: 70px;
+  margin: 10px;
+}
+.deleteTag {
+    color: red;
+    background-color: #f9f9f9;
+    padding: 0;
+    border: none;
+    margin: 0 0 2px 5px;
+}
