@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { Script } from '../shared/Script';
 import { ScriptService } from '../shared/script.service';
+import { reverse } from 'dns';
 
 @Component({
     selector: 'app-script',
@@ -46,6 +47,6 @@ export class ScriptComponent implements OnInit {
   getAll(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
     this.scriptScrvice.getVersionScript(ScriptId)
-    .subscribe(scripts => this.scripts = scripts)
+      .subscribe(scripts => this.scripts = scripts.reverse());
   }
 }

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Builder;
+п»їusing Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using WebSqlGit.Data;
 using WebSqlGit.Data.Interface;
 
-namespace pRODJECR
+namespace WebSqlGit
 {
     public class Startup
     {
@@ -90,7 +90,7 @@ namespace pRODJECR
         var sqlQuery = "INSERT INTO Users (Name, Age) VALUES(@Name, @Age)";
         db.Execute(sqlQuery, user);
 
-        // если мы хотим получить id добавленного пользователя
+        // РµСЃР»Рё РјС‹ С…РѕС‚РёРј РїРѕР»СѓС‡РёС‚СЊ id РґРѕР±Р°РІР»РµРЅРЅРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
         //var sqlQuery = "INSERT INTO Users (Name, Age) VALUES(@Name, @Age); SELECT CAST(SCOPE_IDENTITY() as int)";
         //int? userId = db.Query<int>(sqlQuery, user).FirstOrDefault();
         //user.Id = userId.Value;

@@ -23,7 +23,7 @@ namespace WebSqlGit.Data
             using IDbConnection db = new SqlConnection(connectionString);
             List<Script> scripts = db.Query<Script>(
                 "SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory " +
-                "LEFT JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1"
+                "JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1"
             ).ToList(); 
                                                                                                                    
             var scripts1 = scripts.Select(s => new Script
@@ -66,12 +66,16 @@ namespace WebSqlGit.Data
                 "SELECT CAST(SCOPE_IDENTITY() as int) ";
             var ScriptsHistoryId  = db.Query<int>(sqlQuery, script).LastOrDefault();
 
-            for (int i = 0; i < script.Tags.Length; i++)
+            var parameters = script.Tags.Select(u =>
             {
-                string tag = script.Tags[i];
-                var sqlTags = "INSERT INTO Tags (Name, ScriptsHistoryId) VALUES(@tag,  @ScriptsHistoryId );";
-                db.Execute(sqlTags, new { tag, ScriptsHistoryId });
-            }
+                var tempParams = new DynamicParameters();
+                tempParams.Add("@tag", u, DbType.String, ParameterDirection.Input);
+                return tempParams;
+            });
+            
+            var sqlTags = "INSERT INTO Tags (Name, ScriptsHistoryId) VALUES(@tag, "+ScriptsHistoryId+" );";
+            db.Execute(sqlTags, parameters);
+            
         }
 
         public void DeleteScript(int id)
@@ -80,10 +84,9 @@ namespace WebSqlGit.Data
             var sqlQuery = 
                 "UPDATE Scripts SET Deleted = 1 WHERE (Id = @id); " +
                 "UPDATE ScriptsHistory SET Deleted = 1 WHERE (ScriptId = @id);";
-            db.Execute(sqlQuery, new { id });
+            db.Execute(sqlQuery, new { id });            
         }
 
-        // Добавить удаление. Когда удалем только версию скрипта. А не сам скрипт!
         public void DeleteVersionScript(int id)
         {
             using IDbConnection db = new SqlConnection(connectionString);

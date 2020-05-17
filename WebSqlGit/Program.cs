@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WebSqlGit;
 
-namespace pRODJECR
+namespace WebSqlGit
 {
-    public class Program
+    public class Program 
     {        
         public static void Main(string[] args)
         {

@@ -88,6 +88,7 @@ textarea {
 
 .editCat {
   margin-left: 10px;
+  max-height: 10px;
 }
 
 .creatCategoey {

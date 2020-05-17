@@ -8,8 +8,8 @@
       <a href="scripts/{{script.scriptId}}/edit" class="btn btn-dark">Edit Code</a>
     </div>
   </div>
-  <div class="col-sm-2 left">
-    <div *ngFor="let scriptV of scripts" class="script-version">
+  <div class="col-sm-2 left right">
+    <div *ngFor="let scriptV of scripts" class="script-version flex-row">
       <h6>{{scriptV.name}}</h6>
       <p>Версия: {{scriptV.version}}</p>
     </div>

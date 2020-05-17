@@ -1,9 +1,9 @@
 .create {
-  margin: 15px 25px;
+  margin: 10px 0 0 0;
 }
 
 .read {
-  padding: 20px 0px;
+  padding-bottom: 5px;
 }
 
 textarea {
@@ -22,21 +22,16 @@ textarea {
   margin: 5px;
 }
 
-.form-group select {
+select {
   border-color: #cccccc;
   padding-left: 10px;
   border-radius: 5px;
-  margin: 5px 3px;
+  margin: 5px 30px;
   width: 200px;
   height: 40px;
 }
 .create-script input {
     margin: 5px 0
-}
-.addTag {
-    margin: 10px 0 0 auto;
-    background-color: #f9f9f9;
-    border-radius: 4px;
 }
 .tag {
   text-align: center;
@@ -52,4 +47,18 @@ textarea {
     padding: 0;
     border: none;
     margin: 0 0 2px 5px;
+}
+.add-tag {
+  margin: 0 20px;
+  max-height: 40px;
+}
+.btn {
+    max-height: 38px;
+    margin: 1px 0 0 0;
+}
+.tag-create {
+    margin: 5px 0 0 0;
+}
+label {
+    margin: 0;
 }
