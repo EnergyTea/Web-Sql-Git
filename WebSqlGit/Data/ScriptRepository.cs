@@ -21,19 +21,19 @@ namespace WebSqlGit.Data
         public List<Script> GetAll()
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            List<Script> scripts = db.Query<Script>(
+             List<Script> scripts = db.Query<Script>(
                 "SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory " +
                 "JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1"
-            ).ToList(); 
-                                                                                                                   
-            var scripts1 = scripts.Select(s => new Script
+            ).ToList();
+
+            var scriptsPush = scripts.Select(s => new Script
             {
                 Id = s.Id,
                 Name = s.Name,
                 CategoryId = s.CategoryId,
                 CreationDataTime = s.CreationDataTime,
             });
-            return scripts1.ToList();
+            return scriptsPush.ToList();
         }
 
         public Script GetScript(int id)
@@ -136,6 +136,15 @@ namespace WebSqlGit.Data
                 "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND ScriptsHistory.Deleted IS NULL",
             new { id }
             ).ToList();
+        }
+
+        public Script GetScriptsHistory(int id)
+        {
+            using IDbConnection db = new SqlConnection(connectionString);
+            return db.Query<Script>(
+               "SELECT * FROM ScriptsHistory WHERE Id = @id AND ScriptsHistory.Deleted IS NULL",
+            new { id }
+            ).FirstOrDefault();
         }
     }
 }

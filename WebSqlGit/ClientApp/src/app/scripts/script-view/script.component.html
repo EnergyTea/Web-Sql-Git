@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="col-sm-2 left right">
-    <div *ngFor="let scriptV of scripts" class="script-version flex-row">
+    <div *ngFor="let scriptV of scripts" class="script-version flex-row" (click)="goTo(scriptV)">
       <h6>{{scriptV.name}}</h6>
       <p>Версия: {{scriptV.version}}</p>
     </div>

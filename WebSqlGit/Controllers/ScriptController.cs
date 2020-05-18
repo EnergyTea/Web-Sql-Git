@@ -35,6 +35,13 @@ namespace WebSqlGit.Controllers
             return Ok(script);
         }
 
+        [HttpGet("{id}/history")]
+        public IActionResult GetScriptHistory(int id)
+        {
+            Script script = _scriptInterface.GetScriptsHistory(id);
+            return Ok(script);
+        }
+
         [HttpGet("{id}/all")]
         public List<Script> GetScriptsOne(int id)
         {

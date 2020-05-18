@@ -35,9 +35,11 @@ export class NavCategoryComponent implements OnInit {
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
-    this.categoryService.addCategory({ name } as Category)
-      .subscribe(category => { this.categories.push(category) });
-    this.getCategory();
+    if (!this.categories.map(item => item.name).includes(name)) {
+      this.categoryService.addCategory({ name } as Category)
+        .subscribe(category => { this.categories.push(category) });
+      this.getCategory();
+    }
   }
 
   crate(): void {

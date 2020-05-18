@@ -16,5 +16,6 @@ namespace WebSqlGit.Data.Interface
         void DeleteScript(int id);
         void DeleteVersionScript(int id);
         void UpdateScript(Script script);
+        Script GetScriptsHistory(int id);
     }
 }

@@ -49,4 +49,9 @@ export class ScriptService {
     const url = `${this.scriptsUrl}/${ScriptId}/all`;
     return this.http.get<Script[]>(url);
   }
+
+  getVerScrOne(ScriptId: number): Observable<Script> {
+    const url = `${this.scriptsUrl}/${ScriptId}/history`;
+    return this.http.get<Script>(url);
+  }
 }

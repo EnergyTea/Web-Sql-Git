@@ -49,4 +49,15 @@ export class ScriptComponent implements OnInit {
     this.scriptScrvice.getVersionScript(ScriptId)
       .subscribe(scripts => this.scripts = scripts.reverse());
   }
+
+  getScriptHistory(id: number): void {
+    this.scriptScrvice.getVerScrOne(id)
+      .subscribe(script => {this.script = script, console.log(script)})
+    console.log("получили: ", this.script)
+  }
+
+  goTo(script: Script) {
+    this.location.go('/scripts/' + script.id)
+    this.getScriptHistory(script.id);
+  }
 }
