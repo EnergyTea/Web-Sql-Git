@@ -62,7 +62,6 @@ export class ScriptComponent implements OnInit {
   getScriptHistory(id: number): void {
     this.scriptScrvice.getVerScrOne(id)
       .subscribe(script => {this.script = script, console.log(script)})
-    console.log("получили: ", this.script)
   }
 
   goTo(script: Script) {

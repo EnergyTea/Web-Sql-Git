@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -20,6 +21,23 @@ namespace WebSqlGit.Controllers
             _userInterface = userInterface;
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetUser()
+        {
+            User user = new User();
+            user.Name = User.Identity.Name;
+            return Ok(user);
+        }
+
+        [HttpPost("regiser")]
+        public IActionResult CreateUser(User user)
+        {
+
+            _userInterface.RegistrationUser(user);
+            return Ok();
+        }
+
         [HttpPost]
         public async Task Authorize(User user)             
         {
@@ -34,5 +52,13 @@ namespace WebSqlGit.Controllers
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
             }
         }
+
+        [HttpGet("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Ok();
+        }
     }
+
 }

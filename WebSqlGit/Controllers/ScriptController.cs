@@ -33,7 +33,6 @@ namespace WebSqlGit.Controllers
         [Authorize]
         public IActionResult GetScript(int id)
         {
-            var user = User.Identity.Name;
             Script script = _scriptInterface.GetScript(id);
             return Ok(script);
         }

@@ -1,6 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
     <a class="navbar-brand" [routerLink]="['/']">WebSqlGit</a>
+    <p>{{user.name}}</p>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -29,6 +30,7 @@
       <form class="form-inline my-2 my-md-0">
         <input class="form-control" type="text" placeholder="Search" aria-label="Search">
       </form>
+      <button (click)="Out()">Logout</button>
     </div>
   </nav>
 </header>

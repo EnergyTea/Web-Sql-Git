@@ -21,7 +21,7 @@ namespace WebSqlGit.Data
         public void CreateCategory(Category category)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            var sqlQuery = "INSERT INTO Categories (Name) VALUES(@Name)";
+            var sqlQuery = "INSERT INTO Users (Name, Login, Password) VALUES(@Name, @Login, @Password)";
             db.Execute(sqlQuery, category);
         }
 

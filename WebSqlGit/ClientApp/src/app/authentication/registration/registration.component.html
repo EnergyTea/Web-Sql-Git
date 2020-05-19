@@ -1,0 +1,14 @@
+<div class="text-center regist">
+  <div class="form">
+    <form class="form-signin" #registModul="ngForm">
+      <h1 class="h2 mb-3 font-weight-normal">Registration</h1>
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input ngModel name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+      <label for="inputName" class="sr-only">User Name</label>
+      <input ngModel name="name" class="form-control" placeholder="User Name" required="" autofocus="">
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input ngModel name="password" type="password" class="form-control" placeholder="Password" required="">
+      <button (click)="Registration(user, registModul)" class="btn btn-lg btn-primary btn-block" type="button">Registration</button>
+    </form>
+  </div>
+</div>
