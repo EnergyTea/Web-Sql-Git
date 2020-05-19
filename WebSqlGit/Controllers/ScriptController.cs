@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebSqlGit.Data.Interface;
@@ -29,8 +30,10 @@ namespace WebSqlGit.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public IActionResult GetScript(int id)
         {
+            var user = User.Identity.Name;
             Script script = _scriptInterface.GetScript(id);
             return Ok(script);
         }

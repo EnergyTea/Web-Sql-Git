@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -26,14 +27,20 @@ namespace WebSqlGit
             //string connectionString = "Server=(localdb)\\mssqllocaldb;Database=sqlcode;Trusted_Connection=True;MultipleActiveResultSets=true";
             string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rusva\\source\\repos\\Web-Sql-Git\\WebSqlGit\\sqlcode.mdf;Integrated Security=True";
             services.AddTransient<ICategoryInterface, CategoryRepository>(provider => new CategoryRepository(connectionString));
-
             services.AddTransient<IScriptInterface, ScriptRepository>(provider => new ScriptRepository(connectionString));
+            services.AddTransient<IUserInterface, UserRepository>(provider => new UserRepository(connectionString));
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    //options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +66,9 @@ namespace WebSqlGit
 
             app.UseRouting();
 
+            app.UseAuthentication();    // аутентификация
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -76,6 +86,7 @@ namespace WebSqlGit
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");                
                 }
             });
         }

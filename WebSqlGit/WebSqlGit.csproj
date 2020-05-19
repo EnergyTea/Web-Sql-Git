@@ -31,6 +31,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\authentication\shared\User.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\authentication\shared\User.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="sqlcodeDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

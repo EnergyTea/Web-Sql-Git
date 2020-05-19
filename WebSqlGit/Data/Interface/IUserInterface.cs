@@ -1,10 +1,10 @@
-﻿using WebSqlGit.Data.Model;
+﻿using System.Threading.Tasks;
+using WebSqlGit.Data.Model;
 
 namespace WebSqlGit.Data.Interface
 {
-    interface IUserInterface
+    public interface IUserInterface
     {
-
-        User CheckUser(User user);
+       User Authorize(User user);
     }
 }

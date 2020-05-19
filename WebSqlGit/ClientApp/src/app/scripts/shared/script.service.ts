@@ -25,7 +25,7 @@ export class ScriptService {
 
   getScript(ScriptId: number): Observable<Script> {
     const url = `${this.scriptsUrl}/${ScriptId}`;
-    return this.http.get<Script>(url);
+    return this.http.get<Script>(url, { withCredentials: true });
   }
 
   addScript(script: Script): Observable<Script> {

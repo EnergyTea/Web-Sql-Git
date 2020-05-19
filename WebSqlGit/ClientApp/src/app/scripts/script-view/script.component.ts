@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+
 import { Script } from '../shared/Script';
 import { ScriptService } from '../shared/script.service';
-import { reverse } from 'dns';
+import { using } from 'rxjs';
 
 @Component({
     selector: 'app-script',
@@ -28,6 +29,14 @@ export class ScriptComponent implements OnInit {
     this.getScript();
     this.getAll();
   }
+
+  /*backlight(): void {
+    document.addEventListener('DOMContentLoaded', (event) => {
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+      })
+    });
+ }*/
 
   getScript(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');

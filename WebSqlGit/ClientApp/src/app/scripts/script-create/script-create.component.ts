@@ -45,13 +45,11 @@ export class CreateScriptComponent implements OnInit {
 
   add(newScript: Script, create: NgForm) {
     newScript = <Script>{};
-    console.log(this.tags);
     newScript.name = create.value.name;
     newScript.body = create.value.body;
     newScript.author = create.value.author;
     newScript.tags = this.tags;
     newScript.categoryId = Number(create.value.categoryId);
-    console.log(newScript);
     this.scriptService.addScript(newScript)
       .subscribe(script =>  this.scripts.push(script))
   }

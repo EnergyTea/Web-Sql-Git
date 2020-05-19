@@ -12,6 +12,8 @@ import { EditScriptComponent } from './scripts/script-edit/script-edit.component
 import { ScriptComponent } from './scripts/script-view/script.component';
 import { ScriptsComponent } from './scripts/script-list/script-list.component';
 import { CreateScriptComponent } from './scripts/script-create/script-create.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { RegistrationComponent } from './authentication/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { CreateScriptComponent } from './scripts/script-create/script-create.com
     ScriptComponent,
     ScriptsComponent,
     CreateScriptComponent,
-    EditScriptComponent
+    EditScriptComponent,
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
