@@ -15,6 +15,7 @@ namespace WebSqlGit.Model
         public string Name { get; set; }
         public string Body { get; set; }
         public string Author { get; set; }
+        public int AuthorId { get; set; }
         public string[] Tags { get; set; }
         public DateTime CreationDataTime { get; set; } 
         public DateTime UpdateDataTime { get; set; } 

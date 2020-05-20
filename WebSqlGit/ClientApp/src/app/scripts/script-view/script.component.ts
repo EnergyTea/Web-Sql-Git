@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { Script } from '../shared/Script';
 import { ScriptService } from '../shared/script.service';
 import { using } from 'rxjs';
+import { UserService } from '../../authentication/shared/user.service';
 
 @Component({
     selector: 'app-script',
@@ -18,11 +19,13 @@ export class ScriptComponent implements OnInit {
   script: Script;
   scripts: Script[];
   edit: boolean;
+  isAurorize = true;
 
   constructor(
     private route: ActivatedRoute,
     private scriptScrvice: ScriptService,
     private location: Location,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -30,18 +33,15 @@ export class ScriptComponent implements OnInit {
     this.getAll();
   }
 
-  /*backlight(): void {
-    document.addEventListener('DOMContentLoaded', (event) => {
-      document.querySelectorAll('pre code').forEach((block) => {
-        hljs.highlightBlock(block);
-      })
-    });
- }*/
-
   getScript(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
     this.scriptScrvice.getScript(ScriptId)
       .subscribe(script => this.script = script)
+    this.userService.getUser().subscribe(user => {
+      if (user.name == null) {
+        this.isAurorize = false
+      }
+    })
   }
 
   goBack(): void {
@@ -61,7 +61,7 @@ export class ScriptComponent implements OnInit {
 
   getScriptHistory(id: number): void {
     this.scriptScrvice.getVerScrOne(id)
-      .subscribe(script => {this.script = script, console.log(script)})
+      .subscribe(script => this.script = script)
   }
 
   goTo(script: Script) {

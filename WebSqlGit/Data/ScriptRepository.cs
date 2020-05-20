@@ -55,14 +55,16 @@ namespace WebSqlGit.Data
             script.CreationDataTime = DateTime.Now;
             script.IsLastVersion = true;
             script.UpdateDataTime = DateTime.Now;
+            script.AuthorId = db.Query<int>("SELECT Id FROM Users WHERE Login = @Author", script).LastOrDefault();
+            script.Author = db.Query<string>("SELECT Name FROM Users WHERE Id = @AuthorId", script).LastOrDefault();
             var SqlScript =
                 @"INSERT INTO  Scripts (CategoryId, CreationDataTime) VALUES(@CategoryId,  @CreationDataTime ); 
                   SELECT CAST(SCOPE_IDENTITY() as int)";
             var Id = db.Query<int>(SqlScript, script).LastOrDefault();
             script.ScriptId = Id;
-            var sqlQuery = 
-                "INSERT INTO ScriptsHistory (ScriptId, CategoryId, Version, Name, Body, Author, CreationDataTime, UpdateDataTime, IsLastVersion) " +
-                "VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @CreationDataTime, @UpdateDataTime, @IsLastVersion);" +
+            var sqlQuery =
+                "INSERT INTO ScriptsHistory (ScriptId, CategoryId, Version, Name, Body, Author, AuthorId, CreationDataTime, UpdateDataTime, IsLastVersion) " +
+                "VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @AuthorId, @CreationDataTime, @UpdateDataTime, @IsLastVersion);" +
                 "SELECT CAST(SCOPE_IDENTITY() as int) ";
             var ScriptsHistoryId  = db.Query<int>(sqlQuery, script).LastOrDefault();
 
@@ -78,45 +80,60 @@ namespace WebSqlGit.Data
             
         }
 
-        public void DeleteScript(int id)
+        public void DeleteScript(int id, string Author)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            var sqlQuery = 
+            int UserId = db.Query<int>("SELECT Id FROM Users WHERE Login = @Author", new { Author }).FirstOrDefault();
+            int AuthorId = db.Query<int>("SELECT AuthorId FROM Scripts WHERE Id = @id", new { id }).FirstOrDefault();
+            if (UserId == AuthorId)
+            {
+                var sqlQuery =
                 "UPDATE Scripts SET Deleted = 1 WHERE (Id = @id); " +
                 "UPDATE ScriptsHistory SET Deleted = 1 WHERE (ScriptId = @id);";
-            db.Execute(sqlQuery, new { id });            
+                db.Execute(sqlQuery, new { id });
+            }                        
         }
 
-        public void DeleteVersionScript(int id)
+        public void DeleteVersionScript(int id, string Author)
         {
             using IDbConnection db = new SqlConnection(connectionString);
-            var sqlQuery =
+            int UserId = db.Query<int>("SELECT Id FROM Users WHERE Login = @Author", new { Author }).FirstOrDefault();
+            int AuthorId = db.Query<int>("SELECT AuthorId FROM Scripts WHERE Id = @id", new { id }).FirstOrDefault();
+            if (UserId == AuthorId)
+            {
+                var sqlQuery =
                 "UPDATE ScriptsHistory SET Deleted = 1 WHERE (Id = @id);";
                 // Добавть ласт версию на предшествующую версию: "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id;";
-            db.Execute(sqlQuery, new { id });
+                db.Execute(sqlQuery, new { id }); 
+            }
         }
 
-        public void UpdateScript(Script script) 
+        public void UpdateScript(Script script, string Author) 
         {
             using IDbConnection db = new SqlConnection(connectionString);
             int id = script.ScriptId;
-            var sqlScript = 
-                "SELECT * FROM ScriptsHistory WHERE ScriptId = @id";
-            Script script2 = db.Query<Script>(sqlScript, new { id } ).First();
-            script2.Version += 1;
-            script2.UpdateDataTime = DateTime.Now;
-            script2.Name = script.Name;
-            script2.Id = 0;
-            script2.Author = script.Author;
-            script2.Body = script.Body;
-            var sqlLastVersion = 
-                "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id";
-            db.Execute(sqlLastVersion, new { id });
-            script2.IsLastVersion = true;
-            var sqlQuery = 
-                "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, UpdateDataTime, IsLastVersion) " +
-                "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @UpdateDataTime, @IsLastVersion)";
-            db.Execute(sqlQuery, script2);
+            int UserId = db.Query<int>("SELECT Id FROM Users WHERE Login = @Author", new { Author }).FirstOrDefault();
+            int AuthorId = db.Query<int>("SELECT AuthorId FROM Scripts WHERE Id = @id", new { id }).FirstOrDefault();
+            if (UserId == AuthorId)
+            {
+                var sqlScript = 
+                    "SELECT * FROM ScriptsHistory WHERE ScriptId = @id";
+                Script script2 = db.Query<Script>(sqlScript, new { id } ).First();
+                script2.Version += 1;
+                script2.UpdateDataTime = DateTime.Now;
+                script2.Name = script.Name;
+                script2.Id = 0;
+                script2.Author = script.Author;
+                script2.Body = script.Body;
+                var sqlLastVersion = 
+                    "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id";
+                db.Execute(sqlLastVersion, new { id });
+                script2.IsLastVersion = true;
+                var sqlQuery = 
+                    "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, UpdateDataTime, IsLastVersion) " +
+                    "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @UpdateDataTime, @IsLastVersion)";
+                db.Execute(sqlQuery, script2);
+            }
         }
 
         public List<Script> GetScriptsForCategory(int id)

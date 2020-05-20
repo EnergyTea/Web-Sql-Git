@@ -22,11 +22,13 @@ namespace WebSqlGit.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult GetUser()
         {
-            User user = new User();
-            user.Name = User.Identity.Name;
+            string UserLogin = User.Identity.Name;
+            User user = new User
+            {
+                Name = _userInterface.GetUser(UserLogin)
+            };
             return Ok(user);
         }
 
@@ -45,7 +47,7 @@ namespace WebSqlGit.Controllers
             if (AuthorizeUser != null) {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, AuthorizeUser.Name)
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, AuthorizeUser.Login)
                 };
                 ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
                 // установка аутентификационных куки

@@ -13,9 +13,9 @@ namespace WebSqlGit.Data.Interface
         List<Script> GetAll();
         Script GetScript(int id);
         void CreateScript(Script script);
-        void DeleteScript(int id);
-        void DeleteVersionScript(int id);
-        void UpdateScript(Script script);
+        void DeleteScript(int id, string Author);
+        void DeleteVersionScript(int id, string Author);
+        void UpdateScript(Script script, string Author);
         Script GetScriptsHistory(int id);
     }
 }

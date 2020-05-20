@@ -16,7 +16,6 @@ namespace WebSqlGit.Controllers
     public class ScriptController : Controller
     {
         private readonly IScriptInterface _scriptInterface;
-        // GET: /<controller>/
         public ScriptController(IScriptInterface scriptInterface)
         {
             _scriptInterface = scriptInterface;
@@ -30,7 +29,6 @@ namespace WebSqlGit.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public IActionResult GetScript(int id)
         {
             Script script = _scriptInterface.GetScript(id);
@@ -52,30 +50,38 @@ namespace WebSqlGit.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult CreateScript(Script script)
         {
+            script.Author = User.Identity.Name;
             _scriptInterface.CreateScript(script);
             return Ok();
         }
 
         [HttpPost("{id}/delete")]
+        [Authorize]
         public IActionResult DeleteScript(int id)
         {
-            _scriptInterface.DeleteScript(id);
+            var Author = User.Identity.Name;
+            _scriptInterface.DeleteScript(id, Author);
             return Ok();
         }
 
         [HttpPost("version/{id}/delete")]
+        [Authorize]
         public IActionResult DeleteVersionScript(int id)
         {
-            _scriptInterface.DeleteVersionScript(id);
+            var Author = User.Identity.Name;
+            _scriptInterface.DeleteVersionScript(id, Author);
             return Ok();
         }
 
         [HttpPost("{id}/edit")]
+        [Authorize]
         public IActionResult UpdateScreipt(Script script)
         {
-            _scriptInterface.UpdateScript(script);
+            var Author = User.Identity.Name;
+            _scriptInterface.UpdateScript(script, Author);
             return Ok();
         }
     }

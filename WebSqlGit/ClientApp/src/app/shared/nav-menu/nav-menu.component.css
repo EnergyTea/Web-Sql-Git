@@ -16,3 +16,16 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+.user-name {
+color: #fff;
+font-size: 20px;
+margin: -4px 20px 0px 20px;
+}
+
+.in-out {
+  margin-left: 5px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+}

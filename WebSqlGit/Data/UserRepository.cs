@@ -27,11 +27,10 @@ namespace WebSqlGit.Data
             return AuthorizeUser;
         }
 
-        public User GetUser()
+        public string GetUser(string UserName)
         {
-            User user = new User();
             using IDbConnection db = new SqlConnection(connectionString);
-            User AuthorizeUser = db.Query<User>("SELECT * FROM Users WHERE Login = @login AND Password = @Password", user).FirstOrDefault();
+            string AuthorizeUser = db.Query<string>("SELECT Name FROM Users WHERE Login = @UserName", new { UserName }).FirstOrDefault();
             return AuthorizeUser;
         }
 

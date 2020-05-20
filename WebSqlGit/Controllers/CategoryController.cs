@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using WebSqlGit.Data.Interface;
 using WebSqlGit.Data.Model;
 using WebSqlGit.Model;
@@ -40,12 +38,14 @@ namespace WebSqlGit.Controllers
             return Ok(category);
         }
         [HttpPost("{id}/delete")]
+        [Authorize]
         public IActionResult DeleteCategory(int id)
         {
             _categoryInterface.DeleteCategory(id);
             return NotFound();
         }
         [HttpPost]
+        [Authorize]
         public IActionResult CreateCategory(Category category)
         {
             _categoryInterface.CreateCategory(category);

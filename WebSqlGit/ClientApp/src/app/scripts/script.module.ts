@@ -13,8 +13,8 @@ import { LoginComponent } from '../authentication/login/login.component';
 const routes: Routes = [
   { path: '', redirectTo: '/scripts', pathMatch: 'full' },
   { path: 'scripts', component: ScriptsComponent },
-  { path: 'registration', component: RegistrationComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: 'scripts/create', component: CreateScriptComponent },
   { path: 'category/:CategoryId', component: CategoryComponent },
   { path: 'scripts/:ScriptId', component: ScriptComponent },

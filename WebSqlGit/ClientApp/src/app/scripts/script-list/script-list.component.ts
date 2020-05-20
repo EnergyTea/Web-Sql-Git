@@ -22,7 +22,7 @@ export class ScriptsComponent implements OnInit {
 
   getScripts(): void {
     this.scriptService.getScripts()
-      .subscribe(scripts => this.scripts = scripts)
+      .subscribe(scripts => this.scripts = scripts.reverse())
   }
 
   delete(script: Script): void {

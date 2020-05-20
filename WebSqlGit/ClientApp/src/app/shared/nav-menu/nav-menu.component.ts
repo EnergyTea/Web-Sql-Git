@@ -10,6 +10,7 @@ import { User } from '../../authentication/shared/User';
 export class NavMenuComponent implements OnInit {
   user: User;
   isExpanded = false;
+  isAurorize = true;
 
   constructor(private userService: UserService) {}
   ngOnInit(): void {
@@ -25,12 +26,20 @@ export class NavMenuComponent implements OnInit {
   }
 
   Out() {
-    this.userService.outUser().subscribe();
+    this.userService.outUser().subscribe(() => window.location.href = "/scripts" );
+  }
+
+  Log() {
+    window.location.href = "/login"
   }
 
   getUser() {
     this.userService.getUser()
-      .subscribe(user => { this.user = user; console.log(user) })
-    console.log("ahaha", this.user.name)
+      .subscribe(user => {
+        this.user = user;
+        if (user.name == null) {
+          this.isAurorize = false
+        }
+      });
   }
 }
