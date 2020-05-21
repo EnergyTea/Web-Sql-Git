@@ -7,7 +7,7 @@ import { Script } from '../../scripts/shared/Script';
 @Injectable({providedIn: 'root'})
 export class CategoryService {
 
-  private categotyUrl = 'api/categories';
+  private categotyUrl = 'https://localhost:44325/api/categories';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

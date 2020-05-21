@@ -6,9 +6,17 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-  private authorizeUrl = 'api/accounts';
+  private authorizeUrl = 'https://localhost:44325/api/accounts';
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders()
+      .set("Content-Type", "application/json")
+      .set("Cache-Control", "no-cache")
+      .set('Pragma', 'no-cache')
+      .set('Expires', new Date(new Date().setMinutes(new Date().getMinutes() - 1)).toUTCString())
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Access-Control-Allow-Headers', 'Content-Type')
+      .set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
+      .set('Access-Control-Allow-Credentials', 'true')
   };
 
   constructor(private http: HttpClient) { }

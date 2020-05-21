@@ -1,12 +1,14 @@
-<h3>List of categories<span class="editCat" title="edit Category"  *ngIf="!isAurorize" (click)="creatCategoey = !creatCategoey">✎</span> </h3>
+<h3>List of categories<span class="editCat" title="edit Category"  *ngIf="isAurorize" (click)="creatCategoey = !creatCategoey">✎</span> </h3>
 <div class="list-group">
   <form *ngIf="creatCategoey" class="creatCategoey" action="/" method="post">
     <input #NameCategory class="newName"  placeholder="New Name"/>
     <button (click)="add(NameCategory.value); NameCateory.value=''; creatCategoey = !creatCategoey" class="addCat btnCat btn-dark">add</button>
   </form>
   <div class="left">
-    <div *ngFor="let category of categories"
-         class="category d-flex flex-row">
+    <div *ngFor="let category of categories; let i = index"
+         [ngClass]="{'ezzz': highlightedDiv === i }"
+         class="category d-flex flex-row"
+         (click)="toggleHighlight(i)">
       <a href="category/{{category.id}}">{{category.name}}</a>
       <button *ngIf="creatCategoey" class="btnCat btn-dark" (click)="delete(category)">x</button>
     </div>

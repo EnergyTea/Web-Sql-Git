@@ -5,20 +5,28 @@
       <div *ngFor="let tag of script.tags" class="tag">{{tag}}</div>
     </div>
     <div class="border rounded plot-code">
-      <pre><code class="code">{{script.body}}</code></pre>
+      <pre><code class="sql">{{script.body}}</code></pre>
+      <pre><code class="sql">
+  "INSERT INTO  Scripts (CategoryId, CreationDataTime) VALUES(@CategoryId,  @CreationDataTime );
+  SELECT CAST(SCOPE_IDENTITY() as int)";
+</code></pre>
     </div>
-
     <span class="script-auth">author: {{script.author}}</span>
     <div class="d-flex flex-row-reverse" *ngIf="script.isAuthor">
       <a href="scripts/{{script.scriptId}}/edit" class="btn btn-dark">Edit</a>
       <button class="btn btn-dark" (click)="delete(script)" >Delete</button>
     </div>
   </div>
-  <div class="col-sm-2 left right">
-    <div *ngFor="let scriptV of scripts" class="script-version flex-row" (click)="goTo(scriptV); isActive = !isActive" [style.backgroundColor]="isActive? 'green' : 'none'">
-      <h6>{{scriptV.name}}</h6>
-      <p>Версия: {{scriptV.version}}</p>
-      <p>{{scriptV.updateDataTime | date:'medium'}}</p>
+  <div class="col-sm-2 right">
+    <div *ngFor="let scriptV of scripts; let i = index"
+         [ngClass]="{'active': highlightedDiv === i }"
+         class="script-version flex-row"
+         (click)="goTo(scriptV); toggleHighlight(i)">
+      <div class="main-version">
+        <h6>{{scriptV.name}}</h6>
+        <p>Версия: {{scriptV.version}}</p>
+        <p>{{scriptV.updateDataTime | date:'medium'}}</p>
+      </div>
     </div>
   </div>
 </div>

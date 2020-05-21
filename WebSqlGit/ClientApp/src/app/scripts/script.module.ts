@@ -11,6 +11,7 @@ import { DirectionComponent } from '../shared/direction/direction.component';
 
 
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/scripts', pathMatch: 'full' },
   { path: 'scripts', component: ScriptsComponent },

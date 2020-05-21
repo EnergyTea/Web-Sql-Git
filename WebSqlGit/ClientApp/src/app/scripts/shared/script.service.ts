@@ -6,7 +6,7 @@ import { Script } from './Script';
 
 @Injectable({ providedIn: 'root' })
 export class ScriptService {
-  private scriptsUrl = 'api/scripts';  // URL to web api
+  private scriptsUrl = 'https://localhost:44325/api/scripts';  // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

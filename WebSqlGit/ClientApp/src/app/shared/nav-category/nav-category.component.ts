@@ -13,9 +13,13 @@ export class NavCategoryComponent implements OnInit {
   categories: Category[];
   created: boolean;
   isAurorize = false;
+  public highlightedDiv: number;
 
   constructor(private categoryService: CategoryService) { }
 
+  public toggleHighlight(newValue: number) {
+    this.highlightedDiv = newValue;
+  }
 
   ngOnInit() {
     this.getCategory();
