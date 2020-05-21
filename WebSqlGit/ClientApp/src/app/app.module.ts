@@ -14,6 +14,7 @@ import { ScriptsComponent } from './scripts/script-list/script-list.component';
 import { CreateScriptComponent } from './scripts/script-create/script-create.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { RegistrationComponent } from './authentication/registration/registration.component';
+import { DirectionComponent } from './shared/direction/direction.component';
 
 export function getHighlightLanguages() {
   return {
@@ -28,6 +29,7 @@ export function getHighlightLanguages() {
     AppComponent,
     NavMenuComponent,
     NavCategoryComponent,
+    DirectionComponent,
     CategoryComponent,
     ScriptComponent,
     ScriptsComponent,

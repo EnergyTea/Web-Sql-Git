@@ -7,6 +7,7 @@ import { ScriptsComponent } from './script-list/script-list.component';
 import { CreateScriptComponent } from './script-create/script-create.component';
 import { RegistrationComponent } from '../authentication/registration/registration.component';
 import { LoginComponent } from '../authentication/login/login.component';
+import { DirectionComponent } from '../shared/direction/direction.component';
 
 
 
@@ -21,8 +22,14 @@ const routes: Routes = [
   { path: 'scripts/:ScriptId/edit', component: EditScriptComponent },
 ]
 
+const routesLogin: Routes = [
+  { path: 'registration', component: RegistrationComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
+  { path: '', component: DirectionComponent, children: routes},
+]
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routesLogin)],
   exports: [RouterModule]
 })
 export class ScriptModule {
