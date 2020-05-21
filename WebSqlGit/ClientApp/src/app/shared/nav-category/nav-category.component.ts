@@ -11,8 +11,9 @@ import { CategoryService } from '../../categories/shared/category.service';
 export class NavCategoryComponent implements OnInit {
     /** category ctor */
   categories: Category[];
-  selectedCategory: Category;
   created: boolean;
+  isAurorize = false;
+
   constructor(private categoryService: CategoryService) { }
 
 
@@ -30,6 +31,7 @@ export class NavCategoryComponent implements OnInit {
     this.categoryService.deleteCategory(category.id)
       .subscribe(data => this.getCategory());
     this.getCategory();
+    window.location.reload();
   }
 
   add(name: string): void {
@@ -39,17 +41,11 @@ export class NavCategoryComponent implements OnInit {
       this.categoryService.addCategory({ name } as Category)
         .subscribe(category => { this.categories.push(category) });
       this.getCategory();
+      window.location.href = "/scripts";
     }
   }
 
   crate(): void {
     this.created = !this.created
-  }
-  //getScripts(): Script[] {
-  //  //return scriptService.getScripts();
-  //}
-
-  onSelect(category: Category): void {
-    this.selectedCategory = category;
   }
 }

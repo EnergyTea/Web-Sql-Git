@@ -3,11 +3,9 @@
     <div class="row">
         <label>Name</label>
         <input ngModel name="name" class="form-control form-control-lg" type="text" value="{{script.name}}">
-        <label>Author</label>
-        <input ngModel name="author" class="form-control form-control-lg" type="text" value="{{script.author}}">
-
         <label>Category</label>
         <select ngModel name="categoryId">
+          <option>{{script.categoryId}}</option>
           <option ngModel name="categoryId" *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
         </select>
         <div class="row">
@@ -28,7 +26,6 @@
     </div>
     <div class="d-flex flex-row-reverse">
       <button (click)="upDate(script, update)" type="button" class="btn btn-dark">Save Code</button>
-      <button class="btn script-del" (click)="delete(script)">Удалить</button>
     </div>
   </form>
 </div>

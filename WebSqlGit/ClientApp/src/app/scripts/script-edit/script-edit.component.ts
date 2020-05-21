@@ -43,21 +43,12 @@ export class EditScriptComponent implements OnInit {
   getScript(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
     this.scriptScrvice.getScript(ScriptId)
-      .subscribe(script => { this.script = script; console.log(script) }) 
+      .subscribe(script => this.script = script) 
   }
 
   getCategory(): void {
     this.categoryService.getCategories()
       .subscribe(categories => this.categories = categories)
-  }
-
-  delete(script: Script): void {
-
-    console.log("DELETE", script.id)
-    this.scriptService.deleteVersion(script.id)
-      .subscribe(data => this.getScript());
-
-    console.log("DELETE2", script.id)
   }
 
   goBack(): void {
@@ -75,17 +66,12 @@ export class EditScriptComponent implements OnInit {
     if (newScript.body == "") {
       newScript.body = this.script.body;
     }
-    newScript.author = update.value.author;
-    if (newScript.author == "") {
-      newScript.author = this.script.author;
-    }
     newScript.tags = [update.value.tag]
     newScript.categoryId = Number(update.value.categoryId);
     if (newScript.categoryId == 0) {
       newScript.categoryId = this.script.categoryId;
     }
-    console.log(newScript);
     this.scriptService.upDateScript(newScript)
-      .subscribe(script => this.scripts.push(script))
+      .subscribe(script => { this.scripts.push(script); this.goBack() })
   }
 }

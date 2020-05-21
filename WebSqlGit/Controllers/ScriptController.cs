@@ -31,7 +31,8 @@ namespace WebSqlGit.Controllers
         [HttpGet("{id}")]
         public IActionResult GetScript(int id)
         {
-            Script script = _scriptInterface.GetScript(id);
+            var Author = User.Identity.Name;
+            Script script = _scriptInterface.GetScript(id, Author);
             return Ok(script);
         }
 

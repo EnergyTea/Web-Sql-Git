@@ -11,7 +11,7 @@ using WebSqlGit.Data.Model;
 
 namespace WebSqlGit.Controllers
 {
-    [Route("api/account")]
+    [Route("api/accounts")]
     [ApiController]
     public class AccountController : Controller
     {

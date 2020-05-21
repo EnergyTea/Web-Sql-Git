@@ -20,5 +20,6 @@ namespace WebSqlGit.Model
         public DateTime CreationDataTime { get; set; } 
         public DateTime UpdateDataTime { get; set; } 
         public bool IsLastVersion { get; set; }
+        public bool IsAuthor { get; set; }
     }
 }

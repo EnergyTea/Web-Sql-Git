@@ -11,7 +11,7 @@ namespace WebSqlGit.Data.Interface
         List<Script> GetScriptsForCategory(int CategoryId);
         List<Script> GetScriptsOne(int id);
         List<Script> GetAll();
-        Script GetScript(int id);
+        Script GetScript(int id, string Author);
         void CreateScript(Script script);
         void DeleteScript(int id, string Author);
         void DeleteVersionScript(int id, string Author);

@@ -5,6 +5,7 @@ export interface Script {
   name: string;
   body: string;
   author: string;
+  isAuthor: boolean;
   tags: string[];
   categoryId: number;
   version: number;

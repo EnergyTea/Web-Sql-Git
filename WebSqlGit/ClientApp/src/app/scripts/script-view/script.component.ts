@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-
 import { Script } from '../shared/Script';
 import { ScriptService } from '../shared/script.service';
 import { using } from 'rxjs';
@@ -20,6 +19,7 @@ export class ScriptComponent implements OnInit {
   scripts: Script[];
   edit: boolean;
   isAurorize = true;
+  isActive = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,11 +48,6 @@ export class ScriptComponent implements OnInit {
     this.location.back();
   }
 
-  save(): void {
-    this.scriptScrvice.upDateScript(this.script)
-      .subscribe(() => this.goBack());
-  }
-
   getAll(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
     this.scriptScrvice.getVersionScript(ScriptId)
@@ -61,11 +56,21 @@ export class ScriptComponent implements OnInit {
 
   getScriptHistory(id: number): void {
     this.scriptScrvice.getVerScrOne(id)
-      .subscribe(script => this.script = script)
+      .subscribe(script => this.script = script);
+    this.userService.getUser().subscribe(user => {
+      if (user.name !== null) {
+        this.isAurorize = true
+      }
+    })
   }
 
   goTo(script: Script) {
     this.location.go('/scripts/' + script.id)
     this.getScriptHistory(script.id);
+  }
+
+  delete(script: Script): void {
+    this.scriptScrvice.deleteVersion(script.id)
+      .subscribe(data => { this.getScript(); this.goBack() });
   }
 }

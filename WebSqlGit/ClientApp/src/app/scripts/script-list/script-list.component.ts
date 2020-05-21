@@ -11,8 +11,6 @@ import { ScriptService } from '../shared/script.service';
 /** scripts component*/
 export class ScriptsComponent implements OnInit {
   scripts: Script[];
-  selectScripts: Script;
-
 
   constructor(private scriptService: ScriptService) { }
 
@@ -23,17 +21,5 @@ export class ScriptsComponent implements OnInit {
   getScripts(): void {
     this.scriptService.getScripts()
       .subscribe(scripts => this.scripts = scripts.reverse())
-  }
-
-  delete(script: Script): void {
-    this.scripts = this.scripts.filter(s => s !== script);
-    this.scriptService.deleteScript(script.id)
-      .subscribe(data => this.getScripts());
-
-    console.log("DELETE", script.id)
-  }
-
-  onSelect(script: Script): void {
-    this.selectScripts = script;
   }
 }

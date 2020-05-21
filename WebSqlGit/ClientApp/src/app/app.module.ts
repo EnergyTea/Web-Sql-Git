@@ -15,6 +15,14 @@ import { CreateScriptComponent } from './scripts/script-create/script-create.com
 import { LoginComponent } from './authentication/login/login.component';
 import { RegistrationComponent } from './authentication/registration/registration.component';
 
+export function getHighlightLanguages() {
+  return {
+    typescript: () => import('highlight.js/lib/languages/typescript'),
+    css: () => import('highlight.js/lib/languages/css'),
+    xml: () => import('highlight.js/lib/languages/xml')
+  };
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,13 +34,13 @@ import { RegistrationComponent } from './authentication/registration/registratio
     CreateScriptComponent,
     EditScriptComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    ScriptModule
+    ScriptModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

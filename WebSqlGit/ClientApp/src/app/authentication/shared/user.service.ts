@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-  private authorizeUrl = 'api/account';
+  private authorizeUrl = 'api/accounts';
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };

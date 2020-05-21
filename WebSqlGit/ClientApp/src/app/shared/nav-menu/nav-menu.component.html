@@ -24,9 +24,6 @@
           <a class="nav-link" [routerLink]="['/scripts/create']">Create Script<span class="sr-only">(current)</span></a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-md-0">
-        <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-      </form>
       <button class="in-out" (click)="Out()" *ngIf="isAurorize">Logout</button>
       <button class="in-out" (click)="Log()" *ngIf="!isAurorize">Login</button>
     </div>
