@@ -56,7 +56,6 @@ export class ScriptComponent implements OnInit {
   }
 
   getScriptHistory(id: number): void {
-    console.log("HELL")
     this.scriptScrvice.getVerScrOne(id)
       .subscribe(script => {
       this.script = script; setTimeout(function () {
@@ -67,7 +66,6 @@ export class ScriptComponent implements OnInit {
     this.userService.getUser().subscribe(user => {
       if (user.name == null) {
         this.isAurorize = false;
-        console.log("oy")
       }
     })
   }

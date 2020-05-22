@@ -17,7 +17,8 @@ export class EditScriptComponent implements OnInit {
 /** edit ctor */
   scripts: Script[];
   categories: Category[];
-  script: Script;
+  script = <Script>{};
+  tags: string[] = [];
   edit: boolean;
 
   constructor(
@@ -29,31 +30,35 @@ export class EditScriptComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getCategory();
     this.getScript();
+    this.getCategory();
   }
 
   createTags(tagNew: string) {
     tagNew = tagNew.trim();
     if (tagNew !== "") {
-      this.script.tags.push(tagNew);
+      this.tags.push(tagNew);
     }
   }
 
   deleteTag(i: number) {
-    this.script.tags.splice(i, 1);
+    this.tags.splice(i, 1);
   }
 
   getScript(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
     this.scriptScrvice.getScript(ScriptId)
-      .subscribe(script => { this.script = script; console.log(script) });
+      .subscribe(script => { this.script = script; this.tags = script.tags });
     
   }
 
   getCategory(): void {
     this.categoryService.getCategories()
-      .subscribe(categories => this.categories = categories)
+      .subscribe(categories => {
+      this.categories = categories;
+       categories.forEach(item => item.selected = item.id === this.script.categoryId ? 'selected' : null);
+       console.log(categories);
+      })
   }
 
   goBack(): void {
@@ -67,15 +72,16 @@ export class EditScriptComponent implements OnInit {
     if (newScript.name == "") {
       newScript.name = this.script.name;
     }
-    newScript.body = update.value.body;
+    //newScript.body = update.value.body;
     if (newScript.body == "") {
       newScript.body = this.script.body;
     }
-    newScript.tags = this.script.tags;
-    newScript.categoryId = Number(update.value.categoryId);
-    if (newScript.categoryId == 0) {
-      newScript.categoryId = this.script.categoryId;
-    }
+    newScript.tags = this.tags;
+    console.log(newScript.body)
+    //newScript.categoryId = Number(update.value.categoryId);
+    //if (newScript.categoryId == 0) {
+    //  newScript.categoryId = this.script.categoryId;
+    //}
     console.log(newScript);
     this.scriptService.upDateScript(newScript)
       .subscribe(script => { this.scripts.push(script); })

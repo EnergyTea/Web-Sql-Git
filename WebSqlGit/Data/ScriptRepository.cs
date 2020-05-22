@@ -96,8 +96,11 @@ namespace WebSqlGit.Data
 
         public void DeleteVersionScript(int id, string Author)
         {
-            using (IDbConnection db = new SqlConnection(connectionString)) { 
-                if (CheckAuthoriz(id, Author))
+            using (IDbConnection db = new SqlConnection(connectionString)) {
+                int UserId = db.Query<int>("SELECT Id FROM Users WHERE Login = @Author", new { Author }).First();
+                int AuthorId = db.Query<int>("SELECT AuthorId FROM ScriptsHistory WHERE Id = @id", new { id }).First();
+
+                if (UserId == AuthorId)
                 {
                     var sqlQuery =
                     "UPDATE ScriptsHistory SET Deleted = 1 WHERE (Id = @id);";db.Execute(sqlQuery, new { id }); 
@@ -115,17 +118,18 @@ namespace WebSqlGit.Data
                         "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 'true'";
                     Script scriptUpdate = db.Query<Script>(sqlScript, new { id } ).First();
                     scriptUpdate.Version += 1;
+                   // scriptUpdate.AuthorId = db.Query<int>("SELECT Id FROM Users WHERE Login = @Author", script).LastOrDefault();
                     scriptUpdate.UpdateDataTime = DateTime.Now;
                     scriptUpdate.Name = script.Name;
                     scriptUpdate.Id = 0;
-                    scriptUpdate.Body = script.Body; // проверить автора
+                    scriptUpdate.Body = script.Body;
                     var sqlLastVersion = 
                         "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id";
                     db.Execute(sqlLastVersion, new { id });
                     scriptUpdate.IsLastVersion = true;
-                    var sqlQuery = 
-                        "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, UpdateDataTime, IsLastVersion) " +
-                        "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @UpdateDataTime, @IsLastVersion);" +
+                    var sqlQuery =
+                        "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, AuthorId, UpdateDataTime, IsLastVersion) " +
+                        "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @AuthorId, @UpdateDataTime, @IsLastVersion);" +
                         "SELECT CAST(SCOPE_IDENTITY() as int) ";
                     int HistoryId = db.Query<int>(sqlQuery, scriptUpdate).First();
                     var parameters = script.Tags.Select(u =>
@@ -151,7 +155,7 @@ namespace WebSqlGit.Data
             }
         }
 
-        public List<Script> GetScriptsOne(int id)
+        public List<Script> GetScriptsHistory(int id)
         {
             using (IDbConnection db = new SqlConnection(connectionString)) { 
                 return db.Query<Script>(
@@ -161,7 +165,7 @@ namespace WebSqlGit.Data
             }
         }
 
-        public Script GetScriptsHistory(int id, string Author)
+        public Script GetScriptHistory(int id, string Author)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebSqlGit.Data.Interface;
-using WebSqlGit.Data.Model;
 using WebSqlGit.Model;
 
 namespace WebSqlGit.Controllers
@@ -48,14 +44,14 @@ namespace WebSqlGit.Controllers
         public IActionResult GetScriptHistory(int id)
         {
             var Author = User.Identity.Name;
-            Script script = _scriptInterface.GetScriptsHistory(id, Author);
+            Script script = _scriptInterface.GetScriptHistory(id, Author);
             return Ok(script);
         }
 
         [HttpGet("{id}/all")]
         public List<Script> GetScriptsOne(int id)
         {
-            var scripts = _scriptInterface.GetScriptsOne(id);
+            var scripts = _scriptInterface.GetScriptsHistory(id);
             return scripts.ToList();
         }
 

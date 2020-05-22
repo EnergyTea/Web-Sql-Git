@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
     user.password = registModul.value.password;
     console.log(this.users.map(item => item.login));
     if (!this.users.map(item => item.login).includes(user.login) && user.name !== "" && user.password !== "" && user.login !== "") {
-      this.userService.createUser(user).subscribe(() => window.location.href = "/scripts")
+      this.userService.createUser(user).subscribe(() => window.location.href = "/login")
     }
   }
 
