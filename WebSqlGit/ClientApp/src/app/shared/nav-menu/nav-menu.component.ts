@@ -8,7 +8,7 @@ import { User } from '../../authentication/shared/User';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent implements OnInit {
-  user: User;
+  user = <User>{ };
   isExpanded = false;
   isAurorize = true;
 
@@ -36,10 +36,10 @@ export class NavMenuComponent implements OnInit {
   getUser() {
     this.userService.getUser()
       .subscribe(user => {
-        this.user = user;
         if (user.name == null) {
-          this.isAurorize = false
-        }
+          this.isAurorize = false;
+        } else {
+          this.user = user;}
       });
   }
 }

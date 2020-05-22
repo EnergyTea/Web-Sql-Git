@@ -28,6 +28,14 @@ namespace WebSqlGit.Controllers
             return scripts.ToList();
         }
 
+        [HttpGet("user")]
+        public List<Script> UserScripts()
+        {
+            var Author = User.Identity.Name;
+            var scripts = _scriptInterface.GetUserScripts(Author);
+            return scripts.ToList();
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetScript(int id)
         {
@@ -39,7 +47,8 @@ namespace WebSqlGit.Controllers
         [HttpGet("{id}/history")]
         public IActionResult GetScriptHistory(int id)
         {
-            Script script = _scriptInterface.GetScriptsHistory(id);
+            var Author = User.Identity.Name;
+            Script script = _scriptInterface.GetScriptsHistory(id, Author);
             return Ok(script);
         }
 

@@ -15,6 +15,7 @@ import { CreateScriptComponent } from './scripts/script-create/script-create.com
 import { LoginComponent } from './authentication/login/login.component';
 import { RegistrationComponent } from './authentication/registration/registration.component';
 import { DirectionComponent } from './shared/direction/direction.component';
+import { ScriptUserComponent } from './scripts/script-user/script-user.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { DirectionComponent } from './shared/direction/direction.component';
     NavMenuComponent,
     NavCategoryComponent,
     DirectionComponent,
+    ScriptUserComponent,
     CategoryComponent,
     ScriptComponent,
     ScriptsComponent,

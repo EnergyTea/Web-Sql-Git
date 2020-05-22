@@ -10,10 +10,11 @@ import { NgForm } from '@angular/forms';
 })
 /** registration component*/
 export class RegistrationComponent implements OnInit {
-    /** registration ctor */
+/** registration ctor */
+  users: User[] = [];
   constructor(private userService: UserService) { }
     ngOnInit(): void {
-        throw new Error("Method not implemented.");
+        this.getAll();
     }
 
   Registration(user: User, registModul: NgForm): void {
@@ -21,7 +22,14 @@ export class RegistrationComponent implements OnInit {
     user.name = registModul.value.name;
     user.login = registModul.value.email;
     user.password = registModul.value.password;
-    this.userService.createUser(user).subscribe()
-    console.log(user)
+    console.log(this.users.map(item => item.login));
+    if (!this.users.map(item => item.login).includes(user.login) && user.name !== "" && user.password !== "" && user.login !== "") {
+      this.userService.createUser(user).subscribe(() => window.location.href = "/scripts")
+    }
+  }
+
+  getAll(): void {
+    this.userService.getUsers()
+      .subscribe(users => this.users = users);
   }
 }

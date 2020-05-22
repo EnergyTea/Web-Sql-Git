@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebSqlGit.Data.Interface;
@@ -25,17 +26,25 @@ namespace WebSqlGit.Controllers
         public IActionResult GetUser()
         {
             string UserLogin = User.Identity.Name;
-            User user = new User
+            User user = new User { };
+            if (UserLogin == null)
             {
-                Name = _userInterface.GetUser(UserLogin)
-            };
+                return Ok(user);
+            }
+            user.Name = _userInterface.GetUser(UserLogin);
             return Ok(user);
         }
 
-        [HttpPost("regiser")]
+        [HttpGet("all")]
+        public List<User> GetAll()
+        {
+            var users = _userInterface.GetUsers();
+            return users.ToList();
+        }
+
+        [HttpPost("registration")]
         public IActionResult CreateUser(User user)
         {
-
             _userInterface.RegistrationUser(user);
             return Ok();
         }

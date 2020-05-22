@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../../categories/shared/Category';
 import { CategoryService } from '../../categories/shared/category.service';
+import { UserService } from '../../authentication/shared/user.service';
 
 @Component({
     selector: 'nav-category',
@@ -12,10 +13,11 @@ export class NavCategoryComponent implements OnInit {
     /** category ctor */
   categories: Category[];
   created: boolean;
-  isAurorize = false;
+  isAurorize = true;
   public highlightedDiv: number;
+    route: any;
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(private categoryService: CategoryService, private userService: UserService) { }
 
   public toggleHighlight(newValue: number) {
     this.highlightedDiv = newValue;
@@ -23,11 +25,21 @@ export class NavCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.getCategory();
+    this.getUser();
   }
 
   getCategory(): void {
     this.categoryService.getCategories()
-      .subscribe(categories => this.categories = categories)
+      .subscribe(categories => this.categories = categories);
+  }
+
+  getUser() {
+    this.userService.getUser()
+      .subscribe(user => {
+        if (user.name == null) {
+          this.isAurorize = false;
+        }
+      });
   }
 
   delete(category: Category): void {

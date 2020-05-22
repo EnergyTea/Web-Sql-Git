@@ -7,7 +7,7 @@
       <label for="inputPassword" class="sr-only">Password</label>
       <input ngModel name="password" type="password"class="form-control" placeholder="Password" required="">
       <button (click)="loginIn(script, IngressModul)"  class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
-      <button (click)="reg()"  class="btn btn-lg btn-primary btn-block" type="button">Registration</button>
+      <button [routerLink]="['/registration']"  class="btn btn-lg btn-primary btn-block" type="button">Registration</button>
     </form>
   </div>
 </div>

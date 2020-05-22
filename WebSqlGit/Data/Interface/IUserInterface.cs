@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebSqlGit.Data.Model;
 
 namespace WebSqlGit.Data.Interface
 {
     public interface IUserInterface
     {
+        List<User> GetUsers();
        User Authorize(User user);
        User RegistrationUser(User user);
        string GetUser(string userName);

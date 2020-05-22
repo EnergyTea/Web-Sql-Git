@@ -6,10 +6,6 @@
     </div>
     <div class="border rounded plot-code">
       <pre><code class="sql">{{script.body}}</code></pre>
-      <pre><code class="sql">
-  "INSERT INTO  Scripts (CategoryId, CreationDataTime) VALUES(@CategoryId,  @CreationDataTime );
-  SELECT CAST(SCOPE_IDENTITY() as int)";
-</code></pre>
     </div>
     <span class="script-auth">author: {{script.author}}</span>
     <div class="d-flex flex-row-reverse" *ngIf="script.isAuthor">

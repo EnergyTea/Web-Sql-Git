@@ -15,12 +15,10 @@ import { UserService } from '../../authentication/shared/user.service';
 /** script component*/
 export class ScriptComponent implements OnInit {
 /** script ctor */
-  script: Script;
+  script = <Script>{};
   scripts: Script[];
   edit: boolean;
   isAurorize = true;
-  isActive = false;
-
   public highlightedDiv: number;
 
   constructor(
@@ -57,6 +55,23 @@ export class ScriptComponent implements OnInit {
     })
   }
 
+  getScriptHistory(id: number): void {
+    console.log("HELL")
+    this.scriptScrvice.getVerScrOne(id)
+      .subscribe(script => {
+      this.script = script; setTimeout(function () {
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightBlock(block);
+        }, 2000);
+      }); });
+    this.userService.getUser().subscribe(user => {
+      if (user.name == null) {
+        this.isAurorize = false;
+        console.log("oy")
+      }
+    })
+  }
+
   goBack(): void {
     this.location.back();
   }
@@ -65,16 +80,6 @@ export class ScriptComponent implements OnInit {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
     this.scriptScrvice.getVersionScript(ScriptId)
       .subscribe(scripts => this.scripts = scripts.reverse());
-  }
-
-  getScriptHistory(id: number): void {
-    this.scriptScrvice.getVerScrOne(id)
-      .subscribe(script => this.script = script);
-    this.userService.getUser().subscribe(user => {
-      if (user.name !== null) {
-        this.isAurorize = true
-      }
-    })
   }
 
   goTo(script: Script) {

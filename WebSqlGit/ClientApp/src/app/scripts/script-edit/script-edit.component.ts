@@ -40,10 +40,15 @@ export class EditScriptComponent implements OnInit {
     }
   }
 
+  deleteTag(i: number) {
+    this.script.tags.splice(i, 1);
+  }
+
   getScript(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
     this.scriptScrvice.getScript(ScriptId)
-      .subscribe(script => this.script = script) 
+      .subscribe(script => { this.script = script; console.log(script) });
+    
   }
 
   getCategory(): void {
@@ -66,12 +71,14 @@ export class EditScriptComponent implements OnInit {
     if (newScript.body == "") {
       newScript.body = this.script.body;
     }
-    newScript.tags = [update.value.tag]
+    newScript.tags = this.script.tags;
     newScript.categoryId = Number(update.value.categoryId);
     if (newScript.categoryId == 0) {
       newScript.categoryId = this.script.categoryId;
     }
+    console.log(newScript);
     this.scriptService.upDateScript(newScript)
-      .subscribe(script => { this.scripts.push(script); this.goBack() })
+      .subscribe(script => { this.scripts.push(script); })
+    this.goBack();
   }
 }

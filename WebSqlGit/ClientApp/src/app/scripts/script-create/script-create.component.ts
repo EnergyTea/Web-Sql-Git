@@ -29,9 +29,8 @@ export class CreateScriptComponent implements OnInit {
       this.tags.push(tagNew);
     }
   }
-  deleteTag(tag) {
-    console.log("id: ", tag);
-    delete this.tags[tag];
+  deleteTag(i: number) {
+    this.tags.splice(i, 1);
   }
 
   ngOnInit() {

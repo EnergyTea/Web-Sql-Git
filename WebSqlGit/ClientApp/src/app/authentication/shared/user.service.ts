@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-  private authorizeUrl = 'https://localhost:44325/api/accounts';
+  private authorizeUrl = 'api/accounts';
   httpOptions = {
     headers: new HttpHeaders()
       .set("Content-Type", "application/json")
@@ -22,7 +22,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   createUser(user: User): Observable<User> {
-    const url = `${this.authorizeUrl}/regiser`;
+    const url = `${this.authorizeUrl}/registration`;
     return this.http.post<User>(url, user, this.httpOptions);
   }
 
@@ -32,6 +32,11 @@ export class UserService {
 
   getUser(): Observable<User> {
     return this.http.get<User>(this.authorizeUrl)
+  }
+
+  getUsers(): Observable<User[]> {
+    const url = `${this.authorizeUrl}/all`;
+    return this.http.get<User[]>(url)
   }
 
   outUser(): Observable<User> {

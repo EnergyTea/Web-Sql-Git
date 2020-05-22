@@ -18,6 +18,11 @@ export class ScriptService {
     return this.http.get<Script[]>(this.scriptsUrl);
   }
 
+  getUserScripts(): Observable<Script[]> {
+    const url = `${this.scriptsUrl}/user`;
+    return this.http.get<Script[]>(url);
+  }
+
   upDateScript(script: Script): Observable<Script> {
     const url = `${this.scriptsUrl}/${script.scriptId}/edit`;
     return this.http.post<Script>(url, script, this.httpOptions);

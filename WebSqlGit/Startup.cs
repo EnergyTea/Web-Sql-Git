@@ -104,18 +104,3 @@ namespace WebSqlGit
         }
     }
 }
-
-
-/*public void Create(User user)
-{
-    using (IDbConnection db = new SqlConnection(connectionString))
-    {
-        var sqlQuery = "INSERT INTO Users (Name, Age) VALUES(@Name, @Age)";
-        db.Execute(sqlQuery, user);
-
-        // если мы хотим получить id добавленного пользователя
-        //var sqlQuery = "INSERT INTO Users (Name, Age) VALUES(@Name, @Age); SELECT CAST(SCOPE_IDENTITY() as int)";
-        //int? userId = db.Query<int>(sqlQuery, user).FirstOrDefault();
-        //user.Id = userId.Value;
-    }
-}*/

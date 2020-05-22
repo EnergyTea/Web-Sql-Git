@@ -36,8 +36,7 @@ namespace WebSqlGit.Data
             }
         }
 
-        public Script GetScript(int id, string Author)
-       {
+        public Script GetScript(int id, string Author)       {
             using (IDbConnection db = new SqlConnection(connectionString)) {
                 Script script = db.Query<Script>(
                     "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 1 AND ScriptsHistory.Deleted IS NULL",
@@ -69,7 +68,7 @@ namespace WebSqlGit.Data
                     "VALUES(@ScriptId, @CategoryId, @Version, @Name, @Body, @Author, @AuthorId, @CreationDataTime, @UpdateDataTime, @IsLastVersion);" +
                     "SELECT CAST(SCOPE_IDENTITY() as int) ";
                 var ScriptsHistoryId  = db.Query<int>(sqlQuery, script).LastOrDefault();
-
+                // add tag in db.tags
                 var parameters = script.Tags.Select(u =>
                 {
                     var tempParams = new DynamicParameters();
@@ -112,8 +111,8 @@ namespace WebSqlGit.Data
                 if (CheckAuthoriz(script.ScriptId, Author))
                 {
                     int id = script.ScriptId;
-                    var sqlScript = 
-                        "SELECT * FROM ScriptsHistory WHERE ScriptId = @id";
+                    var sqlScript =
+                        "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 'true'";
                     Script scriptUpdate = db.Query<Script>(sqlScript, new { id } ).First();
                     scriptUpdate.Version += 1;
                     scriptUpdate.UpdateDataTime = DateTime.Now;
@@ -126,8 +125,17 @@ namespace WebSqlGit.Data
                     scriptUpdate.IsLastVersion = true;
                     var sqlQuery = 
                         "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, UpdateDataTime, IsLastVersion) " +
-                        "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @UpdateDataTime, @IsLastVersion)";
-                    db.Execute(sqlQuery, scriptUpdate);
+                        "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @UpdateDataTime, @IsLastVersion);" +
+                        "SELECT CAST(SCOPE_IDENTITY() as int) ";
+                    int HistoryId = db.Query<int>(sqlQuery, scriptUpdate).First();
+                    var parameters = script.Tags.Select(u =>
+                    {
+                        var tempParams = new DynamicParameters();
+                        tempParams.Add("@tag", u, DbType.String, ParameterDirection.Input);
+                        return tempParams;
+                    });
+                    var sqlTags = "INSERT INTO Tags (Name, ScriptsHistoryId) VALUES(@tag, " + HistoryId + " );";
+                    db.Execute(sqlTags, parameters);
                 }
             }
         }
@@ -153,19 +161,43 @@ namespace WebSqlGit.Data
             }
         }
 
-        public Script GetScriptsHistory(int id)
+        public Script GetScriptsHistory(int id, string Author)
         {
-            using (IDbConnection db = new SqlConnection(connectionString)) { 
-                return db.Query<Script>(
-                   "SELECT * FROM ScriptsHistory WHERE Id = @id AND ScriptsHistory.Deleted IS NULL",
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                Script script = db.Query<Script>(
+                    "SELECT * FROM ScriptsHistory WHERE Id = @id AND ScriptsHistory.Deleted IS NULL",
                 new { id }
                 ).FirstOrDefault();
+                script.IsAuthor = CheckAuthoriz(script.ScriptId, Author);
+                script.Tags = db.Query<String>("SELECT Name FROM Tags WHERE ScriptsHistoryId = @id", new { id }).ToArray();
+                return script;
+            }
+        }
+
+        public List<Script> GetUserScripts(string Author)
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                int id = db.Query<int>("SELECT Id FROM Users WHERE Login = @Author", new { Author }).First();
+                List<Script> scripts = db.Query<Script>(
+                   "SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory " +
+                   "JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE Scripts.AuthorId = @id AND ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1", new { id }
+                    ).ToList();
+                var scriptsPush = scripts.Select(s => new Script
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    CategoryId = s.CategoryId,
+                    CreationDataTime = s.CreationDataTime,
+                });
+                return scriptsPush.ToList();
             }
         }
 
         public bool CheckAuthoriz(int id, string Author)
         {
-            using (IDbConnection db = new SqlConnection(connectionString)) 
+            using (IDbConnection db = new SqlConnection(connectionString))
             {
                 if (Author == null) { return false; };
                 int UserId = db.Query<int>("SELECT Id FROM Users WHERE Login = @Author", new { Author }).First();

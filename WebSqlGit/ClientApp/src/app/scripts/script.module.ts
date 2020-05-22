@@ -8,6 +8,7 @@ import { CreateScriptComponent } from './script-create/script-create.component';
 import { RegistrationComponent } from '../authentication/registration/registration.component';
 import { LoginComponent } from '../authentication/login/login.component';
 import { DirectionComponent } from '../shared/direction/direction.component';
+import { ScriptUserComponent } from './script-user/script-user.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: 'scripts/create', component: CreateScriptComponent },
+  { path: 'scripts/home', component: ScriptUserComponent },
   { path: 'category/:CategoryId', component: CategoryComponent },
   { path: 'scripts/:ScriptId', component: ScriptComponent },
   { path: 'scripts/:ScriptId/edit', component: EditScriptComponent },
