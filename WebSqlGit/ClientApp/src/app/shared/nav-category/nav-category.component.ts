@@ -37,9 +37,9 @@ export class NavCategoryComponent implements OnInit {
     this.categoryService.getCategories()
       .subscribe(categories => {
         this.categories = categories;
-        if ((Number(this.getValueAtIndex(4) !== null) && (this.getValueAtIndex(3) == 'category')) ) {
+        if ((Number(this.getValueAtIndex(4) !== null) && (this.getValueAtIndex(3) == 'category'))) {
           this.highlightedDiv = Number(this.getValueAtIndex(4));
-        }
+        } else { this.highlightedDiv = 0 }
       });
   }
 

@@ -25,12 +25,6 @@ export class CategoryService {
     return this.http.get<Category[]>(this.categotyUrl)
   }
 
-  deleteCategory(category: Category | number): Observable<Category> {
-    const id = typeof category === 'number' ? category : category.id;
-    const url = `${this.categotyUrl}/${id}/delete`;
-    return this.http.post<Category>(url, this.httpOptions)
-  }
-
   getScripts(CategoryId: number): Observable<Script[]> {
     const url = `${this.categotyUrl}/${CategoryId}/scripts`;
     return this.http.get<Script[]>(url)

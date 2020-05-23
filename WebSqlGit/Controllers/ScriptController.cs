@@ -41,15 +41,15 @@ namespace WebSqlGit.Controllers
         }
 
         [HttpGet("{id}/history")]
-        public IActionResult GetScriptHistory(int id)
-        {
+        public IActionResult GetStoryScript(int id)
+            {
             var Author = User.Identity.Name;
             Script script = _scriptInterface.GetScriptHistory(id, Author);
             return Ok(script);
         }
 
         [HttpGet("{id}/all")]
-        public List<Script> GetScriptsOne(int id)
+        public List<Script> GetStoriesScript(int id)
         {
             var scripts = _scriptInterface.GetScriptsHistory(id);
             return scripts.ToList();
@@ -73,18 +73,9 @@ namespace WebSqlGit.Controllers
             return Ok();
         }
 
-        [HttpPost("version/{id}/delete")]
-        [Authorize]
-        public IActionResult DeleteVersionScript(int id)
-        {
-            var Author = User.Identity.Name;
-            _scriptInterface.DeleteVersionScript(id, Author);
-            return Ok();
-        }
-
         [HttpPost("{id}/edit")]
         [Authorize]
-        public IActionResult UpdateScreipt(Script script)
+        public IActionResult UpdateScript(Script script)
         {
             var Author = User.Identity.Name;
             _scriptInterface.UpdateScript(script, Author);

@@ -4,8 +4,8 @@
       <label>Name</label>
       <input [(ngModel)]="script.name" name="name" class="form-control form-control-lg" type="text" value="{{script.name}}">
       <label>Category</label>
-      <select>
-        <option *ngFor="let category of categories" selected="{{category.selected}}" [ngValue]="category.id">{{category.name}}</option>
+      <select [(ngModel)]="selectedCategory" name="category">
+        <option *ngFor="let category of categories"[ngValue]="category.id">{{category.name}}</option>
       </select>
       <div class="row">
         <input #tagNew class="form-control form-control-lg col-sm-6 add-tag" type="text" placeholder="tags script">
@@ -22,6 +22,7 @@
       <label>Code</label>
       <textarea [(ngModel)]="script.body" name="body" class="form-control">{{script.body}}</textarea>
     </div>
+    <span *ngIf="isError" class="erorr">Erorr! There are no completedfields.</span>
     <div class="d-flex flex-row-reverse">
       <button (click)="upDate(script)" type="button" class="btn btn-dark">Save Code</button>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -6,6 +6,7 @@ import { Script } from '../shared/Script';
 import { ScriptService } from '../shared/script.service';
 import { using, timer } from 'rxjs';
 import { UserService } from '../../authentication/shared/user.service';
+
 
 @Component({
     selector: 'app-script',
@@ -21,7 +22,9 @@ export class ScriptComponent implements OnInit {
   isAurorize = true;
   public highlightedDiv: number;
 
+
   constructor(
+    private ref: ChangeDetectorRef,
     private route: ActivatedRoute,
     private scriptScrvice: ScriptService,
     private location: Location,
@@ -43,33 +46,41 @@ export class ScriptComponent implements OnInit {
     this.scriptScrvice.getScript(ScriptId)
       .subscribe(script => {
         this.script = script;
-        setTimeout(function () {
-          document.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightBlock(block);
-        }, 2000);        
-      }); })
+        this.highlight();
+      })
     this.userService.getUser().subscribe(user => {
       if (user.name == null) {
         this.isAurorize = false
       }
     })
   }
-
-  getScriptHistory(version: Script): void {
-    console.log(version.versionId)
-    this.scriptScrvice.getVerScrOne(version.versionId)
+  getScriptHistory(id: number): void {
+    this.script.body = null;
+    this.ref.detectChanges();
+    this.scriptScrvice.getStoryScript(id)
       .subscribe(script => {
         this.script = script;
-        setTimeout(function () {
-        document.querySelectorAll('pre code').forEach((block) => {
-          hljs.highlightBlock(block);
-        }, 2000);
-      }); });
+        this.highlight();
+      });
     this.userService.getUser().subscribe(user => {
       if (user.name == null) {
         this.isAurorize = false;
       }
     })
+  }
+    delay(ms: number) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+  highlight(): void {
+    setTimeout(function () {
+      
+      document.querySelectorAll('pre code').forEach((block) => {
+         // hljs.highlightBlock(block);
+        window["hljs"].initHighlighting.called = false;
+        window["hljs"].initHighlighting();
+      }, 2000);
+    });
   }
 
   goBack(): void {
@@ -78,7 +89,7 @@ export class ScriptComponent implements OnInit {
 
   getAll(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
-    this.scriptScrvice.getVersionScript(ScriptId)
+    this.scriptScrvice.getStoriesScript(ScriptId)
       .subscribe(scripts => this.scripts = scripts.reverse());
   }
 

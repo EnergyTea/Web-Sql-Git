@@ -7,7 +7,6 @@ namespace WebSqlGit.Data.Interface
     {
         IEnumerable<Category> GetAll();
         Category GetCategory(int id);
-        void DeleteCategory(int id);
         void CreateCategory(Category category);
     }
 }

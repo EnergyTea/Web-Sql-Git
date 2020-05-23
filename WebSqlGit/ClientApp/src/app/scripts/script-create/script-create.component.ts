@@ -15,7 +15,8 @@ export class CreateScriptComponent implements OnInit {
   /** create ctor */
   scripts: Script[];
   categories: Category[];
-  open: boolean = false;
+  open = false;
+  isError = false;
   tags: string[] = [];
 
   constructor(
@@ -48,8 +49,10 @@ export class CreateScriptComponent implements OnInit {
     newScript.body = create.value.body;
     newScript.tags = this.tags;
     newScript.categoryId = Number(create.value.categoryId);
-    this.scriptService.addScript(newScript)
-      .subscribe(script => this.scripts.push(script));
-    window.location.href = "/scripts";
+    if (newScript.name !== "" && newScript.body !== "" && newScript.categoryId !== null) {
+      this.scriptService.addScript(newScript)
+        .subscribe(script => this.scripts.push(script));
+      window.location.href = "/scripts"
+    } else { this.isError = true}
   }
 }

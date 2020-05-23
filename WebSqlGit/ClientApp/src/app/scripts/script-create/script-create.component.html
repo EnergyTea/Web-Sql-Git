@@ -25,6 +25,8 @@
       <label>Code</label>
       <textarea ngModel name="body" class="form-control" id=""></textarea>
     </div>
+
+    <span *ngIf="isError" class="erorr">Erorr! There are no completedfields.</span>
     <div class="d-flex flex-row-reverse">
       <button (click)="add(script, create)" type="button" class="btn btn-dark">Create</button>
     </div>

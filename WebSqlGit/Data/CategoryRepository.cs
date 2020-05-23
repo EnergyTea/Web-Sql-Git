@@ -24,14 +24,6 @@ namespace WebSqlGit.Data
             }
         }
 
-        public void DeleteCategory(int id)
-        {
-            using (IDbConnection db = new SqlConnection(connectionString)) {
-                var sqlQuery = "UPDATE Categories SET Deleted = 1 WHERE (Id = @id)";
-                db.Execute(sqlQuery, new { id });
-            }
-        }
-
         public IEnumerable<Category> GetAll()
         {
             using (IDbConnection db = new SqlConnection(connectionString)) { 

@@ -37,13 +37,7 @@ namespace WebSqlGit.Controllers
             }
             return Ok(category);
         }
-        [HttpPost("{id}/delete")]
-        [Authorize]
-        public IActionResult DeleteCategory(int id)
-        {
-            _categoryInterface.DeleteCategory(id);
-            return NotFound();
-        }
+
         [HttpPost]
         [Authorize]
         public IActionResult CreateCategory(Category category)
@@ -51,6 +45,7 @@ namespace WebSqlGit.Controllers
             _categoryInterface.CreateCategory(category);
             return Ok();
         }
+
         [HttpGet("{id}/scripts")]
         public List<Script> ScriptsList(int id)
         {

@@ -5,7 +5,7 @@ namespace WebSqlGit.Data.Interface
 {
     public interface IUserInterface
     {
-        List<User> GetUsers();
+       List<User> GetUsers();
        User Authorize(User user);
        User RegistrationUser(User user);
        string GetUser(string userName);

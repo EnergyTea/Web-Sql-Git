@@ -3,9 +3,9 @@ import { Script } from '../shared/Script';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ScriptService } from '../shared/script.service';
-import { NgForm } from '@angular/forms';
 import { CategoryService } from '../../categories/shared/category.service';
 import { Category } from '../../categories/shared/Category';
+import { NgModel } from '@angular/forms';
 
 @Component({
     selector: 'app-edit',
@@ -19,7 +19,8 @@ export class EditScriptComponent implements OnInit {
   categories: Category[];
   script = <Script>{};
   tags: string[] = [];
-  edit: boolean;
+  isError = false;
+  selectedCategory: number;
 
   constructor(
     private scriptService: ScriptService,
@@ -27,10 +28,10 @@ export class EditScriptComponent implements OnInit {
     private route: ActivatedRoute,
     private scriptScrvice: ScriptService,
     private location: Location,
-  ) { }
+  ) {
+    this.getScript();}
 
   ngOnInit(): void {
-    this.getScript();
     this.getCategory();
   }
 
@@ -50,14 +51,20 @@ export class EditScriptComponent implements OnInit {
     this.scriptScrvice.getScript(ScriptId)
       .subscribe(script => {
       this.script = script;
-      this.tags = script.tags;});
+        this.tags = script.tags;
+      });
   }
 
   async getCategory() {
     this.categoryService.getCategories()
       .subscribe(categories => {
-      this.categories = categories;
-        categories.forEach(item => item.selected = item.id === this.script.categoryId ? 'selected' : null);
+        this.categories = categories;
+        console.log(this.script.categoryId)
+        categories.forEach(item => {
+          if (item.id == this.script.categoryId) {
+            this.selectedCategory = item.id;
+          }
+        });
       })
   }
 
@@ -71,10 +78,13 @@ export class EditScriptComponent implements OnInit {
     newScript.name = this.script.name;
     newScript.body = this.script.body;
     newScript.tags = this.tags;
-    newScript.categoryId = this.script.categoryId;
-    console.log(newScript)
-   /* this.scriptService.upDateScript(newScript)
-      .subscribe(script => this.scripts.push(script))
-    this.goBack();*/
+    this.selectedCategory == undefined ? newScript.categoryId = this.script.categoryId : newScript.categoryId = this.selectedCategory;   
+    if (newScript.name !== "" && newScript.body !== "") {
+      this.scriptService.upDateScript(newScript)
+        .subscribe(script => this.scripts.push(script))
+      this.goBack();
+    } else {
+      this.isError = true
+    }
   }
 }

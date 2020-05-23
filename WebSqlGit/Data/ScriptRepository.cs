@@ -17,7 +17,6 @@ namespace WebSqlGit.Data
             connectionString = conn;
         }
 
-        // Выводим все скрипты в Script List
         public List<Script> GetAll()
         {
             using (IDbConnection db = new SqlConnection(connectionString)) { 
@@ -36,7 +35,7 @@ namespace WebSqlGit.Data
             }
         }
 
-        public Script GetScript(int id, string Author)       {
+        public Script GetScript(int id, string Author) {
             using (IDbConnection db = new SqlConnection(connectionString)) {
                 Script script = db.Query<Script>(
                     "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 1 AND ScriptsHistory.Deleted IS NULL",
@@ -77,8 +76,7 @@ namespace WebSqlGit.Data
                 });            
                 var sqlTags = "INSERT INTO Tags (Name, ScriptsHistoryId) VALUES(@tag, "+ScriptsHistoryId+" );";
                 db.Execute(sqlTags, parameters);
-            }
-            
+            }            
         }
 
         public void DeleteScript(int id, string Author)
@@ -94,20 +92,6 @@ namespace WebSqlGit.Data
             }                        
         }
 
-        public void DeleteVersionScript(int id, string Author)
-        {
-            using (IDbConnection db = new SqlConnection(connectionString)) {
-                int UserId = db.Query<int>("SELECT Id FROM Users WHERE Login = @Author", new { Author }).First();
-                int AuthorId = db.Query<int>("SELECT AuthorId FROM ScriptsHistory WHERE Id = @id", new { id }).First();
-
-                if (UserId == AuthorId)
-                {
-                    var sqlQuery =
-                    "UPDATE ScriptsHistory SET Deleted = 1 WHERE (Id = @id);";db.Execute(sqlQuery, new { id }); 
-                }
-            }
-        }
-
         public void UpdateScript(Script script, string Author) 
         {
             using (IDbConnection db = new SqlConnection(connectionString)) {             
@@ -118,7 +102,6 @@ namespace WebSqlGit.Data
                         "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 'true'";
                     Script scriptUpdate = db.Query<Script>(sqlScript, new { id } ).First();
                     scriptUpdate.Version += 1;
-                   // scriptUpdate.AuthorId = db.Query<int>("SELECT Id FROM Users WHERE Login = @Author", script).LastOrDefault();
                     scriptUpdate.UpdateDataTime = DateTime.Now;
                     scriptUpdate.Name = script.Name;
                     scriptUpdate.Id = 0;
