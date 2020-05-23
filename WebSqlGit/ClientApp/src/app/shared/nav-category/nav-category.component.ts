@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Category } from '../../categories/shared/Category';
 import { CategoryService } from '../../categories/shared/category.service';
 import { UserService } from '../../authentication/shared/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { CategoryComponent } from '../../categories/category/category.component';
 
 @Component({
     selector: 'nav-category',
@@ -11,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 /** category component*/
 export class NavCategoryComponent implements OnInit {
-    /** category ctor */
+/** category ctor */
   categories: Category[];
   created: boolean;
   isAurorize = true;
@@ -23,7 +24,6 @@ export class NavCategoryComponent implements OnInit {
     private route: ActivatedRoute,) { }
 
   public toggleHighlight(newValue: number) {
-    this.highlightedDiv = newValue;
   }
 
   ngOnInit() {
@@ -31,12 +31,21 @@ export class NavCategoryComponent implements OnInit {
     this.getUser();
   }
 
-  getCategory(): void {
-    const CategoryId = + this.route.snapshot.paramMap.get('CategoryId');
-    console.log("123", CategoryId)
-    this.categoryService.getCategories()
-      .subscribe(categories => this.categories = categories);
+  getValueAtIndex(index) {
+    var str = window.location.href;
+    return str.split("/")[index];
   }
+
+  getCategory(): void { 
+    this.categoryService.getCategories()
+      .subscribe(categories => {
+        this.categories = categories;
+        if ((Number(this.getValueAtIndex(4) !== null) && (this.getValueAtIndex(3) == 'category')) ) {
+          this.highlightedDiv = Number(this.getValueAtIndex(4));
+        }
+      });
+  }
+
 
   getUser() {
     this.userService.getUser()

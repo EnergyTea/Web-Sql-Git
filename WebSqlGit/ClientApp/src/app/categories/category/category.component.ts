@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Category } from '../shared/Category';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from '../shared/category.service';
@@ -12,8 +12,9 @@ import { Script } from '../../scripts/shared/Script';
 /** category component*/
 export class CategoryComponent implements OnInit {
     /** category ctor */
-  category: Category;
+  category = <Category>{};
   scripts: Script[];
+  @Input() CategoryId: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,9 +27,8 @@ export class CategoryComponent implements OnInit {
   }
 
   getCategory(): void {
-    const CategoryId = + this.route.snapshot.paramMap.get('CategoryId');
-    console.log("321", CategoryId)
-    this.categoryService.getCategory(CategoryId)
+    this.CategoryId = + this.route.snapshot.paramMap.get('CategoryId');
+    this.categoryService.getCategory(this.CategoryId)
       .subscribe(category => this.category = category)
   }
 
