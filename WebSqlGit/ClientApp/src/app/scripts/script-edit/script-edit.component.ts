@@ -45,19 +45,19 @@ export class EditScriptComponent implements OnInit {
     this.tags.splice(i, 1);
   }
 
-  getScript(): void {
+  async getScript() {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
     this.scriptScrvice.getScript(ScriptId)
-      .subscribe(script => { this.script = script; this.tags = script.tags });
-    
+      .subscribe(script => {
+      this.script = script;
+      this.tags = script.tags;});
   }
 
-  getCategory(): void {
+  async getCategory() {
     this.categoryService.getCategories()
       .subscribe(categories => {
       this.categories = categories;
-       categories.forEach(item => item.selected = item.id === this.script.categoryId ? 'selected' : null);
-       console.log(categories);
+        categories.forEach(item => item.selected = item.id === this.script.categoryId ? 'selected' : null);
       })
   }
 
@@ -65,26 +65,16 @@ export class EditScriptComponent implements OnInit {
     this.location.back();
   }
 
-  upDate(newScript: Script, update: NgForm) {
+  upDate(newScript: Script) {
     newScript = <Script>{};
     newScript.scriptId = this.script.scriptId;
-    newScript.name = update.value.name;
-    if (newScript.name == "") {
-      newScript.name = this.script.name;
-    }
-    //newScript.body = update.value.body;
-    if (newScript.body == "") {
-      newScript.body = this.script.body;
-    }
+    newScript.name = this.script.name;
+    newScript.body = this.script.body;
     newScript.tags = this.tags;
-    console.log(newScript.body)
-    //newScript.categoryId = Number(update.value.categoryId);
-    //if (newScript.categoryId == 0) {
-    //  newScript.categoryId = this.script.categoryId;
-    //}
-    console.log(newScript);
-    this.scriptService.upDateScript(newScript)
-      .subscribe(script => { this.scripts.push(script); })
-    this.goBack();
+    newScript.categoryId = this.script.categoryId;
+    console.log(newScript)
+   /* this.scriptService.upDateScript(newScript)
+      .subscribe(script => this.scripts.push(script))
+    this.goBack();*/
   }
 }

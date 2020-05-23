@@ -55,10 +55,12 @@ export class ScriptComponent implements OnInit {
     })
   }
 
-  getScriptHistory(id: number): void {
-    this.scriptScrvice.getVerScrOne(id)
+  getScriptHistory(version: Script): void {
+    console.log(version.versionId)
+    this.scriptScrvice.getVerScrOne(version.versionId)
       .subscribe(script => {
-      this.script = script; setTimeout(function () {
+        this.script = script;
+        setTimeout(function () {
         document.querySelectorAll('pre code').forEach((block) => {
           hljs.highlightBlock(block);
         }, 2000);
@@ -80,12 +82,8 @@ export class ScriptComponent implements OnInit {
       .subscribe(scripts => this.scripts = scripts.reverse());
   }
 
-  goTo(script: Script) {
-    this.getScriptHistory(script.id);
-  }
-
   delete(script: Script): void {
-    this.scriptScrvice.deleteVersion(script.id)
+    this.scriptScrvice.deleteScript(script.scriptId)
       .subscribe(data => { this.getScript(); this.goBack() });
   }
 }

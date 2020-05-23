@@ -1,6 +1,6 @@
 
 export interface Script {
-  id: number;
+  versionId: number;
   scriptId: number;
   name: string;
   body: string;
