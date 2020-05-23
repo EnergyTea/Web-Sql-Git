@@ -58,7 +58,8 @@ export class ScriptComponent implements OnInit {
   getScriptHistory(id: number): void {
     this.scriptScrvice.getVerScrOne(id)
       .subscribe(script => {
-      this.script = script; setTimeout(function () {
+        this.script = script;
+        setTimeout(function () {
         document.querySelectorAll('pre code').forEach((block) => {
           hljs.highlightBlock(block);
         }, 2000);
@@ -81,11 +82,11 @@ export class ScriptComponent implements OnInit {
   }
 
   goTo(script: Script) {
-    this.getScriptHistory(script.id);
+    this.getScriptHistory(script.versionId);
   }
 
   delete(script: Script): void {
-    this.scriptScrvice.deleteVersion(script.id)
+    this.scriptScrvice.deleteScript(script.scriptId)
       .subscribe(data => { this.getScript(); this.goBack() });
   }
 }

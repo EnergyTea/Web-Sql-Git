@@ -6,10 +6,9 @@
   </form>
   <div class="left">
     <div *ngFor="let category of categories; let i = index"
-         [ngClass]="{'ezzz': highlightedDiv === category.id }"
+         [ngClass]="{'select': highlightedDiv === category.id }"
          class="category d-flex flex-row">
       <a href="category/{{category.id}}">{{category.name}}</a>
-      <button *ngIf="creatCategoey" class="btnCat btn-dark" (click)="delete(category)">x</button>
     </div>
   </div>
 </div>

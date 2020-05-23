@@ -23,9 +23,6 @@ export class NavCategoryComponent implements OnInit {
     private userService: UserService,  
     private route: ActivatedRoute,) { }
 
-  public toggleHighlight(newValue: number) {
-  }
-
   ngOnInit() {
     this.getCategory();
     this.getUser();
@@ -54,14 +51,6 @@ export class NavCategoryComponent implements OnInit {
           this.isAurorize = false;
         }
       });
-  }
-
-  delete(category: Category): void {
-    this.categories = this.categories.filter(c => c !== category);
-    this.categoryService.deleteCategory(category.id)
-      .subscribe(data => this.getCategory());
-    this.getCategory();
-    window.location.reload();
   }
 
   add(name: string): void {
