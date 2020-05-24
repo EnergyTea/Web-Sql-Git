@@ -12,20 +12,21 @@ import { NgForm } from '@angular/forms';
 export class RegistrationComponent implements OnInit {
 /** registration ctor */
   users: User[] = [];
+  user = <User>{};
+  isBusy = false;
   constructor(private userService: UserService) { }
     ngOnInit(): void {
         this.getAll();
     }
 
-  Registration(user: User, registModul: NgForm): void {
+  Registration(user: User): void {
     user = <User>{};
-    user.name = registModul.value.name;
-    user.login = registModul.value.email;
-    user.password = registModul.value.password;
-    console.log(this.users.map(item => item.login));
+    user.name = this.user.name;
+    user.login = this.user.login;
+    user.password = this.user.password;
     if (!this.users.map(item => item.login).includes(user.login) && user.name !== "" && user.password !== "" && user.login !== "") {
       this.userService.createUser(user).subscribe(() => window.location.href = "/login")
-    }
+    } else { this.isBusy = true;}
   }
 
   getAll(): void {

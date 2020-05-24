@@ -25,6 +25,8 @@ export class LoginComponent {
     user = <User>{};
     user.login = IngressModul.value.email;
     user.password = IngressModul.value.password;
-    this.userService.authorizationUser(user).subscribe(() => window.location.href = "/scripts" );
+    if (user.login !== "" && user.password !== "") {
+      this.userService.authorizationUser(user).subscribe(() => window.location.href = "/scripts");
+    }
   }
 }

@@ -59,7 +59,6 @@ export class EditScriptComponent implements OnInit {
     this.categoryService.getCategories()
       .subscribe(categories => {
         this.categories = categories;
-        console.log(this.script.categoryId)
         categories.forEach(item => {
           if (item.id == this.script.categoryId) {
             this.selectedCategory = item.id;

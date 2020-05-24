@@ -14,16 +14,21 @@ import { CategoryService } from '../../categories/shared/category.service';
 export class CreateScriptComponent implements OnInit {
   /** create ctor */
   scripts: Script[];
-  categories: Category[];
+  categories: Category[] = [] ;
   open = false;
   isError = false;
   tags: string[] = [];
+  selectedCategory: number;
 
   constructor(
     private scriptService: ScriptService,
     private categoryService: CategoryService
   ) { }
-  
+
+  ngOnInit() {
+    this.getCategory();
+  }
+
   createTags(tagNew: string) {
     tagNew = tagNew.trim();
     if (tagNew !== "") {
@@ -32,10 +37,6 @@ export class CreateScriptComponent implements OnInit {
   }
   deleteTag(i: number) {
     this.tags.splice(i, 1);
-  }
-
-  ngOnInit() {
-    this.getCategory();
   }
 
   getCategory(): void {
@@ -48,8 +49,8 @@ export class CreateScriptComponent implements OnInit {
     newScript.name = create.value.name;
     newScript.body = create.value.body;
     newScript.tags = this.tags;
-    newScript.categoryId = Number(create.value.categoryId);
-    if (newScript.name !== "" && newScript.body !== "" && newScript.categoryId !== null) {
+    newScript.categoryId = this.selectedCategory;
+    if (newScript.name !== "" && newScript.body !== "" && newScript.categoryId !== undefined) {
       this.scriptService.addScript(newScript)
         .subscribe(script => this.scripts.push(script));
       window.location.href = "/scripts"

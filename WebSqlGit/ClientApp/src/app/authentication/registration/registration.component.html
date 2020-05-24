@@ -1,14 +1,25 @@
 <div class="text-center regist">
   <div class="form">
-    <form class="form-signin" #registModul="ngForm">
+    <form class="form-signin">
       <h1 class="h2 mb-3 font-weight-normal">Registration</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input ngModel name="email" class="form-control" placeholder="Login or Email address" required="" autofocus="">
+      <input name="email" [(ngModel)]="user.login" class="form-control" placeholder="Login or Email address" required autofocus="" #login="ngModel">
+      <div [hidden]="login.valid || login.untouched" class="alert alert-danger">
+        Missing Login
+      </div>  <div *ngIf="isBusy" class="alert alert-danger">
+        Login busy
+      </div>
       <label for="inputName" class="sr-only">User Name</label>
-      <input ngModel name="name" class="form-control" placeholder="User Name" required="" autofocus="">
+      <input name="name" [(ngModel)]="user.name" class="form-control" placeholder="User Name" required autofocus="" #name="ngModel">
+      <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
+        Missing Name
+      </div>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input ngModel name="password" type="password" class="form-control" placeholder="Password" required="">
-      <button (click)="Registration(user, registModul)" class="btn btn-lg btn-primary btn-block" type="button">Registration</button>
+      <input name="password" [(ngModel)]="user.password" type="password" class="form-control" placeholder="Password" required #password="ngModel">
+      <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+        Missing Password
+      </div>
+      <button [disabled]="name.invalid || login.invalid || password.invalid" (click)="Registration(user)" class="btn btn-lg btn-primary btn-block" type="button">Registration</button>
     </form>
   </div>
 </div>

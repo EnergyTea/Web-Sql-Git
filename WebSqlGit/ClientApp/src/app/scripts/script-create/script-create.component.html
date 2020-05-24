@@ -6,8 +6,8 @@
       <input ngModel name="name" class="form-control form-control-lg" type="text" placeholder="Название скрипта">
       <label for="select">Category</label>
       <div>
-        <select ngModel name="categoryId">
-          <option ngModel name="categoryId" *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        <select [(ngModel)]="selectedCategory" name="category">
+          <option *ngFor="let category of categories" [ngValue]="category.id">{{category.name}}</option>
         </select>
       </div>
       <div class="row tag-create">

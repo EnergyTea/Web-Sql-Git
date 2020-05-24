@@ -41,9 +41,12 @@ namespace WebSqlGit.Data
                     "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 1 AND ScriptsHistory.Deleted IS NULL",
                 new { id }
                 ).FirstOrDefault();
-                int scriptId = script.Id;
-                script.IsAuthor = CheckAuthoriz(id, Author);
-                script.Tags = db.Query<String>("SELECT Name FROM Tags WHERE ScriptsHistoryId = @scriptId", new { scriptId }).ToArray();
+                if (script != null) 
+                { 
+                    int scriptId = script.Id;
+                    script.IsAuthor = CheckAuthoriz(id, Author);
+                    script.Tags = db.Query<String>("SELECT Name FROM Tags WHERE ScriptsHistoryId = @scriptId", new { scriptId }).ToArray();
+                }
                 return script;
             }
         }
