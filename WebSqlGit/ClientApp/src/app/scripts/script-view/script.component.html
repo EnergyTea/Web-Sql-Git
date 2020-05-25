@@ -11,8 +11,6 @@
     <div class="d-flex flex-row-reverse" *ngIf="script.isAuthor">
       <a href="scripts/{{script.scriptId}}/edit" class="btn btn-dark">Edit</a>
       <button class="btn btn-dark" (click)="delete(script)">Delete</button>
-
-      <button (click)="clear(); ">del</button>
     </div>
   </div>
   <div class="col-sm-2 right">

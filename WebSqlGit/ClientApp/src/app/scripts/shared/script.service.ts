@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-
-import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Script } from './Script';
 
 @Injectable({ providedIn: 'root' })
 export class ScriptService {
-  private scriptsUrl = 'https://localhost:44325/api/scripts';  // URL to web api
+  private scriptsUrl = 'api/scripts';  // URL to web api
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Category } from './Category';
 import { Script } from '../../scripts/shared/Script';
+import { Category } from './Category';
 
 @Injectable({providedIn: 'root'})
 export class CategoryService {
 
-  private categotyUrl = 'https://localhost:44325/api/categories';
+  private categotyUrl = 'api/categories';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

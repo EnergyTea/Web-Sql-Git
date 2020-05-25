@@ -1,7 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { User } from './User';
 import { Observable } from 'rxjs';
+import { User } from './User';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

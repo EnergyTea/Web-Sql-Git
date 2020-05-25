@@ -11,7 +11,7 @@ import { UserService } from '../../authentication/shared/user.service';
 @Component({
     selector: 'app-script',
     templateUrl: './script.component.html',
-     styleUrls: ['./script.component.css', './light.min.css']
+     styleUrls: ['./script.component.css']
 })
 /** script component*/
 export class ScriptComponent implements OnInit {
@@ -68,15 +68,10 @@ export class ScriptComponent implements OnInit {
       }
     })
   }
-    delay(ms: number) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
 
   highlight(): void {
-    setTimeout(function () {
-      
+    setTimeout(function () {      
       document.querySelectorAll('pre code').forEach((block) => {
-         // hljs.highlightBlock(block);
         window["hljs"].initHighlighting.called = false;
         window["hljs"].initHighlighting();
       }, 2000);
