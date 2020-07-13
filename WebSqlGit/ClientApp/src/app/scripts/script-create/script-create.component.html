@@ -1,0 +1,34 @@
+<div class="create">
+  <h3>Create new script</h3>
+  <form #create="ngForm">
+    <div class="row">
+      <label>Name</label>
+      <input ngModel name="name" class="form-control form-control-lg" type="text" placeholder="Название скрипта">
+      <label for="select">Category</label>
+      <div>
+        <select [(ngModel)]="selectedCategory" name="category">
+          <option *ngFor="let category of categories" [ngValue]="category.id">{{category.name}}</option>
+        </select>
+      </div>
+      <div class="row tag-create">
+        <input #tagNew class="form-control form-control-lg col-sm-6 add-tag" type="text" placeholder="tags script">
+        <button (click)="createTags(tagNew.value); tagNewName.value=''" class="btn btn-dark" type="button">Add</button>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let tag of tags; let i = index" class="tag">
+        {{tag}}
+        <button (click)="deleteTag(i)" class="deleteTag">x</button>
+      </div>
+    </div>
+    <div class="read">
+      <label>Code</label>
+      <textarea ngModel name="body" class="form-control" id=""></textarea>
+    </div>
+
+    <span *ngIf="isError" class="erorr">Erorr! There are no completedfields.</span>
+    <div class="d-flex flex-row-reverse">
+      <button (click)="add(script, create)" type="button" class="btn btn-dark">Create</button>
+    </div>
+  </form>
+</div>

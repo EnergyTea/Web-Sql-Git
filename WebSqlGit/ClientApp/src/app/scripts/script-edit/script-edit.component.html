@@ -1,0 +1,30 @@
+<div>
+  <form class="edit-script">
+    <div class="row">
+      <label>Name</label>
+      <input [(ngModel)]="script.name" name="name" class="form-control form-control-lg" type="text" value="{{script.name}}">
+      <label>Category</label>
+      <select [(ngModel)]="selectedCategory" name="category">
+        <option *ngFor="let category of categories"[ngValue]="category.id">{{category.name}}</option>
+      </select>
+      <div class="row">
+        <input #tagNew class="form-control form-control-lg col-sm-6 add-tag" type="text" placeholder="tags script">
+        <button (click)="createTags(tagNew.value); tagNewName.value=''" class="btn btn-dark" type="button">Add</button>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let tag of tags; let i = index" class="tag">
+        {{tag}}
+        <button (click)="deleteTag(i)" class="deleteTag">x</button>
+      </div>
+    </div>    
+    <div class="read">
+      <label>Code</label>
+      <textarea [(ngModel)]="script.body" name="body" class="form-control">{{script.body}}</textarea>
+    </div>
+    <span *ngIf="isError" class="erorr">Erorr! There are no completedfields.</span>
+    <div class="d-flex flex-row-reverse">
+      <button (click)="upDate(script)" type="button" class="btn btn-dark">Save Code</button>
+    </div>
+  </form>
+</div>

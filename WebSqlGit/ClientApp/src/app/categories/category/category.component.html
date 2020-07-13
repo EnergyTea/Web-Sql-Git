@@ -1,0 +1,10 @@
+<div class="list-category-script">
+  <h3>{{category.name}}</h3>
+
+  <!-- Выводить скрипты -->
+  <div *ngFor="let script of scripts" class="script-blick link d-flex">
+    <a href="scripts/{{script.id}}">
+      {{script.name}}
+    </a>
+  </div>
+</div>

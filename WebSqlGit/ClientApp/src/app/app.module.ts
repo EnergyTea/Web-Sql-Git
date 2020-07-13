@@ -1,32 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { ScriptModule } from './scripts/script.module';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { NavMenuComponent } from './shared/nav-menu/nav-menu.component';
+import { NavCategoryComponent } from './shared/nav-category/nav-category.component';
+import { CategoryComponent } from './categories/category/category.component';
+import { EditScriptComponent } from './scripts/script-edit/script-edit.component';
+import { ScriptComponent } from './scripts/script-view/script.component';
+import { ScriptsComponent } from './scripts/script-list/script-list.component';
+import { CreateScriptComponent } from './scripts/script-create/script-create.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { RegistrationComponent } from './authentication/registration/registration.component';
+import { DirectionComponent } from './shared/direction/direction.component';
+import { ScriptUserComponent } from './scripts/script-user/script-user.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent
+    NavCategoryComponent,
+    DirectionComponent,
+    ScriptUserComponent,
+    CategoryComponent,
+    ScriptComponent,
+    ScriptsComponent,
+    CreateScriptComponent,
+    EditScriptComponent,
+    LoginComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    ScriptModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

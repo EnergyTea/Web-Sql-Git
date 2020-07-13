@@ -1,0 +1,122 @@
+
+pre {
+  height: 70vh;
+}
+
+.hljs[_ngcontent-ng-cli-universal-c3] {
+  background-color: #f9f9f9;
+}
+
+.rounded {
+  background-color: #f9f9f9;
+}
+
+.row {
+  margin-top: 10px;
+}
+
+.left {
+  overflow: auto;
+  width: 100%;
+  height: 85vh;
+}
+
+.plot-code {
+  margin: 0 20px;
+  padding: 5px 10px;
+}
+
+pre::-webkit-scrollbar-track {
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+}
+
+pre::-webkit-scrollbar {
+  width: 15px;
+  background-color: #ffffff;
+}
+
+pre::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #cccccc;
+}
+
+.btn {
+  margin-right: 40px;
+}
+
+h3 {
+  margin: 10px 0 0 20px;
+}
+
+.row {
+  margin-top: 10px;
+}
+
+.read {
+  padding: 0 20px ;
+}
+
+textarea {
+  height: 70vh;
+  background-color: #f9f9f9;
+}
+
+.plot-code {
+  margin: 15px 
+}
+
+.name-script {
+    margin: 10px 0
+}
+
+.script-version {
+    margin-bottom: 60px;
+}
+
+.tag {
+    text-align: center;
+    border: 3px solid rgba(0,0,0,0.1);
+    border-radius: 5px;
+    height: 30px;
+    width: 70px;
+    margin: 10px;
+    
+}
+
+.right {
+  overflow: auto;
+  width: 100%;
+  height: 85vh;
+}
+  .right p {
+      margin: 0;
+  }
+  .right h6 {
+    margin: 0;
+  }
+  .right::-webkit-scrollbar-track {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+  }
+
+  .right::-webkit-scrollbar {
+    width: 10px;
+    background-color: #ffffff;
+  }
+
+  .right::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #cccccc;
+  }
+.script-auth {
+    margin: 20px
+}
+.active {
+  background-color: #cccccc;
+}
+.main-version {
+    margin: 10px;
+}
