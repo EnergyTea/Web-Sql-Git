@@ -195,5 +195,17 @@ namespace WebSqlGit.Data
                 return UserId == AuthorId;
             }
         }
+
+        public List<string> GetSearch(string search)
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                return db.Query<string>(
+                    "SELECT Name FROM Tags WHERE Name = @search",
+                //"SELECT Name FROM Scrits WHERE Name = @search"
+                new { search }
+                ).ToList();
+            }
+        }
     }
 }

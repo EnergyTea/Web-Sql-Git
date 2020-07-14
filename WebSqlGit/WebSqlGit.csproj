@@ -32,10 +32,12 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\authentication\shared\User.ts" />
+    <None Remove="ClientApp\src\app\scripts\shared\SCRIPTS.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\authentication\shared\User.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\scripts\shared\SCRIPTS.ts" />
   </ItemGroup>
 
   <ItemGroup>

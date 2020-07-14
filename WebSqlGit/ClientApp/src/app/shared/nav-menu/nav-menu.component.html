@@ -28,8 +28,8 @@
         <input #searchBox id="search-box" (input)="search(searchBox.value)" class="form-control" type="text" placeholder="Search" aria-label="Search" >
         <img  (click)="search(searchBox.value)" class="img-search" src="../../../assets/search.png"/>
       </form>
-      <ul>
-        <li *ngFor="let script of scripts | async">
+      <ul *ngIf="scripts != null" class="ans-search">
+        <li *ngFor="let script of scripts">
           <a href="scripts/{{script.id}}">
             {{script.name}}
           </a>

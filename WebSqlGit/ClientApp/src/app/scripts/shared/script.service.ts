@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Script } from './Script';
+import { SCRIPTS } from './SCRIPTS';
 
 @Injectable({ providedIn: 'root' })
 export class ScriptService {
@@ -56,6 +57,11 @@ export class ScriptService {
     if (!term.trim()) {
       return of([]);
     }
-    return this.http.get<Script[]>(`${this.scriptsUrl}/&name=${term}`);
+    /*return this.http.get<Script[]>(`${this.scriptsUrl}/&name=${term}`);*/
+    return of(SCRIPTS)
+  }
+
+  getScriptsByName(): Observable<Script[]> {
+    return;
   }
 }

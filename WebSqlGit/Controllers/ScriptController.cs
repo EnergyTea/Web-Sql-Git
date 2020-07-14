@@ -81,5 +81,12 @@ namespace WebSqlGit.Controllers
             _scriptInterface.UpdateScript(script, Author);
             return Ok();
         }
+
+        [HttpGet("name={search}")]
+        public IActionResult GetSearch(string search)
+        {
+            List<string> searchList = _scriptInterface.GetSearch(search);
+            return Ok(searchList.ToList());
+        }
     }
 }
