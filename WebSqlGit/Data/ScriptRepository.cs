@@ -205,6 +205,7 @@ namespace WebSqlGit.Data
                 //List<Script> scriptInTags = db.Query<Script>("SELECT Name FROM Tags WHERE CONTAINS(Name, @Name)", new { Name }).ToList();List<Script> scriptInSctipts = db.Query<Script>("SELECT Name, IsLastVersion FROM ScriptsHistory WHERE IsLastVersion = 'True' AND CONTAINS(Name, @Name)", new { Name }).ToList();
                 List<Script> scriptInTags = db.Query<Script>("SELECT * FROM Tags", new { Name }).ToList();
                if (scriptInSctipts != null && scriptInTags != null) {
+                    return new List<Script>(scriptInSctipts.Count + scriptInTags.Count);
                     
                 }
                     if (scriptInSctipts != null) {
