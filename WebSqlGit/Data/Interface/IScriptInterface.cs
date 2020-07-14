@@ -9,6 +9,7 @@ namespace WebSqlGit.Data.Interface
         List<Script> GetScriptsHistory(int id);
         List<Script> GetAll();
         List<Script> GetUserScripts(string Author);
+        List<Script> GetScriptsByName(string Name);
         Script GetScriptHistory(int id, string Author);
         Script GetScript(int id, string Author);
         void CreateScript(Script script);

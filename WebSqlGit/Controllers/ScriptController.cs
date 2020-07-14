@@ -81,5 +81,12 @@ namespace WebSqlGit.Controllers
             _scriptInterface.UpdateScript(script, Author);
             return Ok();
         }
+
+        [HttpGet("&name={name}")]
+        public List<Script> GetScriptsByName(string name)
+        {
+            var scripts = _scriptInterface.GetScriptsByName(name);
+            return scripts.ToList();
+        }
     }
 }

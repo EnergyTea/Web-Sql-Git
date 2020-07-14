@@ -195,5 +195,38 @@ namespace WebSqlGit.Data
                 return UserId == AuthorId;
             }
         }
+
+        public List<Script> GetScriptsByName(string Name)
+        {
+            using (IDbConnection db = new SqlConnection(connectionString))
+            {
+                //List<Script> scriptInSctipts = db.Query<Script>("SELECT * FROM ScriptsHistory WHERE IsLastVersion = 'True' AND CONTAINS(Name, @Name)", new { Name }).ToList();
+                List<Script> scriptInSctipts = db.Query<Script>("SELECT * FROM ScriptsHistory WHERE IsLastVersion = 'True' AND Name = @Name", new { Name }).ToList();
+                //List<Script> scriptInTags = db.Query<Script>("SELECT Name FROM Tags WHERE CONTAINS(Name, @Name)", new { Name }).ToList();List<Script> scriptInSctipts = db.Query<Script>("SELECT Name, IsLastVersion FROM ScriptsHistory WHERE IsLastVersion = 'True' AND CONTAINS(Name, @Name)", new { Name }).ToList();
+                List<Script> scriptInTags = db.Query<Script>("SELECT * FROM Tags", new { Name }).ToList();
+               if (scriptInSctipts != null && scriptInTags != null) {
+                    
+                }
+                    if (scriptInSctipts != null) {
+                    var scriptsPush = scriptInSctipts.Select(s => new Script
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        CategoryId = s.CategoryId,
+                        CreationDataTime = s.CreationDataTime,
+                    });
+                    return scriptsPush.ToList();
+                } else {
+                    var scriptsPush = scriptInTags.Select(s => new Script
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        CategoryId = s.CategoryId,
+                        CreationDataTime = s.CreationDataTime,
+                    });
+                    return scriptInTags.ToList();
+                }
+            }
+        }
     }
 }
