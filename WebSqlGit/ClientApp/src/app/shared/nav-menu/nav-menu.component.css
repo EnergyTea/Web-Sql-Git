@@ -29,3 +29,29 @@ margin: -4px 20px 0px 20px;
   color: #fff;
   font-size: 20px;
 }
+
+.img-search {
+    margin-left: -35px;
+}
+
+.ans-search {
+  list-style: none;
+  position: absolute;
+  right: 55.5px;
+  width: 200px;
+  top: 50px;
+  border-radius: .25rem;
+  margin-right: 40px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  padding: 0 10px;
+  z-index: 1;
+}
+
+  .ans-search li {
+    margin: 8px 0 8px 5px;
+  }
+  .ans-search li a {
+    text-decoration: none;
+    color: #000000;
+  }
