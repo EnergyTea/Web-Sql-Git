@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Script } from './Script';
 
 @Injectable({ providedIn: 'root' })
@@ -50,5 +50,12 @@ export class ScriptService {
   getStoryScript(ScriptId: number): Observable<Script> {
     const url = `${this.scriptsUrl}/${ScriptId}/history`;
     return this.http.get<Script>(url);
+  }
+
+  searchScript(term: string): Observable<Script[]> {
+    if (!term.trim()) {
+      return of([]);
+    }
+    return this.http.get<Script[]>(`${this.scriptsUrl}/&name=${term}`);
   }
 }

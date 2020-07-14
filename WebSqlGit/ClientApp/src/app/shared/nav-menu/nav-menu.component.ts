@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../authentication/shared/user.service';
 import { User } from '../../authentication/shared/User';
+import { Script } from '../../scripts/shared/Script';
+import { Observable, Subject } from 'rxjs';
+import {
+  debounceTime, distinctUntilChanged, switchMap
+} from 'rxjs/operators';
+import { ScriptService } from '../../scripts/shared/script.service';
+import { Key } from 'protractor';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,13 +15,24 @@ import { User } from '../../authentication/shared/User';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent implements OnInit {
-  user = <User>{ };
+  user = <User>{};
+  scripts: Observable<Script[]>;
   isExpanded = false;
   isAurorize = true;
+  private searchTerms = new Subject<string>();
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private scriptService: ScriptService) { }
+
   ngOnInit(): void {
     this.getUser();
+  }
+
+  
+
+  search(term: string): void {
+    this.searchTerms.next(term);
+    this.scripts = this.searchTerms.pipe(
+        switchMap((term: string) => this.scriptService.searchScript(term)));
   }
 
   collapse() {
