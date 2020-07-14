@@ -5,14 +5,15 @@ namespace WebSqlGit.Data.Interface
 {
     public interface IScriptInterface
     {
-        List<Script> GetScriptsForCategory(int CategoryId);
+        List<Script> GetScriptsForCategory(int сategoryId);
         List<Script> GetScriptsHistory(int id);
         List<Script> GetAll();
-        List<Script> GetUserScripts(string Author);
-        Script GetScriptHistory(int id, string Author);
-        Script GetScript(int id, string Author);
+        List<Script> GetUserScripts(string author);
+        List<Script> GetScriptsBySearchPattern(string name);
+        Script GetScriptHistory(int id, string author);
+        Script GetScript(int id, string author);
         void CreateScript(Script script);
-        void DeleteScript(int id, string Author);
-        void UpdateScript(Script script, string Author);
+        void DeleteScript(int id, string author);
+        void UpdateScript(Script script, string author);
     }
 }
