@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using WebSqlGit.Data.Interface;
+using WebSqlGit.Data.Model;
 using WebSqlGit.Model;
 
 namespace WebSqlGit.Data
@@ -200,33 +201,20 @@ namespace WebSqlGit.Data
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                //List<Script> scriptInSctipts = db.Query<Script>("SELECT * FROM ScriptsHistory WHERE IsLastVersion = 'True' AND CONTAINS(Name, @Name)", new { Name }).ToList();
-                List<Script> scriptInSctipts = db.Query<Script>("SELECT * FROM ScriptsHistory WHERE IsLastVersion = 'True' AND Name = @Name", new { Name }).ToList();
-                //List<Script> scriptInTags = db.Query<Script>("SELECT Name FROM Tags WHERE CONTAINS(Name, @Name)", new { Name }).ToList();List<Script> scriptInSctipts = db.Query<Script>("SELECT Name, IsLastVersion FROM ScriptsHistory WHERE IsLastVersion = 'True' AND CONTAINS(Name, @Name)", new { Name }).ToList();
-                List<Script> scriptInTags = db.Query<Script>("SELECT * FROM Tags", new { Name }).ToList();
-               if (scriptInSctipts != null && scriptInTags != null) {
-                    return new List<Script>(scriptInSctipts.Count + scriptInTags.Count);
-                    
-                }
-                    if (scriptInSctipts != null) {
-                    var scriptsPush = scriptInSctipts.Select(s => new Script
-                    {
-                        Id = s.Id,
-                        Name = s.Name,
-                        CategoryId = s.CategoryId,
-                        CreationDataTime = s.CreationDataTime,
-                    });
-                    return scriptsPush.ToList();
-                } else {
-                    var scriptsPush = scriptInTags.Select(s => new Script
-                    {
-                        Id = s.Id,
-                        Name = s.Name,
-                        CategoryId = s.CategoryId,
-                        CreationDataTime = s.CreationDataTime,
-                    });
-                    return scriptInTags.ToList();
-                }
+                List<Script> scriptInSctipts = db.Query<Script>("SELECT * FROM ScriptsHistory WHERE IsLastVersion = 'True' AND Name LIKE  @Name", new { Name = "%" + Name + "%" }).ToList();
+                List<int> scriptIdByTag = db.Query<int>("SELECT ScriptsHistoryId FROM Tags WHERE Name LIKE  @Name", new { Name = "%" + Name + "%" }).ToList();
+
+                var sqlTags = "SELECT * FROM ScriptsHistory WHERE Id IN @scriptIdByTag";
+                List<Script> scriptInTags = db.Query<Script>(sqlTags, new { scriptIdByTag }).ToList();
+
+
+                scriptInSctipts.Union(scriptInTags);
+                var scriptsPush = scriptInSctipts.Select(s => new Script
+                {
+                    Id = s.Id,
+                    Name = s.Name
+                });
+                return scriptsPush.ToList();
             }
         }
     }
