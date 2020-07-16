@@ -6,7 +6,10 @@
 }
 
   .script-blick a {
-    padding: 30px 140px 30px 40px;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 30px;
+    width: 100%;
     color: #000;
     text-decoration: none;
   }
