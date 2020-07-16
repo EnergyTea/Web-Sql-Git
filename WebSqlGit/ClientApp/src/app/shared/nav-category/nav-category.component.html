@@ -1,4 +1,4 @@
-<h3>List of categories<span class="editCat" title="edit Category"  *ngIf="isAurorize" (click)="creatCategoey = !creatCategoey">✎</span> </h3>
+<h4>List of categories <img src="../../../assets/add-category.png" alt="Add" class="editCat" title="edit Category"  *ngIf="isAurorize" (click)="creatCategoey = !creatCategoey"/></h4>
 <div class="list-group">
   <form *ngIf="creatCategoey" class="creatCategoey" action="/" method="post">
     <input #NameCategory class="newName" placeholder="New Name" />
