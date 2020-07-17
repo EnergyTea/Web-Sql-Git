@@ -1,14 +1,9 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { UserService } from '../../authentication/shared/user.service';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { User } from '../../authentication/shared/User';
+import { UserService } from '../../authentication/shared/user.service';
 import { Script } from '../../scripts/shared/Script';
-import { Observable, Subject } from 'rxjs';
-import {
-  debounceTime, distinctUntilChanged, switchMap
-} from 'rxjs/operators';
 import { ScriptService } from '../../scripts/shared/script.service';
-import { Key } from 'protractor';
-import { SCRIPTS } from '../../scripts/shared/SCRIPTS';
 
 @Component({
   selector: 'app-nav-menu',
@@ -20,9 +15,11 @@ export class NavMenuComponent implements OnInit {
   scripts: Script[] = null;
   isExpanded = false;
   isAurorize = true;
-  private searchTerms = new Subject<string>();
 
-  constructor(private userService: UserService, private scriptService: ScriptService) { }
+  constructor(
+    private userService: UserService,
+    private scriptService: ScriptService
+  ) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -31,16 +28,11 @@ export class NavMenuComponent implements OnInit {
   @HostListener('document:click')
   clickout() {
     this.scripts = null;
-  }
-  
+  }  
 
-  search(term: string): void {
-    this.searchTerms.next(term);
-    /*this.scripts = this.searchTerms.pipe(
-      switchMap((term: string) => this.scriptService.searchScript(term)));*/
-
-    this.scripts = SCRIPTS;
-
+  search(pattern: string): void {
+    this.scriptService.searchScript(pattern)
+      .subscribe(scripts => this.scripts = scripts.reverse());
   }
 
   collapse() {
@@ -65,7 +57,8 @@ export class NavMenuComponent implements OnInit {
         if (user.name == null) {
           this.isAurorize = false;
         } else {
-          this.user = user;}
+          this.user = user;
+        }
       });
   }
 }

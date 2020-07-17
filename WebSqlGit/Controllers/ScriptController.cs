@@ -20,22 +20,22 @@ namespace WebSqlGit.Controllers
         [HttpGet]
         public List<Script> ScriptsList()
         {
-            var scripts = _scriptInterface.GetAll();
-            return scripts.ToList();
+            List<Script> scripts = _scriptInterface.GetAll().ToList();
+            return scripts;
         }
 
         [HttpGet("user")]
         public List<Script> UserScripts()
         {
-            var Author = User.Identity.Name;
-            var scripts = _scriptInterface.GetUserScripts(Author);
-            return scripts.ToList();
+            string Author = User.Identity.Name;
+            List<Script> scripts = _scriptInterface.GetUserScripts(Author).ToList();
+            return scripts;
         }
 
         [HttpGet("{id}")]
         public IActionResult GetScript(int id)
         {
-            var Author = User.Identity.Name;
+            string Author = User.Identity.Name;
             Script script = _scriptInterface.GetScript(id, Author);
             return Ok(script);
         }
@@ -43,7 +43,7 @@ namespace WebSqlGit.Controllers
         [HttpGet("{id}/history")]
         public IActionResult GetStoryScript(int id)
             {
-            var Author = User.Identity.Name;
+            string Author = User.Identity.Name;
             Script script = _scriptInterface.GetScriptHistory(id, Author);
             return Ok(script);
         }
@@ -51,8 +51,8 @@ namespace WebSqlGit.Controllers
         [HttpGet("{id}/all")]
         public List<Script> GetStoriesScript(int id)
         {
-            var scripts = _scriptInterface.GetScriptsHistory(id);
-            return scripts.ToList();
+            List<Script> scripts = _scriptInterface.GetScriptsHistory(id).ToList();
+            return scripts;
         }
 
         [HttpPost]
@@ -68,7 +68,7 @@ namespace WebSqlGit.Controllers
         [Authorize]
         public IActionResult DeleteScript(int id)
         {
-            var Author = User.Identity.Name;
+            string Author = User.Identity.Name;
             _scriptInterface.DeleteScript(id, Author);
             return Ok();
         }
@@ -77,9 +77,15 @@ namespace WebSqlGit.Controllers
         [Authorize]
         public IActionResult UpdateScript(Script script)
         {
-            var Author = User.Identity.Name;
+            string Author = User.Identity.Name;
             _scriptInterface.UpdateScript(script, Author);
             return Ok();
+        }
+
+        [HttpGet("search/{pattern}")]
+        public List<Script> GetScriptsBySearchPattern(string pattern)
+        {
+            return _scriptInterface.GetScriptsBySearchPattern(pattern);
         }
     }
 }
