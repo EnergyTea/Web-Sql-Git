@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebSqlGit.Configuration;
 using WebSqlGit.Data;
 using WebSqlGit.Data.Interface;
 
@@ -19,15 +20,21 @@ namespace WebSqlGit
 
         public IConfiguration Configuration { get; }
 
+
+
         private const string _defaultCorsPolicyName = "localhost";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //string connectionString = "Server=(localdb)\\mssqllocaldb;Database=sqlcode;Trusted_Connection=True;MultipleActiveResultSets=true";
-            string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rusva\\source\\repos\\Web-Sql-Git\\WebSqlGit\\sqlcode.mdf;Integrated Security=True";
-            services.AddTransient<ICategoryInterface, CategoryRepository>(provider => new CategoryRepository(connectionString));
-            services.AddTransient<IScriptInterface, ScriptRepository>(provider => new ScriptRepository(connectionString));
-            services.AddTransient<IUserInterface, UserRepository>(provider => new UserRepository(connectionString));
+
+
+
+            ConfigSettings configSettings = new ConfigSettings();
+            DbContextConfiguration dbContextConfiguration = configSettings.DbContextConfiguration;
+
+            services.AddTransient<ICategoryInterface, CategoryRepository>(provider => new CategoryRepository(dbContextConfiguration.ConnectionString));
+            services.AddTransient<IScriptInterface, ScriptRepository>(provider => new ScriptRepository(dbContextConfiguration.ConnectionString));
+            services.AddTransient<IUserInterface, UserRepository>(provider => new UserRepository(dbContextConfiguration.ConnectionString));
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
