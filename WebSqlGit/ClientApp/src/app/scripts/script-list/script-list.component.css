@@ -1,13 +1,15 @@
 
 .script-blick {
-  border: 1px solid #000;
-  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
   margin: 10px 20px;
   max-width: 750px;
 }
 
   .script-blick a {
-    padding: 30px 140px 30px 40px;
+    height: 60px;
+    line-height: 60px;
+    padding-left: 30px;
+    width: 100%;
     color: #000;
     text-decoration: none;
   }
@@ -15,4 +17,11 @@
 .script-del {
   margin-left: auto;
   margin-right: 10px;
+}
+
+.list-script {
+  overflow: auto;
+  width: 100%;
+  max-height: 710px;
+  padding: 0px;
 }

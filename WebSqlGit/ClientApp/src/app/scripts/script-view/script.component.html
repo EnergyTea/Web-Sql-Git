@@ -4,7 +4,7 @@
       <h3 class="col-sm-4">{{script.name}}</h3>
       <div *ngFor="let tag of script.tags" class="tag">{{tag}}</div>
     </div>
-    <div *ngIf="script.body !== null" class="border rounded plot-code">
+    <div *ngIf="script.body !== null" class="border rounded">
       <pre><code  id="sql" class="sql">{{script.body}}</code></pre>
     </div>
     <span class="script-auth">author: {{script.author}}</span>
