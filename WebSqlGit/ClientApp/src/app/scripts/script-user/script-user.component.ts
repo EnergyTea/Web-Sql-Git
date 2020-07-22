@@ -7,6 +7,7 @@ import { ScriptService } from '../shared/script.service';
     templateUrl: './script-user.component.html',
     styleUrls: ['./script-user.component.css']
 })
+
 /** script-user component*/
 export class ScriptUserComponent {
     /** script-user ctor */

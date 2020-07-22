@@ -1,5 +1,4 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
 import { User } from '../../authentication/shared/User';
 import { UserService } from '../../authentication/shared/user.service';
 import { Script } from '../../scripts/shared/Script';
@@ -10,6 +9,7 @@ import { ScriptService } from '../../scripts/shared/script.service';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
+
 export class NavMenuComponent implements OnInit {
   user = <User>{};
   scripts: Script[] = null;
@@ -43,12 +43,8 @@ export class NavMenuComponent implements OnInit {
     this.isExpanded = !this.isExpanded;
   }
 
-  Out() {
+  logitOut() {
     this.userService.outUser().subscribe(() => window.location.href = "/scripts" );
-  }
-
-  Log() {
-    window.location.href = "/login"
   }
 
   getUser() {

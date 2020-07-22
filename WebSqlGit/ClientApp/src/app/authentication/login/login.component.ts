@@ -1,26 +1,27 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from '../shared/User';
 import { UserService } from '../shared/user.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 /** login component*/
 export class LoginComponent {
   /** login ctor */
   constructor(
     private userService: UserService,
-    private location: Location) {
-
-  }
+    private location: Location
+  ) { }
 
   reg(): void {
     window.location.href = "/registration"; 
   }
+
   loginIn(user: User, IngressModul: NgForm) {
     user = <User>{};
     user.login = IngressModul.value.email;

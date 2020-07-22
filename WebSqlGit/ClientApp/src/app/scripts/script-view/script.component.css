@@ -1,3 +1,7 @@
+h3 {
+  margin: 10px 0 0 20px;
+}
+
 pre {
   height: 470px;
 }
@@ -38,32 +42,19 @@ pre::-webkit-scrollbar-thumb {
   margin-right: 10px;
 }
 
-h3 {
-  margin: 10px 0 0 20px;
+.rounded {
+  background-color: #f9f9f9;
+  margin: 0 20px;
+  padding: 5px 10px;
+}
+
+.bottom-btn {
+  margin-right: 40px;
 }
 
 .row {
   width: 1068px;
   margin-top: 10px;
-}
-
-.read {
-  max-width: 100%;
-  padding: 0 20px;
-}
-
-textarea {
-  height: 30px;
-  max-height: 30px;
-  background-color: #f9f9f9;
-}
-
-.plot-code {
-  margin: 15px; 
-}
-
-.name-script {
-    margin: 10px 0;
 }
 
 .script-version {
@@ -85,29 +76,34 @@ textarea {
   max-width: 150px;
   padding: 0;
 }
-  .right p {
-    margin: 0;
-  }
 
-  .right h6 {
-    margin: 0;
-  }
+.right p {
+  margin: 0;
+}
 
-  .right::-webkit-scrollbar-track {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-    background-color: #ffffff;
-  }
+.right h6 {
+  margin: 0;
+}
 
-  .right::-webkit-scrollbar {
-    width: 10px;
-    background-color: #ffffff;
-  }
+.right::-webkit-scrollbar-track {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  background-color: #ffffff;
+}
 
-  .right::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #cccccc;
-  }
+.right::-webkit-scrollbar {
+  width: 10px;
+  background-color: #ffffff;
+}
+
+.right::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #cccccc;
+}
+
+.script-author {
+  margin: 20px
+}
 
 .active {
   background-color: #cccccc;

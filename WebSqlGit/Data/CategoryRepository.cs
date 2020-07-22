@@ -8,33 +8,41 @@ using WebSqlGit.Data.Model;
 
 namespace WebSqlGit.Data
 {
-    public class CategoryRepository : ICategoryInterface
+    public class CategoryRepository : ICategoryRepository
     {
         readonly string connectionString;
-        public CategoryRepository(string conn)
+        
+        public CategoryRepository( string connection )
         {
-            connectionString = conn;
+            connectionString = connection;
         }
 
-        public void CreateCategory(Category category)
+        public void CreateCategory( Category category )
         {
-            using (IDbConnection db = new SqlConnection(connectionString)) { 
-                var sqlQuery = "INSERT INTO Categories (Name) VALUES(@Name)";
-                db.Execute(sqlQuery, category);
+            using ( IDbConnection db = new SqlConnection( connectionString ) )
+            { 
+                string sqlQuery = "INSERT INTO Categories (Name) VALUES(@Name)";
+                db.Execute( sqlQuery, category );
             }
         }
 
-        public IEnumerable<Category> GetAll()
+        public List<Category> GetAll()
         {
-            using (IDbConnection db = new SqlConnection(connectionString)) { 
-                return db.Query<Category>("SELECT * FROM Categories WHERE Deleted IS NULL");
+            using ( IDbConnection db = new SqlConnection( connectionString ) ) 
+            {
+                string sqlQuery = "SELECT * FROM Categories WHERE Deleted IS NULL";
+                
+                return db.Query<Category>( sqlQuery ).ToList();
             }
         }
 
-        public Category GetCategory(int id)
+        public Category GetCategory( int id )
         {
-            using (IDbConnection db = new SqlConnection(connectionString)) { 
-                return db.Query<Category>("SELECT * FROM Categories WHERE Id = @id AND Deleted IS NULL", new { id }).FirstOrDefault();
+            using ( IDbConnection db = new SqlConnection( connectionString ) ) 
+            {
+                string sqlQuery = "SELECT * FROM Categories WHERE Id = @id AND Deleted IS NULL";
+                
+                return db.Query<Category>( sqlQuery, new { id } ).FirstOrDefault();
             }
         }
     }

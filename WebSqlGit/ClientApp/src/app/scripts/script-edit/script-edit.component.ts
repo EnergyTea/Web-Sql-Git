@@ -1,17 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Script } from '../shared/Script';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ScriptService } from '../shared/script.service';
-import { CategoryService } from '../../categories/shared/category.service';
 import { Category } from '../../categories/shared/Category';
-import { NgModel } from '@angular/forms';
+import { CategoryService } from '../../categories/shared/category.service';
+import { Script } from '../shared/Script';
+import { ScriptService } from '../shared/script.service';
 
 @Component({
     selector: 'app-edit',
     templateUrl: './script-edit.component.html',
     styleUrls: ['./script-edit.component.css']
 })
+
 /** edit component*/
 export class EditScriptComponent implements OnInit {
 /** edit ctor */
@@ -29,7 +29,8 @@ export class EditScriptComponent implements OnInit {
     private scriptScrvice: ScriptService,
     private location: Location,
   ) {
-    this.getScript();}
+    this.getScript();
+  }
 
   ngOnInit(): void {
     this.getCategory();

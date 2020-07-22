@@ -8,11 +8,11 @@ h3 {
   max-width: 750px;
 }
 
-  .script-blick a {
-    padding: 30px 140px 30px 40px;
-    color: #000;
-    text-decoration: none;
-  }
+.script-blick a {
+  padding: 30px 140px 30px 40px;
+  color: #000;
+  text-decoration: none;
+}
 
 .script-del {
   margin-left: auto;

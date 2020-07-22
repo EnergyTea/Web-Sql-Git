@@ -1,14 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Category } from '../shared/Category';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CategoryService } from '../shared/category.service';
 import { Script } from '../../scripts/shared/Script';
+import { Category } from '../shared/Category';
+import { CategoryService } from '../shared/category.service';
 
 @Component({
     selector: 'category',
     templateUrl: './category.component.html',
     styleUrls: ['./category.component.css']
 })
+
 /** category component*/
 export class CategoryComponent implements OnInit {
     /** category ctor */

@@ -48,8 +48,13 @@ button {
   background-color: #ffffff;
 }
 
-.script-tuning div {
-  margin-bottom: 5px;
+.tag {
+  text-align: center;
+  border: 3px solid rgba(0,0,0,0.1);
+  border-radius: 5px;
+  height: 30px;
+  width: 70px;
+  margin: 10px;
 }
 
 .new-tags {
@@ -61,12 +66,13 @@ button {
     margin-left: 5px;
 }
 
-.add-name {
-  margin-left: 15px;
+.btn-create {
+  max-height: 38px;
+  margin: 1px 0 0 0;
 }
 
-.add-category {
-  margin-left: 38px;
+.tag-create {
+    margin: 5px 0 0 0;
 }
 
 .add-tag {

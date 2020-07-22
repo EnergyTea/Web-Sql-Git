@@ -21,7 +21,7 @@
     <div class="new-tags d-flex">
       <div *ngFor="let tag of tags; let i = index">
         {{tag}}
-        <button (click)="deleteTag(i)">x</button>
+        <button (click)="deleteTag(i)" class="delete-tag">x</button>
       </div>
     </div>
     <div class="d-flex flex-column">

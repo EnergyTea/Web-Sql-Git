@@ -1,4 +1,4 @@
-a.navbar-brand {
+a .navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
@@ -26,7 +26,6 @@ li div {
 li:last-of-type div {
   border-bottom: none;
 }
-
 
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
