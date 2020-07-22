@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, Router } from '@angular/router';
-import { CategoryComponent } from '../categories/category/category.component';
-import { EditScriptComponent } from './script-edit/script-edit.component';
-import { ScriptComponent } from './script-view/script.component';
-import { ScriptsComponent } from './script-list/script-list.component';
-import { CreateScriptComponent } from './script-create/script-create.component';
-import { RegistrationComponent } from '../authentication/registration/registration.component';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from '../authentication/login/login.component';
+import { RegistrationComponent } from '../authentication/registration/registration.component';
+import { CategoryComponent } from '../categories/category/category.component';
 import { DirectionComponent } from '../shared/direction/direction.component';
+import { CreateScriptComponent } from './script-create/script-create.component';
+import { EditScriptComponent } from './script-edit/script-edit.component';
+import { ScriptsComponent } from './script-list/script-list.component';
 import { ScriptUserComponent } from './script-user/script-user.component';
-
-
-
+import { ScriptComponent } from './script-view/script.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/scripts', pathMatch: 'full' },
@@ -35,5 +32,6 @@ const routesLogin: Routes = [
   imports: [RouterModule.forRoot(routesLogin)],
   exports: [RouterModule]
 })
+
 export class ScriptModule {
 }

@@ -1,25 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/user.service';
 import { User } from '../shared/User';
-import { NgForm } from '@angular/forms';
+import { UserService } from '../shared/user.service';
 
 @Component({
     selector: 'registration',
     templateUrl: './registration.component.html',
     styleUrls: ['./registration.component.css']
 })
+
 /** registration component*/
 export class RegistrationComponent implements OnInit {
 /** registration ctor */
   users: User[] = [];
   user = <User>{};
   isBusy = false;
-  constructor(private userService: UserService) { }
-    ngOnInit(): void {
-        this.getAll();
-    }
 
-  Registration(user: User): void {
+  constructor(private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.getAll();
+  }
+
+  registrationUser(user: User): void {
     user = <User>{};
     user.name = this.user.name;
     user.login = this.user.login;

@@ -2,28 +2,17 @@
   margin: 10px 0 0 0;
 }
 
-.read {
-  padding-bottom: 5px;
+label {
+  margin: 0;
 }
 
 textarea {
   height: 55vh;
   background-color: #f9f9f9;
 }
-.name-script {
-  margin: 10px 0
-}
 
 input {
   margin: 5px 0 10px 0;
-}
-
-.edit-script input {
-  margin: 5px 10px;
-}
-
-.edit-script .row {
-  margin: 5px;
 }
 
 select {
@@ -34,9 +23,11 @@ select {
   width: 200px;
   height: 40px;
 }
-.create-script input {
-    margin: 5px 0
+
+.read {
+  padding-bottom: 5px;
 }
+
 .tag {
   text-align: center;
   border: 3px solid rgba(0,0,0,0.1);
@@ -45,27 +36,29 @@ select {
   width: 70px;
   margin: 10px;
 }
-.deleteTag {
-    color: red;
-    background-color: #f9f9f9;
-    padding: 0;
-    border: none;
-    margin: 0 0 2px 5px;
+
+.delete-tag {
+  color: red;
+  background-color: #f9f9f9;
+  padding: 0;
+  border: none;
+  margin: 0 0 2px 5px;
 }
+
 .add-tag {
   margin: 0 20px;
   max-height: 40px;
 }
-.btn {
-    max-height: 38px;
-    margin: 1px 0 0 0;
+
+.btn-create {
+  max-height: 38px;
+  margin: 1px 0 0 0;
 }
+
 .tag-create {
     margin: 5px 0 0 0;
 }
-label {
-    margin: 0;
-}
-.erorr {
+
+.error {
   color: red;
 }

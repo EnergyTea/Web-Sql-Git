@@ -1,4 +1,3 @@
-
 export interface Script {
   versionId: number;
   scriptId: number;

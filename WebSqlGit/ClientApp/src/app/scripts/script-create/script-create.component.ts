@@ -10,6 +10,7 @@ import { CategoryService } from '../../categories/shared/category.service';
   templateUrl: './script-create.component.html',
   styleUrls: ['./script-create.component.css']
 })
+
 /** create component*/
 export class CreateScriptComponent implements OnInit {
   /** create ctor */
@@ -44,7 +45,7 @@ export class CreateScriptComponent implements OnInit {
       .subscribe(categories => this.categories = categories)
   }
 
-  add(newScript: Script, create: NgForm) {
+  addScript(newScript: Script, create: NgForm) {
     newScript = <Script>{};
     newScript.name = create.value.name;
     newScript.body = create.value.body;

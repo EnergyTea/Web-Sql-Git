@@ -37,7 +37,7 @@
           </div>
         </li>
       </ul>
-      <button class="in-out" (click)="Out()" *ngIf="isAurorize">Logout</button>
+      <button class="in-out" (click)="logitOut()" *ngIf="isAurorize">Logout</button>
       <button class="in-out" [routerLink]="['/login']" *ngIf="!isAurorize">Login</button>
     </div>
   </nav>

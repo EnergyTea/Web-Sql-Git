@@ -22,9 +22,9 @@
       <label>Code</label>
       <textarea [(ngModel)]="script.body" name="body" class="form-control">{{script.body}}</textarea>
     </div>
-    <span *ngIf="isError" class="erorr">Erorr! There are no completedfields.</span>
+    <span *ngIf="isError" class="error">Error! There are no completedfields.</span>
     <div class="d-flex flex-row-reverse">
-      <button (click)="upDate(script)" type="button" class="btn btn-dark">Save Code</button>
+      <button (click)="upDate(script)" type="button" class="btn-update btn-dark">Save Code</button>
     </div>
   </form>
 </div>

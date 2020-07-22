@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
     templateUrl: './direction.component.html',
     styleUrls: ['./direction.component.css']
 })
+
 /** direction component*/
 export class DirectionComponent {
     /** direction ctor */

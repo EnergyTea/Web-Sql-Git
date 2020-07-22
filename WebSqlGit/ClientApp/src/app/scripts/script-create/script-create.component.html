@@ -18,7 +18,7 @@
     <div class="row">
       <div *ngFor="let tag of tags; let i = index" class="tag">
         {{tag}}
-        <button (click)="deleteTag(i)" class="deleteTag">x</button>
+        <button (click)="deleteTag(i)" class="delete-tag">x</button>
       </div>
     </div>
     <div class="read">
@@ -26,9 +26,9 @@
       <textarea ngModel name="body" class="form-control" id=""></textarea>
     </div>
 
-    <span *ngIf="isError" class="erorr">Erorr! There are no completedfields.</span>
+    <span *ngIf="isError" class="error">Error! There are no completedfields.</span>
     <div class="d-flex flex-row-reverse">
-      <button (click)="add(script, create)" type="button" class="btn btn-dark">Create</button>
+      <button (click)="addScript(script, create)" type="button" class="btn-create btn-dark">Create</button>
     </div>
   </form>
 </div>
