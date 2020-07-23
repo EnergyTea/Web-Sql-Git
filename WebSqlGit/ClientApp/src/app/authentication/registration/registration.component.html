@@ -1,25 +1,25 @@
 <div class="text-center regist">
   <div class="form">
     <form class="form-signin">
-      <h1 class="h2 mb-3 font-weight-normal">Registration</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input name="email" [(ngModel)]="user.login" class="form-control" placeholder="Login or Email address" required autofocus="" #login="ngModel">
+      <h1 class="h2 mb-3 font-weight-normal">Регистрация</h1>
+      <label for="inputEmail" class="sr-only">Почта</label>
+      <input name="email" [(ngModel)]="user.login" class="form-control" placeholder="Логин или Почта" required autofocus="" #login="ngModel">
       <div [hidden]="login.valid || login.untouched" class="alert alert-danger">
-        Missing Login
+        Не введен Логин
       </div>  <div *ngIf="isBusy" class="alert alert-danger">
-        Login busy
+        Логин занят
       </div>
-      <label for="inputName" class="sr-only">User Name</label>
-      <input name="name" [(ngModel)]="user.name" class="form-control" placeholder="User Name" required autofocus="" #name="ngModel">
+      <label for="inputName" class="sr-only">Имя</label>
+      <input name="name" [(ngModel)]="user.name" class="form-control" placeholder="Имя" required autofocus="" #name="ngModel">
       <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
-        Missing Name
+        Не введено Иня
       </div>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input name="password" [(ngModel)]="user.password" type="password" class="form-control" placeholder="Password" required #password="ngModel">
+      <label for="inputPassword" class="sr-only">Пароль</label>
+      <input name="password" [(ngModel)]="user.password" type="password" class="form-control" placeholder="Пароль" required #password="ngModel">
       <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
-        Missing Password
+        Не введен Пароль
       </div>
-      <button [disabled]="name.invalid || login.invalid || password.invalid" (click)="Registration(user)" class="btn btn-lg btn-primary btn-block" type="button">Registration</button>
+      <button [disabled]="name.invalid || login.invalid || password.invalid" (click)="Registration(user)" class="btn btn-lg btn-primary btn-block" type="button">Зарегистрироваться</button>
     </form>
   </div>
 </div>

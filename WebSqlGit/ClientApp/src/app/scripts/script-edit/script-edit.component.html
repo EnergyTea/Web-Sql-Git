@@ -1,30 +1,30 @@
-<div class="row-edit">
-  <form class="edit-script">
-    <div class="row">
-      <label>Name</label>
-      <input [(ngModel)]="script.name" name="name" class="form-control form-control-lg" type="text" value="{{script.name}}">
-      <label>Category</label>
+<form>
+  <div class="script-setting">
+    <div>
+      <input [(ngModel)]="script.name" name="name" type="text" value="{{script.name}}">
+    </div>
+    <div>
       <select [(ngModel)]="selectedCategory" name="category">
-        <option *ngFor="let category of categories"[ngValue]="category.id">{{category.name}}</option>
+        <option *ngFor="let category of categories" [ngValue]="category.id">{{category.name}}</option>
       </select>
-      <div class="row">
-        <input #tagNew class="form-control form-control-lg col-sm-6 add-tag" type="text" placeholder="tags script">
-        <button (click)="createTags(tagNew.value); tagNewName.value=''" class="btn btn-dark" type="button">Add</button>
-      </div>
     </div>
-    <div class="row">
-      <div *ngFor="let tag of tags; let i = index" class="tag">
-        {{tag}}
-        <button (click)="deleteTag(i)" class="delete-tag">x</button>
-      </div>
-    </div>    
-    <div class="read">
-      <label>Code</label>
-      <textarea [(ngModel)]="script.body" name="body" class="form-control">{{script.body}}</textarea>
+    <div>
+      <input #tagNew type="text" placeholder="Название тега">
+      <button (click)="createTags(tagNew.value); tagNewName.value=''; " type="button" class="update-tag">Добавить</button>
     </div>
-    <span *ngIf="isError" class="erorr">Erorr! There are no completedfields.</span>
-    <div class="d-flex flex-row-reverse">
-      <button (click)="upDate(script)" type="button" class="btn btn-dark">Save Code</button>
+  </div>
+  <div class="new-tags d-flex">
+    <div *ngFor="let tag of tags; let i = index" class="list-tags">
+      {{tag}}
+      <button (click)="deleteTag(i)" class="delete-tag">x</button>
     </div>
-  </form>
-</div>
+  </div>    
+  <div  class="d-flex flex-column">
+    <label>SQL код</label>
+    <textarea [(ngModel)]="script.body" name="body"  class="border">{{script.body}}</textarea>
+  </div>
+  <span *ngIf="isError">Ошибка! Не все поля заполнены.</span>
+  <div  class="d-flex flex-row-reverse">
+    <button (click)="upDate(script)" type="button"  class="update-script">Сохранить</button>
+  </div>
+</form>

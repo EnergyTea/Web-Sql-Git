@@ -7,21 +7,22 @@
     <div *ngIf="script.body !== null" class="border rounded">
       <pre><code  id="sql" class="sql">{{script.body}}</code></pre>
     </div>
-    <span class="script-auth">author: {{script.author}}</span>
+    <span class="script-auth">автор: {{script.author}}</span>
     <div class="d-flex flex-row-reverse" *ngIf="script.isAuthor">
-      <a href="scripts/{{script.scriptId}}/edit" class="btn btn-dark">Edit</a>
-      <button class="btn btn-dark" (click)="delete(script)">Delete</button>
+      <a href="scripts/{{script.scriptId}}/edit" class="btn">Редактировать</a>
+      <button class="btn" (click)="delete(script)">Удалить</button>
     </div>
   </div>
   <div class="col-sm-2 right">
-    <div *ngFor="let scriptV of scripts; let i = index"
+    <div *ngFor="let scriptVersion of scripts; let i = index"
          [ngClass]="{'active': highlightedDiv === i }"
          class="script-version flex-row"
-         (click)="getScriptHistory(scriptV.id); toggleHighlight(i)">
+         (click)="getScriptHistory(scriptVersion.id); toggleHighlight(i)">
       <div class="main-version">
-        <h6>{{scriptV.name}}</h6>
-        <p>Версия: {{scriptV.version}}</p>
-        <p>{{scriptV.updateDataTime | date:'medium'}}</p>
+        <h6>{{scriptVersion.name}}</h6>
+        <p>Версия: {{scriptVersion.version}}</p>
+        <p>{{scriptVersion.updateDataTime | date}}</p>
+        <p>{{scriptVersion.updateDataTime | date:'HH:mm'}}</p>
       </div>
     </div>
   </div>
