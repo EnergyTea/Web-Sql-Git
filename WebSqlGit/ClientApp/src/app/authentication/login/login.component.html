@@ -1,13 +1,13 @@
 <div class="text-center login">
   <div class="form">
     <form class="form-signin" #IngressModul="ngForm">
-      <h1 class="h2 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input ngModel name="email" class="form-control" placeholder="Email address" required="" autofocus="">
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input ngModel name="password" type="password"class="form-control" placeholder="Password" required="">
-      <button (click)="loginIn(script, IngressModul)"  class="btn btn-lg btn-primary btn-block" type="button">Sign in</button>
-      <button [routerLink]="['/registration']"  class="btn btn-lg btn-primary btn-block" type="button">Registration</button>
+      <h1 class="h2 mb-3 font-weight-normal">Войти</h1>
+      <label for="inputEmail" class="sr-only">Email адрес</label>
+      <input ngModel name="email" class="form-control" placeholder="Почта" required="" autofocus="">
+      <label for="inputPassword" class="sr-only">Пароль</label>
+      <input ngModel name="password" type="password"class="form-control" placeholder="Пароль" required="">
+      <button (click)="loginIn(script, IngressModul)"  class="btn btn-lg btn-primary btn-block" type="button">Войти</button>
+      <button [routerLink]="['/registration']" class="btn btn-lg btn-primary btn-block" type="button">Зарегистрироваться</button>
     </form>
   </div>
 </div>

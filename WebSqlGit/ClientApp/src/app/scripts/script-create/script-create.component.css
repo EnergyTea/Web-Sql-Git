@@ -1,71 +1,79 @@
-.create {
-  margin: 10px 0 0 0;
-}
-
-.read {
-  padding-bottom: 5px;
-}
-
-textarea {
-  height: 55vh;
-  background-color: #f9f9f9;
-}
-.name-script {
-  margin: 10px 0
-}
-
 input {
-  margin: 5px 0 10px 0;
+  padding-left: 5px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid #dee2e6;
 }
 
-.edit-script input {
-  margin: 5px 10px;
-}
-
-.edit-script .row {
-  margin: 5px;
+h3 {
+    margin-top: 10px;
 }
 
 select {
-  border-color: #cccccc;
-  padding-left: 10px;
+  width: 229px;
+  border-color: #ffffff;
+  border-bottom: 2px solid #dee2e6;
+}
+
+form {
+  font-size: 20px;
+  padding: 10px;
+}
+
+textarea {
+  height: 460px;
+  background-color: #f9f9f9;
+  border: #f9f9f9;
+}
+
+textarea::-webkit-scrollbar-track {
   border-radius: 5px;
-  margin: 5px 30px;
-  width: 200px;
-  height: 40px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  background-color: #ffffff;
 }
-.create-script input {
-    margin: 5px 0
+
+textarea::-webkit-scrollbar {
+  width: 15px;
+  background-color: #ffffff;
 }
-.tag {
-  text-align: center;
-  border: 3px solid rgba(0,0,0,0.1);
+
+textarea::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  height: 30px;
-  width: 70px;
-  margin: 10px;
+  background-color: #cccccc;
 }
-.deleteTag {
-    color: red;
-    background-color: #f9f9f9;
-    padding: 0;
-    border: none;
-    margin: 0 0 2px 5px;
+
+button {
+  border: 2px solid #dee2e6;
+  background-color: #ffffff;
 }
+
+.script-tuning div {
+  margin-bottom: 5px;
+}
+
+.new-tags {
+  font-size: 16px;
+  box-shadow: none;
+}
+
+.new-tags button {
+    margin-left: 5px;
+}
+
+.add-name {
+  margin-left: 15px;
+}
+
+.add-category {
+  margin-left: 38px;
+}
+
 .add-tag {
-  margin: 0 20px;
-  max-height: 40px;
+  margin-left: 92px;
+  margin-right: 10px;
 }
-.btn {
-    max-height: 38px;
-    margin: 1px 0 0 0;
-}
-.tag-create {
-    margin: 5px 0 0 0;
-}
-label {
-    margin: 0;
-}
-.erorr {
-  color: red;
+
+.create-script {
+    margin-top: 10px;
 }

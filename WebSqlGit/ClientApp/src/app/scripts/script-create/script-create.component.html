@@ -1,34 +1,37 @@
-<div class="create">
-  <h3>Create new script</h3>
+<div>
+  <h3>Создать новый скрипт</h3>
   <form #create="ngForm">
-    <div class="row">
-      <label>Name</label>
-      <input ngModel name="name" class="form-control form-control-lg" type="text" placeholder="Название скрипта">
-      <label for="select">Category</label>
+    <div class="script-tuning">
       <div>
-        <select [(ngModel)]="selectedCategory" name="category">
+        <label>Имя скрипта</label>
+        <input ngModel name="name" type="text" placeholder="Название скрипта" class="add-name">
+      </div>
+      <div>
+        <label for="select">Категория</label>
+        <select [(ngModel)]="selectedCategory" name="category" class="add-category">
           <option *ngFor="let category of categories" [ngValue]="category.id">{{category.name}}</option>
         </select>
       </div>
-      <div class="row tag-create">
-        <input #tagNew class="form-control form-control-lg col-sm-6 add-tag" type="text" placeholder="tags script">
-        <button (click)="createTags(tagNew.value); tagNewName.value=''" class="btn btn-dark" type="button">Add</button>
+      <div>
+        <label>Теги</label>
+        <input #tagNew type="text" placeholder="Название тега" class="add-tag">
+        <button (click)="createTags(tagNew.value); tagNewName.value='';" type="button">Добавить</button>
       </div>
     </div>
-    <div class="row">
-      <div *ngFor="let tag of tags; let i = index" class="tag">
+    <div class="new-tags d-flex">
+      <div *ngFor="let tag of tags; let i = index">
         {{tag}}
-        <button (click)="deleteTag(i)" class="deleteTag">x</button>
+        <button (click)="deleteTag(i)">x</button>
       </div>
     </div>
-    <div class="read">
-      <label>Code</label>
-      <textarea ngModel name="body" class="form-control" id=""></textarea>
+    <div class="d-flex flex-column">
+      <label>SQL код</label>
+      <textarea ngModel name="body" id="" class="border"></textarea>
     </div>
 
-    <span *ngIf="isError" class="erorr">Erorr! There are no completedfields.</span>
+    <span *ngIf="isError">Ошибка! Не все поля заполнены.</span>
     <div class="d-flex flex-row-reverse">
-      <button (click)="add(script, create)" type="button" class="btn btn-dark">Create</button>
+      <button (click)="add(script, create)" type="button" class="create-script">Создать</button>
     </div>
   </form>
 </div>
