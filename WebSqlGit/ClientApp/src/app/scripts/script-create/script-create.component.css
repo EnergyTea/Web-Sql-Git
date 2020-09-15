@@ -6,8 +6,8 @@ input {
   border-bottom: 2px solid #dee2e6;
 }
 
-h3 {
-    margin-top: 10px;
+label {
+  margin: 0;
 }
 
 select {
@@ -75,11 +75,6 @@ button {
     margin: 5px 0 0 0;
 }
 
-.add-tag {
-  margin-left: 92px;
-  margin-right: 10px;
-}
-
-.create-script {
-    margin-top: 10px;
+.error {
+  color: red;
 }

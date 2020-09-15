@@ -6,20 +6,6 @@ pre {
   height: 470px;
 }
 
-.hljs[_ngcontent-ng-cli-universal-c3] {
-  background-color: #f9f9f9;
-}
-
-.col-sm-10 {
-    padding: 0;
-}
-
-.rounded {
-  background-color: #f9f9f9;
-  margin: 0 20px 10px 20px;
-  padding: 5px 10px;
-}
-
 pre::-webkit-scrollbar-track {
   border-radius: 5px;
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
@@ -36,10 +22,8 @@ pre::-webkit-scrollbar-thumb {
   background-color: #cccccc;
 }
 
-.btn {
-  border: 2px solid #dee2e6;
-  background-color: #ffffff;
-  margin-right: 10px;
+.col-sm-10 {
+  padding: 0;
 }
 
 .rounded {

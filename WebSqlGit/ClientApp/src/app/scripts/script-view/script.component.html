@@ -7,10 +7,10 @@
     <div *ngIf="script.body !== null" class="border rounded">
       <pre><code  id="sql" class="sql">{{script.body}}</code></pre>
     </div>
-    <span class="script-auth">автор: {{script.author}}</span>
+    <span class="script-author">автор: {{script.author}}</span>
     <div class="d-flex flex-row-reverse" *ngIf="script.isAuthor">
-      <a href="scripts/{{script.scriptId}}/edit" class="btn">Редактировать</a>
-      <button class="btn" (click)="delete(script)">Удалить</button>
+      <a href="scripts/{{script.scriptId}}/edit" class="bottom-btn btn-dark">Редактировать</a>
+      <button class="bottom-btn btn-dark" (click)="deleteScript(script)">Удалить</button>
     </div>
   </div>
   <div class="col-sm-2 right">

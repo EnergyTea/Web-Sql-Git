@@ -29,9 +29,9 @@
       <textarea ngModel name="body" id="" class="border"></textarea>
     </div>
 
-    <span *ngIf="isError">Ошибка! Не все поля заполнены.</span>
+    <span *ngIf="isError" class="erorr">Ошибка! Не все поля заполнены..</span>
     <div class="d-flex flex-row-reverse">
-      <button (click)="add(script, create)" type="button" class="create-script">Создать</button>
+      <button (click)="addScript(script, create)" type="button" class="btn-create btn-dark">Создать</button>
     </div>
   </form>
 </div>

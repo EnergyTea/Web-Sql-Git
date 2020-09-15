@@ -11,41 +11,40 @@ namespace WebSqlGit.Controllers
     [ApiController]
     public class ScriptController : Controller
     {
-        private readonly IScriptRepository _scriptRepository;
-
-        public ScriptController( IScriptRepository scriptRepository )
+        private readonly IScriptRepository _scriptInterface;
+        public ScriptController( IScriptRepository scriptInterface )
         {
-            _scriptRepository = scriptRepository;
+            _scriptInterface = scriptInterface;
         }
 
         [HttpGet]
         public List<Script> ScriptsList()
         {
-            return _scriptRepository.GetAll();
+            return _scriptInterface.GetAll();
         }
 
         [HttpGet( "user" )]
         public List<Script> UserScripts()
         {
-            return _scriptRepository.GetUserScripts( User.Identity.Name );
+            return _scriptInterface.GetUserScripts( User.Identity.Name );
         }
 
         [HttpGet( "{id}" )]
         public Script GetScript( int id )
         {
-            return _scriptRepository.GetScript( id, User.Identity.Name );
+            return _scriptInterface.GetScript( id, User.Identity.Name );
         }
 
         [HttpGet( "{id}/history" )]
         public Script GetStoryScript( int id )
         {
-            return _scriptRepository.GetScriptHistory( id, User.Identity.Name );
+            return _scriptInterface.GetScriptHistory( id, User.Identity.Name );
         }
 
         [HttpGet( "{id}/all" )]
         public List<Script> GetStoriesScript( int id )
         {
-            return _scriptRepository.GetScriptsHistory( id );
+            return _scriptInterface.GetScriptsHistory( id );
         }
 
         [HttpPost]
@@ -53,7 +52,7 @@ namespace WebSqlGit.Controllers
         public void CreateScript( Script script )
         {
             script.Author = User.Identity.Name;
-            _scriptRepository.CreateScript( script );
+            _scriptInterface.CreateScript( script );
         }
 
         [HttpPost( "{id}/delete" )]
@@ -61,7 +60,7 @@ namespace WebSqlGit.Controllers
         public void DeleteScript( int id )
         {
             string Author = User.Identity.Name;
-            _scriptRepository.DeleteScript( id, Author );
+            _scriptInterface.DeleteScript( id, Author );
         }
 
         [HttpPost( "{id}/edit" )]
@@ -69,13 +68,13 @@ namespace WebSqlGit.Controllers
         public void UpdateScript( Script script )
         {
             string Author = User.Identity.Name;
-            _scriptRepository.UpdateScript( script, Author );
+            _scriptInterface.UpdateScript( script, Author );
         }
 
         [HttpGet( "search/{pattern}" )]
         public List<Script> GetScriptsBySearchPattern( string pattern )
         {
-            return _scriptRepository.GetScriptsBySearchPattern( pattern );
+            return _scriptInterface.GetScriptsBySearchPattern( pattern );
         }
     }
 }
