@@ -40,7 +40,7 @@ namespace WebSqlGit.Data
         {
             using ( IDbConnection db = new SqlConnection( connectionString ) ) 
             {
-                string sqlQuery = "SELECT Name FROM Users WHERE Login = @login";
+                string sqlQuery = "SELECT Name FROM Users WHERE Login = @UserName";
                 
                 return db.Query<string>( sqlQuery, new { login } ).FirstOrDefault(); 
             }
