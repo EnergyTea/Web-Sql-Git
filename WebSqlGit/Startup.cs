@@ -32,9 +32,9 @@ namespace WebSqlGit
             ConfigSettings configSettings = new ConfigSettings();
             DbContextConfiguration dbContextConfiguration = configSettings.DbContextConfiguration;
 
-            services.AddTransient<ICategoryInterface, CategoryRepository>(provider => new CategoryRepository(dbContextConfiguration.ConnectionString));
-            services.AddTransient<IScriptInterface, ScriptRepository>(provider => new ScriptRepository(dbContextConfiguration.ConnectionString));
-            services.AddTransient<IUserInterface, UserRepository>(provider => new UserRepository(dbContextConfiguration.ConnectionString));
+            services.AddTransient<ICategoryRepository, CategoryRepository>(provider => new CategoryRepository(dbContextConfiguration.ConnectionString));
+            services.AddTransient<IScriptRepository, ScriptRepository>(provider => new ScriptRepository(dbContextConfiguration.ConnectionString));
+            services.AddTransient<IUserRepository, UserRepository>(provider => new UserRepository(dbContextConfiguration.ConnectionString));
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles( configuration =>
