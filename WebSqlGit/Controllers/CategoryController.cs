@@ -21,16 +21,16 @@ namespace WebSqlGit.Controllers
             _scriptInterface = scriptInterface;
         }
 
-        [HttpGet]
-        public List<Category> CategoryList()
-        {
-            return _categoryInterface.GetAll();
-        }
-
         [HttpGet( "{id}" )]
         public Category GetCategory( int id )
         {
             return _categoryInterface.GetCategory( id );
+        }
+
+        [HttpGet]
+        public List<Category> CategoryList()
+        {
+            return _categoryInterface.GetAll();
         }
 
         [HttpPost]

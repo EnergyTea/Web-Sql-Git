@@ -28,10 +28,10 @@ namespace WebSqlGit.Data
 
         public List<Category> GetAll()
         {
-            using ( IDbConnection db = new SqlConnection( connectionString ) ) 
+            using ( IDbConnection db = new SqlConnection( connectionString ) )
             {
                 string sqlQuery = "SELECT * FROM Categories WHERE Deleted IS NULL";
-                
+
                 return db.Query<Category>( sqlQuery ).ToList();
             }
         }

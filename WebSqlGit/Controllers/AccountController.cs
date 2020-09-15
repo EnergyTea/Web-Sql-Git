@@ -35,12 +35,6 @@ namespace WebSqlGit.Controllers
             return user;
         }
 
-        [HttpGet( "all" )]
-        public List<User> GetAll()
-        {
-            return _userInterface.GetUsers();
-        }
-
         [HttpPost( "registration" )]
         public void CreateUser( User user )
         {

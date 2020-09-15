@@ -28,19 +28,11 @@ namespace WebSqlGit.Data
             }
         }
 
-        public List<User> GetUsers()
-        {
-            using ( IDbConnection db = new SqlConnection( connectionString ) ) 
-            { 
-                return db.Query<User>( "SELECT Login FROM Users" ).ToList();
-            }
-        }
-
         public string GetUserNameByLogin( string login )
         {
             using ( IDbConnection db = new SqlConnection( connectionString ) ) 
             {
-                string sqlQuery = "SELECT Name FROM Users WHERE Login = @UserName";
+                string sqlQuery = "SELECT Name FROM Users WHERE Login = @login";
                 
                 return db.Query<string>( sqlQuery, new { login } ).FirstOrDefault(); 
             }
