@@ -2,6 +2,12 @@ h3 {
   margin: 10px 0 0 20px;
 }
 
+.btn {
+  border: 2px solid #dee2e6;
+  background-color: #ffffff;
+  margin-right: 10px;
+}
+
 pre {
   height: 470px;
 }
@@ -30,10 +36,6 @@ pre::-webkit-scrollbar-thumb {
   background-color: #f9f9f9;
   margin: 0 20px;
   padding: 5px 10px;
-}
-
-.bottom-btn {
-  margin-right: 40px;
 }
 
 .row {
@@ -94,5 +96,9 @@ pre::-webkit-scrollbar-thumb {
 }
 
 .main-version {
-    margin: 10px;
+  margin: 10px;
+}
+
+.sql {
+  background-color: #f9f9f9;
 }

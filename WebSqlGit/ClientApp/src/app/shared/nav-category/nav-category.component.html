@@ -1,9 +1,5 @@
-<h4>Карегории <img src="../../../assets/add-category.png" alt="Add" class="editCat" title="Добавить"  *ngIf="isAurorize" (click)="creatCategoey = !creatCategoey"/></h4>
+<h4>Категории</h4>
 <div class="list-group">
-  <form *ngIf="isEditCategory" class="creat-category" action="/" method="post">
-    <input #NameCategory class="new-name" placeholder="Название" />
-    <button (click)="addCategory(NameCategory.value); isEditCategory = !isEditCategory" class="add-category btn-dark">Добавить</button>
-  </form>
   <div class="left">
     <div *ngFor="let category of categories; let i = index"
          [ngClass]="{'select': highlightedDiv === category.id }"
