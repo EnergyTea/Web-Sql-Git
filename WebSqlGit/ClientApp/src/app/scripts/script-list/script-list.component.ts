@@ -8,6 +8,7 @@ import { ScriptService } from '../shared/script.service';
   templateUrl: './script-list.component.html',
   styleUrls: ['./script-list.component.css']
 })
+
 /** scripts component*/
 export class ScriptsComponent implements OnInit {
   scripts: Script[];

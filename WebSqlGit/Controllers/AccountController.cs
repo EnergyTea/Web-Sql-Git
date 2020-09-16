@@ -11,63 +11,56 @@ using WebSqlGit.Data.Model;
 
 namespace WebSqlGit.Controllers
 {
-    [Route("api/accounts")]
+    [Route( "api/accounts" )]
     [ApiController]
     public class AccountController : Controller
     {
-        private readonly IUserInterface _userInterface;
-        public AccountController(IUserInterface userInterface)
+        private readonly IUserRepository _userInterface;
+                
+        public AccountController( IUserRepository userInterface )
         {
             _userInterface = userInterface;
         }
 
         [HttpGet]
-        public IActionResult GetUser()
+        public User GetUser()
         {
-            string UserLogin = User.Identity.Name;
             User user = new User { };
-            if (UserLogin == null)
+            if ( User.Identity.Name == null )
             {
-                return Ok(user);
+                return user;
             }
-            user.Name = _userInterface.GetUser(UserLogin);
-            return Ok(user);
+            user.Name = _userInterface.GetUserNameByLogin( User.Identity.Name );
+
+            return user;
         }
 
-        [HttpGet("all")]
-        public List<User> GetAll()
+        [HttpPost( "registration" )]
+        public void CreateUser( User user )
         {
-            var users = _userInterface.GetUsers();
-            return users.ToList();
-        }
-
-        [HttpPost("registration")]
-        public IActionResult CreateUser(User user)
-        {
-            _userInterface.RegistrationUser(user);
-            return Ok();
+            _userInterface.RegistrationUser( user );
         }
 
         [HttpPost]
-        public async Task Authorize(User user)             
+        public async Task Authorize( User user )             
         {
-            User AuthorizeUser = _userInterface.Authorize(user); 
-            if (AuthorizeUser != null) {
+            User AuthorizeUser = _userInterface.Authorize( user ); 
+            if ( AuthorizeUser != null ) 
+            {
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, AuthorizeUser.Login)
+                    new Claim( ClaimsIdentity.DefaultNameClaimType, AuthorizeUser.Login )
                 };
-                ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                ClaimsIdentity id = new ClaimsIdentity( claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType );
                 // установка аутентификационных куки
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+                await HttpContext.SignInAsync( CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal( id ) );
             }
         }
 
-        [HttpGet("logout")]
-        public async Task<IActionResult> Logout()
+        [HttpGet( "logout" )]
+        public async void Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Ok();
+            await HttpContext.SignOutAsync( CookieAuthenticationDefaults.AuthenticationScheme );
         }
     }
 

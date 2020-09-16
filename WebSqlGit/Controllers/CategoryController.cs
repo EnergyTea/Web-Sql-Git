@@ -8,49 +8,42 @@ using WebSqlGit.Model;
 
 namespace WebSqlGit.Controllers
 {
-    [Route("api/categories")]
+    [Route( "api/categories" )]
     [ApiController]
     public class CategoryController : Controller
     {
-        private readonly ICategoryInterface _categoryInterface;
-        private readonly IScriptInterface _scriptInterface;
+        private readonly ICategoryRepository _categoryInterface;
+        private readonly IScriptRepository _scriptInterface;
 
-        public CategoryController(ICategoryInterface categoryInterface, IScriptInterface scriptInterface)
+        public CategoryController( ICategoryRepository categoryInterface, IScriptRepository scriptInterface )
         {
             _categoryInterface = categoryInterface;
             _scriptInterface = scriptInterface;
         }
 
+        [HttpGet( "{id}" )]
+        public Category GetCategory( int id )
+        {
+            return _categoryInterface.GetCategory( id );
+        }
+
         [HttpGet]
         public List<Category> CategoryList()
         {
-            var category = _categoryInterface.GetAll();
-            return category.ToList();
-        }
-        [HttpGet("{id}")]
-        public IActionResult GetCategory(int id)
-        {
-            Category category = _categoryInterface.GetCategory(id);
-            if (category == null)
-            {
-                return NotFound();
-            }
-            return Ok(category);
+            return _categoryInterface.GetAll();
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult CreateCategory(Category category)
+        public void CreateCategory( Category category )
         {
-            _categoryInterface.CreateCategory(category);
-            return Ok();
+            _categoryInterface.CreateCategory( category );
         }
 
-        [HttpGet("{id}/scripts")]
-        public List<Script> ScriptsList(int id)
+        [HttpGet( "{id}/scripts" )]
+        public List<Script> ScriptsList( int id )
         {
-            var scripts = _scriptInterface.GetScriptsForCategory(id);
-            return scripts.ToList();
+            return _scriptInterface.GetScriptsForCategory( id );
         }
     }
 }

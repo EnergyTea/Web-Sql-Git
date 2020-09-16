@@ -8,49 +8,45 @@ using WebSqlGit.Data.Model;
 
 namespace WebSqlGit.Data
 {
-    public class UserRepository : IUserInterface
+    public class UserRepository : IUserRepository
     {
         readonly string connectionString;
-        public UserRepository(string conn)
+        
+        public UserRepository( string connection )
         {
-            connectionString = conn;
+            connectionString = connection;
         }
 
-        public User Authorize(User user)
+        public User Authorize( User user )
         {
-            using (IDbConnection db = new SqlConnection(connectionString)) { 
-                string Login = user.Login;
-                string Password = user.Password;
-                User AuthorizeUser = db.Query<User>("SELECT * FROM Users WHERE Login = @login AND Password = @Password", new{ Login, Password }).FirstOrDefault();
+            using ( IDbConnection db = new SqlConnection( connectionString ) ) 
+            { 
+                string sqlQuery = "SELECT * FROM Users WHERE Login = @login AND Password = @Password";
+                User AuthorizeUser = db.Query<User>( sqlQuery, new{ user.Login, user.Password } ).FirstOrDefault();
+                
                 return AuthorizeUser;
             }
         }
 
-        public List<User> GetUsers()
+        public string GetUserNameByLogin( string login )
         {
-            using (IDbConnection db = new SqlConnection(connectionString)) { 
-                List<User> users = db.Query<User>("SELECT Login FROM Users").ToList();
-                return users.ToList();
+            using ( IDbConnection db = new SqlConnection( connectionString ) ) 
+            {
+                string sqlQuery = "SELECT Name FROM Users WHERE Login = @login";
+                
+                return db.Query<string>( sqlQuery, new { login } ).FirstOrDefault(); 
             }
         }
 
-        public string GetUser(string UserName)
+        public void RegistrationUser( User user )
         {
-            using (IDbConnection db = new SqlConnection(connectionString)) {
-                string AuthorizeUser = db.Query<string>("SELECT Name FROM Users WHERE Login = @UserName", new { UserName }).FirstOrDefault();
-                return AuthorizeUser; 
-            }
-        }
-
-        public User RegistrationUser(User user)
-        {
-            using (IDbConnection db = new SqlConnection(connectionString)) { 
-                    if (!db.ExecuteScalar<bool>("SELECT * FROM Users WHERE Login = @Login", user))
-                    {
-                        User NewUser = db.Query<User>("INSERT INTO Users (Name, Login, Password) VALUES(@Name, @Login, @Password)", user).FirstOrDefault();
-                        return NewUser;
-                    }
-                return null;
+            using ( IDbConnection db = new SqlConnection( connectionString ) )
+            {
+                if ( !db.ExecuteScalar<bool>( "SELECT * FROM Users WHERE Login = @Login", user ) )
+                {
+                    string sqlQuery = "INSERT INTO Users (Name, Login, Password) VALUES(@Name, @Login, @Password)";
+                    db.Query<User>( sqlQuery, user ).FirstOrDefault();
+                }
             }
         }
     }

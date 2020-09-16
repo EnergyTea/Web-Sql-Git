@@ -1,4 +1,5 @@
 input {
+  margin-left: 5px;
   padding-left: 5px;
   border-top: none;
   border-left: none;
@@ -6,11 +7,12 @@ input {
   border-bottom: 2px solid #dee2e6;
 }
 
-h3 {
-    margin-top: 10px;
+label {
+  margin: 0;
 }
 
 select {
+  margin-left: 28px;
   width: 229px;
   border-color: #ffffff;
   border-bottom: 2px solid #dee2e6;
@@ -48,8 +50,13 @@ button {
   background-color: #ffffff;
 }
 
-.script-tuning div {
-  margin-bottom: 5px;
+.tag {
+  text-align: center;
+  border: 3px solid rgba(0,0,0,0.1);
+  border-radius: 5px;
+  height: 30px;
+  width: 70px;
+  margin: 10px;
 }
 
 .new-tags {
@@ -61,19 +68,20 @@ button {
     margin-left: 5px;
 }
 
-.add-name {
-  margin-left: 15px;
-}
-
-.add-category {
-  margin-left: 38px;
+.btn-create {
+  max-height: 38px;
+  margin: 1px 0 0 0;
 }
 
 .add-tag {
-  margin-left: 92px;
-  margin-right: 10px;
+  margin-left: 82px;
+  margin-right: 5px;
 }
 
-.create-script {
-    margin-top: 10px;
+.tag-create {
+  margin: 5px 0 0 0;
+}
+
+.error {
+  color: red;
 }

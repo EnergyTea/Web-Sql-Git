@@ -1,18 +1,16 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../../authentication/shared/user.service';
 import { Script } from '../shared/Script';
 import { ScriptService } from '../shared/script.service';
-import { using, timer } from 'rxjs';
-import { UserService } from '../../authentication/shared/user.service';
-
 
 @Component({
     selector: 'app-script',
     templateUrl: './script.component.html',
      styleUrls: ['./script.component.css']
 })
+
 /** script component*/
 export class ScriptComponent implements OnInit {
 /** script ctor */
@@ -22,7 +20,6 @@ export class ScriptComponent implements OnInit {
   isAurorize = true;
   public highlightedDiv: number;
 
-
   constructor(
     private ref: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -30,7 +27,6 @@ export class ScriptComponent implements OnInit {
     private location: Location,
     private userService: UserService
   ) { }
-
 
   public toggleHighlight(newValue: number) {
     this.highlightedDiv = newValue;
@@ -54,6 +50,7 @@ export class ScriptComponent implements OnInit {
       }
     })
   }
+
   getScriptHistory(id: number): void {
     this.script.body = null;
     this.ref.detectChanges();
@@ -88,7 +85,7 @@ export class ScriptComponent implements OnInit {
       .subscribe(scripts => this.scripts = scripts.reverse());
   }
 
-  delete(script: Script): void {
+  deleteScript(script: Script): void {
     this.scriptScrvice.deleteScript(script.scriptId)
       .subscribe(data => { this.getScript(); this.goBack() });
   }

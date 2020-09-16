@@ -1,21 +1,5 @@
-
-input {
-  padding-left: 5px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 2px solid #dee2e6;
-  width: 150px;
-  margin: 0 10px 0 20px;
-}
-
-button {
-  border: 2px solid #dee2e6;
-  background-color: #ffffff;
-}
-
-.row {
-  margin-top: 10px;
+h4 {
+  margin: 15px 0 10px 20px;
 }
 
 .category {
@@ -23,9 +7,15 @@ button {
   font-size: 20px;
 }
 
-  .category:hover {
-    background: #8fbff0;
-  }
+.category a {
+  color: #000;
+  text-decoration: none;
+}
+
+.category:hover {
+  background: #8fbff0;
+}
+
 .select {
   background: #8fbff0;
 }
@@ -37,81 +27,41 @@ button {
   padding: 0;
 }
 
-  .left::-webkit-scrollbar-track {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-    background-color: #ffffff;
-  }
-
-  .left::-webkit-scrollbar {
-    width: 10px;
-    background-color: #ffffff;
-  }
-
-  .left::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #cccccc;
-  }
-
-textarea {
-  height: 80vh;
+.left::-webkit-scrollbar-track {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  background-color: #ffffff;
 }
 
-.script-id {
-  padding: 30px 0;
-  border: 1px solid #000;
-  border-radius: 8px;
-  margin: 10px 20px;
-  max-width: 750px;
+.left::-webkit-scrollbar {
+  width: 10px;
+  background-color: #ffffff;
 }
 
-
-.category a {
-  color: #000;
-  text-decoration: none;
+.left::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #cccccc;
 }
 
-
-h4 {
-  margin: 15px 0 10px 20px;
-}
-
-.row {
-  margin-top: 10px;
-}
-
-.read {
-  padding: 20px 40px;
-}
-
-textarea {
-  height: 75vh;
-  background-color: #f9f9f9;
-}
-
-.btnCat {
+.add-category {
   margin-left: auto;
+  margin-left: 10px;
   width: 35px;
   height: 35px;
   border-radius: 5px;
   padding: 0 2px 2px 0
 }
 
-.editCat {
+.edit-category {
   margin-left: 10px;
   max-height: 20px;
 }
 
-.creatCategoey {
+.creat-category {
   margin: 5px auto
 }
 
-.addCat {
-  margin-left: 10px;
-
-}
-
-.newName {
+.new-name {
   max-width: 155px;
   border-color: #cccccc;
   border-top: none;

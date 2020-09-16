@@ -34,11 +34,6 @@ export class UserService {
     return this.http.get<User>(this.authorizeUrl)
   }
 
-  getUsers(): Observable<User[]> {
-    const url = `${this.authorizeUrl}/all`;
-    return this.http.get<User[]>(url)
-  }
-
   outUser(): Observable<User> {
     const url = `${this.authorizeUrl}/logout`;
     return this.http.get<User>(url, { withCredentials: true })

@@ -19,7 +19,7 @@
       <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
         Не введен Пароль
       </div>
-      <button [disabled]="name.invalid || login.invalid || password.invalid" (click)="Registration(user)" class="btn btn-lg btn-primary btn-block" type="button">Зарегистрироваться</button>
+      <button [disabled]="name.invalid || login.invalid || password.invalid" (click)="registrationUser(user)" class="btn btn-lg btn-primary btn-block" type="button">Зарегистрироваться</button>
     </form>
   </div>
 </div>

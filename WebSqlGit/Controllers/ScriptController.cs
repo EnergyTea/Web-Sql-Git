@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using WebSqlGit.Data.Interface;
 using WebSqlGit.Model;
 
 namespace WebSqlGit.Controllers
 {
-    [Route("api/scripts")]
+    [Route( "api/scripts" )]
     [ApiController]
     public class ScriptController : Controller
     {
-        private readonly IScriptInterface _scriptInterface;
-        public ScriptController(IScriptInterface scriptInterface)
+        private readonly IScriptRepository _scriptInterface;
+        public ScriptController( IScriptRepository scriptInterface )
         {
             _scriptInterface = scriptInterface;
         }
@@ -20,72 +20,61 @@ namespace WebSqlGit.Controllers
         [HttpGet]
         public List<Script> ScriptsList()
         {
-            List<Script> scripts = _scriptInterface.GetAll().ToList();
-            return scripts;
+            return _scriptInterface.GetAll();
         }
 
-        [HttpGet("user")]
+        [HttpGet( "user" )]
         public List<Script> UserScripts()
         {
-            string Author = User.Identity.Name;
-            List<Script> scripts = _scriptInterface.GetUserScripts(Author).ToList();
-            return scripts;
+            return _scriptInterface.GetUserScripts( User.Identity.Name );
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetScript(int id)
+        [HttpGet( "{id}" )]
+        public Script GetScript( int id )
         {
-            string Author = User.Identity.Name;
-            Script script = _scriptInterface.GetScript(id, Author);
-            return Ok(script);
+            return _scriptInterface.GetScript( id, User.Identity.Name );
         }
 
-        [HttpGet("{id}/history")]
-        public IActionResult GetStoryScript(int id)
-            {
-            string Author = User.Identity.Name;
-            Script script = _scriptInterface.GetScriptHistory(id, Author);
-            return Ok(script);
-        }
-
-        [HttpGet("{id}/all")]
-        public List<Script> GetStoriesScript(int id)
+        [HttpGet( "{id}/history" )]
+        public Script GetStoryScript( int id )
         {
-            List<Script> scripts = _scriptInterface.GetScriptsHistory(id).ToList();
-            return scripts;
+            return _scriptInterface.GetScriptHistory( id, User.Identity.Name );
+        }
+
+        [HttpGet( "{id}/all" )]
+        public List<Script> GetStoriesScript( int id )
+        {
+            return _scriptInterface.GetScriptsHistory( id );
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult CreateScript(Script script)
+        public void CreateScript( Script script )
         {
             script.Author = User.Identity.Name;
-            _scriptInterface.CreateScript(script);
-            return Ok();
+            _scriptInterface.CreateScript( script );
         }
 
-        [HttpPost("{id}/delete")]
+        [HttpPost( "{id}/delete" )]
         [Authorize]
-        public IActionResult DeleteScript(int id)
+        public void DeleteScript( int id )
         {
             string Author = User.Identity.Name;
-            _scriptInterface.DeleteScript(id, Author);
-            return Ok();
+            _scriptInterface.DeleteScript( id, Author );
         }
 
-        [HttpPost("{id}/edit")]
+        [HttpPost( "{id}/edit" )]
         [Authorize]
-        public IActionResult UpdateScript(Script script)
+        public void UpdateScript( Script script )
         {
             string Author = User.Identity.Name;
-            _scriptInterface.UpdateScript(script, Author);
-            return Ok();
+            _scriptInterface.UpdateScript( script, Author );
         }
 
-        [HttpGet("search/{pattern}")]
-        public List<Script> GetScriptsBySearchPattern(string pattern)
+        [HttpGet( "search/{pattern}" )]
+        public List<Script> GetScriptsBySearchPattern( string pattern )
         {
-            return _scriptInterface.GetScriptsBySearchPattern(pattern);
+            return _scriptInterface.GetScriptsBySearchPattern( pattern );
         }
     }
 }
