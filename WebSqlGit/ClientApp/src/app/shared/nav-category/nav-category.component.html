@@ -1,4 +1,15 @@
-<h4>Категории</h4>
+<div class="head-category">
+  <h4>Категории</h4>
+  <button
+          class="add-category"
+          *ngIf="isAurorize"
+          (click)="isAdd = !isAdd;"
+          >+</button>
+</div>
+<form *ngIf="isAdd" action="/" method="post">
+  <input #NameCategory placeholder="Название" />
+  <button (click)="addCategory(NameCategory.value)">Добавить</button>
+</form>
 <div class="list-group">
   <div class="left">
     <div *ngFor="let category of categories; let i = index"

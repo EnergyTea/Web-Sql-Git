@@ -32,10 +32,11 @@ export class CreateScriptComponent implements OnInit {
 
   createTags(tagNew: string) {
     tagNew = tagNew.trim();
-    if (tagNew !== "") {
+    if (tagNew !== "" && this.tags.length < 5) {
       this.tags.push(tagNew);
     }
   }
+
   deleteTag(i: number) {
     this.tags.splice(i, 1);
   }

@@ -17,7 +17,8 @@
     <div *ngFor="let scriptVersion of scripts; let i = index"
          [ngClass]="{'active': highlightedDiv === i }"
          class="script-version flex-row"
-         (click)="getScriptHistory(scriptVersion.id); toggleHighlight(i)">
+         (click)="getScriptHistory(scriptVersion.id);
+                  toggleHighlight(i)">
       <div class="main-version">
         <h6>{{scriptVersion.name}}</h6>
         <p>Версия: {{scriptVersion.version}}</p>

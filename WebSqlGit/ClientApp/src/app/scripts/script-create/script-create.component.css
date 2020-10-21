@@ -48,6 +48,10 @@ textarea::-webkit-scrollbar-thumb {
 button {
   border: 2px solid #dee2e6;
   background-color: #ffffff;
+  color: #212529;
+  max-height: 38px;
+  font-size: 1rem;
+  margin: 1px 0 0 0;
 }
 
 .tag {
@@ -69,7 +73,9 @@ button {
 }
 
 .btn-create {
+  color: #212529;
   max-height: 38px;
+  font-size: 1rem;
   margin: 1px 0 0 0;
 }
 

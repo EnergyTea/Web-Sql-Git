@@ -35,6 +35,7 @@ export class ScriptComponent implements OnInit {
   ngOnInit(): void {
     this.getScript();
     this.getAll();
+    this.toggleHighlight(0);
   }
 
   getScript(): void {
@@ -57,6 +58,9 @@ export class ScriptComponent implements OnInit {
     this.scriptScrvice.getStoryScript(id)
       .subscribe(script => {
         this.script = script;
+        if (!script.isLastVersion) {
+          this.script.isAuthor = false;
+        }
         this.highlight();
       });
     this.userService.getUser().subscribe(user => {

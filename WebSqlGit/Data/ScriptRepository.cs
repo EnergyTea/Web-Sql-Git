@@ -190,7 +190,11 @@ namespace WebSqlGit.Data
             {
                 List<Script> scriptsByName = SearchScriptsByNameEntry( pattern );
                 List<Script> scriptsByTag = SearchScriptsByTagEntry( pattern );
-                scriptsByName.Union( scriptsByTag ).Take( 10 ).ToList();
+                scriptsByName.AddRange( scriptsByTag );
+                if ( scriptsByName.Count == 0)
+                {
+                    scriptsByName = scriptsByTag;
+                }
                 List<Script> scriptsPush = scriptsByName.Select( script => new Script
                 {
                     Id = script.ScriptId,
@@ -216,11 +220,20 @@ namespace WebSqlGit.Data
         {
             using ( IDbConnection db = new SqlConnection( connectionString ) )
             {
-                List<int> scriptsByTag = db.Query<int>( "SELECT ScriptsHistoryId FROM Tags WHERE Name LIKE  @Pattern", new { Pattern = "%" + pattern + "%" } ).ToList();
-                string sqlTags = "SELECT * FROM ScriptsHistory WHERE IsLastVersion = 'True' AND Deleted IS NULL AND ScriptId IN @scriptsByTag";
-                List<Script> scriptInTags = db.Query<Script>( sqlTags, new { scriptsByTag } ).ToList();
+                int[] scriptsByTag = db.Query<int>( "SELECT ScriptsHistoryId FROM Tags WHERE Name LIKE  @Pattern", new { Pattern = "%" + pattern + "%" } ).ToArray();
+                string sqlTags = "SELECT * FROM ScriptsHistory WHERE Id = @id AND IsLastVersion = 'True' AND ScriptsHistory.Deleted IS NULL";
+                List<Script> scriptInTags = new List<Script> { };
+                for (int scriptByTag = 0; scriptByTag < scriptsByTag.Length; scriptByTag++ )
+                {
+                    int id = scriptsByTag[scriptByTag];
+                    Script script = db.Query<Script>( sqlTags, new { id } ).FirstOrDefault();
+                    if (script != null)
+                    {
+                        scriptInTags.Add( script );
+                    }
+                }
                 
-                return scriptInTags;
+                return scriptInTags.ToList();
             }
         }
 
