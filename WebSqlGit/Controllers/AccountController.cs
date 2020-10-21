@@ -63,5 +63,4 @@ namespace WebSqlGit.Controllers
             await HttpContext.SignOutAsync( CookieAuthenticationDefaults.AuthenticationScheme );
         }
     }
-
 }
