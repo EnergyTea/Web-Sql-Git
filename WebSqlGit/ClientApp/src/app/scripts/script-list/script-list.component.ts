@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Script } from '../shared/Script';
 import { ScriptService } from '../shared/script.service';
+import { Category } from '../../categories/shared/Category';
+import { CategoryService } from '../../categories/shared/category.service';
 
 
 @Component({
@@ -12,8 +14,12 @@ import { ScriptService } from '../shared/script.service';
 /** scripts component*/
 export class ScriptsComponent implements OnInit {
   scripts: Script[];
+  categories: Category[];
 
-  constructor(private scriptService: ScriptService) { }
+  constructor(
+    private scriptService: ScriptService,
+    private categoryService: CategoryService
+  ) { }
 
   ngOnInit() {
     this.getScripts();
@@ -22,5 +28,7 @@ export class ScriptsComponent implements OnInit {
   getScripts(): void {
     this.scriptService.getScripts()
       .subscribe(scripts => this.scripts = scripts.reverse())
+    this.categoryService.getCategories()
+      .subscribe(categories => this.categories = categories)
   }
 }

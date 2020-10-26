@@ -39,8 +39,9 @@ pre::-webkit-scrollbar-thumb {
 }
 
 .row {
-  width: 1068px;
   margin-top: 10px;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .script-version {

@@ -2,7 +2,8 @@
   <h3>{{category.name}}</h3>
   <div *ngFor="let script of scripts" class="script-blick link d-flex">
     <a href="scripts/{{script.id}}">
-      {{script.name}}
+      {{script.name}} -
+      {{script.tags}}
     </a>
   </div>
 </div>

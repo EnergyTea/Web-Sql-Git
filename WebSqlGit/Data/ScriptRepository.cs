@@ -12,7 +12,7 @@ namespace WebSqlGit.Data
     public class ScriptRepository : IScriptRepository
     {
         readonly string connectionString;
-        
+
         public ScriptRepository( string connection )
         {
             connectionString = connection;
@@ -30,6 +30,8 @@ namespace WebSqlGit.Data
                     Id = script.Id,
                     Name = script.Name,
                     CategoryId = script.CategoryId,
+                    Tags = db.Query<String>( "SELECT Name FROM Tags WHERE ScriptsHistoryId = @Id", new { script.Id } ).ToArray(),
+                    Body = db.Query<String>( "SELECT Name FROM Categories WHERE Id = @CategoryId AND Deleted IS NULL", new { script.CategoryId } ).FirstOrDefault(),
                     CreationDataTime = script.CreationDataTime,
                 } ).ToList();
 

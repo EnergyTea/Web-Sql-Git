@@ -21,6 +21,6 @@
 .list-script {
   overflow: auto;
   width: 100%;
-  max-height: 710px;
+  max-height: 90vh;
   padding: 0px;
 }
