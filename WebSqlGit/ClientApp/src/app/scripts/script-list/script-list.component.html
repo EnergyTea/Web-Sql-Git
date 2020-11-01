@@ -1,9 +1,9 @@
 <div class="list-script">
   <div *ngFor="let script of scripts"  class="script-blick link d-flex">
-    <a href="scripts/{{script.id}}">
-      {{script.body}} -
-      {{script.name}} -
-      {{script.tags}}
-    </a>
+      <div (click)="goTo(script.id)" class="script">
+        <div class="script-category">{{script.body}}</div>
+        {{script.name.substring(0, 80)}}
+        <small>{{script.tags.slice(0, 10)}}</small>
+      </div>
   </div>
 </div>

@@ -4,13 +4,20 @@
   max-width: 750px;
 }
 
-.script-blick a {
-  height: 60px;
-  line-height: 60px;
+.script {
+  margin: 5px 20px 10px 0;
   padding-left: 30px;
   width: 100%;
   color: #000;
   text-decoration: none;
+}
+
+small {
+  float: right;
+}
+.script-category {
+  margin-left: -10px;
+  font-size: 11px;
 }
 
 .script-del {

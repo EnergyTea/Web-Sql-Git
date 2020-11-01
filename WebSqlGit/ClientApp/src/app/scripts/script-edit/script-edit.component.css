@@ -22,7 +22,7 @@ select {
 
 textarea {
   max-width: 880px;
-  height: 460px;
+  height: 410px;
   background-color: #f9f9f9;
   border: #f9f9f9;
 }
@@ -75,5 +75,5 @@ button {
 }
 
 .update-script {
-  margin: 10px 130px 0 0;
+  margin: 10px 20vh 0 0;
 }

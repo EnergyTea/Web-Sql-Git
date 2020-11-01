@@ -2,6 +2,10 @@ h3 {
   margin: 10px 0 0 20px;
 }
 
+.script-tags {
+  margin: 0 20px;
+}
+
 .btn {
   border: 2px solid #dee2e6;
   background-color: #ffffff;
@@ -98,6 +102,7 @@ pre::-webkit-scrollbar-thumb {
 
 .main-version {
   margin: 10px;
+  max-width: 150px;
 }
 
 .sql {

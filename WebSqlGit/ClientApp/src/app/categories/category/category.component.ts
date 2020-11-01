@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Script } from '../../scripts/shared/Script';
 import { Category } from '../shared/Category';
@@ -18,6 +19,7 @@ export class CategoryComponent implements OnInit {
   @Input() CategoryId: number;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private categoryService: CategoryService
   ) { }
@@ -37,5 +39,10 @@ export class CategoryComponent implements OnInit {
     const CategoryId = + this.route.snapshot.paramMap.get('CategoryId');
     this.categoryService.getScripts(CategoryId)
       .subscribe(scripts => this.scripts = scripts)
+  }
+
+  goTo(id: number): void {
+    console.log(id);
+    this.router.navigate(['scripts/' + id]);
   }
 }

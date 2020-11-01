@@ -20,11 +20,10 @@
     </div>
   </div>    
   <div  class="d-flex flex-column">
-    <label>SQL код</label>
     <textarea [(ngModel)]="script.body" name="body"  class="border">{{script.body}}</textarea>
   </div>
   <span *ngIf="isError">Ошибка! Не все поля заполнены.</span>
   <div  class="d-flex flex-row-reverse">
-    <button (click)="upDate(script)" type="button"  class="update-script">Сохранить</button>
+    <button (click)="upDate(script)" type="button"  class="btn update-script">Сохранить</button>
   </div>
 </form>
