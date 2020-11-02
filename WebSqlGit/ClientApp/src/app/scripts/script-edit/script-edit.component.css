@@ -74,6 +74,10 @@ button {
   margin-left: 10px;
 }
 
+.save-btn {
+    width: 880px;
+}
+
 .update-script {
-  margin: 10px 20vh 0 0;
+  margin-top: 10px;
 }

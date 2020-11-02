@@ -10,7 +10,7 @@
     </div>
     <div>
       <input #tagNew type="text" placeholder="Название тега">
-      <button (click)="createTags(tagNew.value); tagNewName.value=''; " type="button" class="update-tag">Добавить</button>
+      <button (click)="createTags(tagNew.value); tagNewName =''; " type="button" class="update-tag">Добавить</button>
     </div>
   </div>
   <div class="new-tags d-flex">
@@ -23,7 +23,7 @@
     <textarea [(ngModel)]="script.body" name="body"  class="border">{{script.body}}</textarea>
   </div>
   <span *ngIf="isError">Ошибка! Не все поля заполнены.</span>
-  <div  class="d-flex flex-row-reverse">
+  <div  class="d-flex flex-row-reverse save-btn">
     <button (click)="upDate(script)" type="button"  class="btn update-script">Сохранить</button>
   </div>
 </form>

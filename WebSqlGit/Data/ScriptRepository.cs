@@ -22,12 +22,12 @@ namespace WebSqlGit.Data
         {
             using ( IDbConnection db = new SqlConnection( connectionString ) ) 
             {
-                string sqlQuery = "SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory " +
+                string sqlQuery = "SELECT ScriptsHistory.ScriptId, Scripts.CategoryId, ScriptsHistory.Name, ScriptsHistory.Id FROM ScriptsHistory " +
                                   "JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1";
                 List<Script> scripts = db.Query<Script>( sqlQuery ).ToList();
                 List<Script> scriptsPush = scripts.Select( script => new Script
                 {
-                    Id = script.Id,
+                    Id = script.ScriptId,
                     Name = script.Name,
                     CategoryId = script.CategoryId,
                     Tags = db.Query<String>( "SELECT Name FROM Tags WHERE ScriptsHistoryId = @Id", new { script.Id } ).ToArray(),
