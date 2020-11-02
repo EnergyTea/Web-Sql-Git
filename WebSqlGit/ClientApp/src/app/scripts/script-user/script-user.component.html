@@ -1,8 +1,10 @@
 <h2>Мои скрипты</h2>
 <div>
   <div *ngFor="let script of scripts" class="script-blick link d-flex">
-    <a href="scripts/{{script.id}}">
-      {{script.name}}
-    </a>
+    <div (click)="goTo(script.id)" class="script">
+      <div class="script-category">{{script.body}}</div>
+      {{script.name.substring(0, 80)}}
+      <small>{{script.tags.slice(0, 10)}}</small>
+    </div>
   </div>
 </div>

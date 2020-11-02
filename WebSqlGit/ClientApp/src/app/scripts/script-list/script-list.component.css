@@ -20,11 +20,6 @@ small {
   font-size: 11px;
 }
 
-.script-del {
-  margin-left: auto;
-  margin-right: 10px;
-}
-
 .list-script {
   overflow: auto;
   width: 100%;

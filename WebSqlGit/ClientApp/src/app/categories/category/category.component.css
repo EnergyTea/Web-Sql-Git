@@ -1,7 +1,3 @@
-h3 {
-  margin: 20px 0;
-}
-
 .script-blick {
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   margin: 10px 20px;
@@ -9,16 +5,20 @@ h3 {
 }
 
 .script {
-  margin: 10px 20px 10px 0;
+  margin: 15px 20px 15px 0;
   padding-left: 30px;
   width: 100%;
   color: #000;
   text-decoration: none;
 }
 
-.script-del {
-  margin-left: auto;
-  margin-right: 10px;
+small {
+  float: right;
+}
+
+.script-category {
+  margin-left: -10px;
+  font-size: 11px;
 }
 
 .list-script {
@@ -27,4 +27,3 @@ h3 {
   max-height: 90vh;
   padding: 0px;
 }
-
