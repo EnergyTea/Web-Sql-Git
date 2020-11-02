@@ -16,6 +16,7 @@ export class NavCategoryComponent implements OnInit {
   categories: Category[];
   public highlightedDiv: number;
   isEditCategory: boolean;
+  isAdd: boolean;
   isAurorize = true;
 
   constructor(

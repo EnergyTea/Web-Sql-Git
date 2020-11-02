@@ -15,6 +15,7 @@ import { CategoryService } from '../../categories/shared/category.service';
 export class CreateScriptComponent implements OnInit {
   /** create ctor */
   scripts: Script[];
+  script: Script;
   categories: Category[] = [] ;
   open = false;
   isError = false;
