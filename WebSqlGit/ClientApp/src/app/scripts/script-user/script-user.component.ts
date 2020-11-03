@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Script } from '../shared/Script';
 import { ScriptService } from '../shared/script.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -13,7 +14,9 @@ export class ScriptUserComponent {
     /** script-user ctor */
   scripts: Script[];
 
-  constructor(private scriptService: ScriptService) { }
+  constructor(
+    private router: Router,
+    private scriptService: ScriptService) { }
 
   ngOnInit() {
     this.getScripts();
@@ -22,5 +25,9 @@ export class ScriptUserComponent {
   getScripts(): void {
     this.scriptService.getUserScripts()
       .subscribe(scripts => this.scripts = scripts.reverse())
+  }
+
+  goTo(id: number): void {
+    this.router.navigate(['scripts/' + id])
   }
 }

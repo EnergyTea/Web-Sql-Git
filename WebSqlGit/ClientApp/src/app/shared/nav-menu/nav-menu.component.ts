@@ -3,6 +3,7 @@ import { User } from '../../authentication/shared/User';
 import { UserService } from '../../authentication/shared/user.service';
 import { Script } from '../../scripts/shared/Script';
 import { ScriptService } from '../../scripts/shared/script.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -17,6 +18,7 @@ export class NavMenuComponent implements OnInit {
   isAurorize = true;
 
   constructor(
+    private router: Router,
     private userService: UserService,
     private scriptService: ScriptService
   ) { }

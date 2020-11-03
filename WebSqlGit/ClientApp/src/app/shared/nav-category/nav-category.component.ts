@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../authentication/shared/user.service';
 import { Category } from '../../categories/shared/Category';
 import { CategoryService } from '../../categories/shared/category.service';
@@ -20,6 +20,7 @@ export class NavCategoryComponent implements OnInit {
   isAurorize = true;
 
   constructor(
+    private router: Router,
     private categoryService: CategoryService,
     private userService: UserService) { }
 

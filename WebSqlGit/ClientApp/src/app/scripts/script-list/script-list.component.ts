@@ -35,7 +35,6 @@ export class ScriptsComponent implements OnInit {
   }
 
   goTo(id: number): void {
-    console.log(id);
     this.router.navigate(['scripts/' + id]);
   }
 }
