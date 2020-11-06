@@ -78,8 +78,12 @@ button {
     margin-left: 5px;
 }
 
+.main {
+  width: 800px;
+}
+
 .btn-create {
-  margin: 3px 19% 0 0;
+  margin-top: 3px;
 }
 
 .add-tag {

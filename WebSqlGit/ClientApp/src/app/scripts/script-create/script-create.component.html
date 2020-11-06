@@ -24,14 +24,15 @@
         <button (click)="deleteTag(i)" class="delete-tag">x</button>
       </div>
     </div>
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column main">
       <label>SQL код</label>
       <textarea ngModel name="body" id="" class="border"></textarea>
+      <span *ngIf="isError" class="erorr">Ошибка! Не все поля заполнены..</span>
+      <div class="d-flex flex-row-reverse">
+        <button (click)="addScript(script, create)" type="button" class="btn btn-create">Создать</button>
+      </div>
     </div>
 
-    <span *ngIf="isError" class="erorr">Ошибка! Не все поля заполнены..</span>
-    <div class="d-flex flex-row-reverse">
-      <button (click)="addScript(script, create)" type="button" class="btn btn-create">Создать</button>
-    </div>
+    
   </form>
 </div>

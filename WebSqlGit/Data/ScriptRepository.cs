@@ -101,34 +101,32 @@ namespace WebSqlGit.Data
         public void UpdateScript( Script script, string author ) 
         {
             using ( IDbConnection db = new SqlConnection( connectionString ) ) 
-            {             
-                if ( CheckAuthoriz( script.ScriptId, author ) )
+            {
+                int id = script.ScriptId;
+                string sqlScript = "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 'true'";
+                Script scriptUpdate = db.Query<Script>( sqlScript, new { id } ).First();
+                scriptUpdate.Version += 1;
+                scriptUpdate.UpdateDataTime = DateTime.Now;
+                scriptUpdate.Name = script.Name;
+                scriptUpdate.Id = 0;
+                scriptUpdate.Author = author;
+                scriptUpdate.Body = script.Body;
+                string sqlLastVersion = "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id";
+                db.Execute( sqlLastVersion, new { id } );
+                scriptUpdate.IsLastVersion = true;
+                string sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, AuthorId, UpdateDataTime, IsLastVersion) " +
+                                    "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @AuthorId, @UpdateDataTime, @IsLastVersion);" +
+                                    "SELECT CAST(SCOPE_IDENTITY() as int) ";
+                int HistoryId = db.Query<int>( sqlQuery, scriptUpdate ).First();
+                var parameters = script.Tags.Select( u =>
                 {
-                    int id = script.ScriptId;
-                    string sqlScript = "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 'true'";
-                    Script scriptUpdate = db.Query<Script>( sqlScript, new { id } ).First();
-                    scriptUpdate.Version += 1;
-                    scriptUpdate.UpdateDataTime = DateTime.Now;
-                    scriptUpdate.Name = script.Name;
-                    scriptUpdate.Id = 0;
-                    scriptUpdate.Body = script.Body;
-                    string sqlLastVersion = "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id";
-                    db.Execute( sqlLastVersion, new { id } );
-                    scriptUpdate.IsLastVersion = true;
-                    string sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, AuthorId, UpdateDataTime, IsLastVersion) " +
-                                      "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @AuthorId, @UpdateDataTime, @IsLastVersion);" +
-                                      "SELECT CAST(SCOPE_IDENTITY() as int) ";
-                    int HistoryId = db.Query<int>( sqlQuery, scriptUpdate ).First();
-                    var parameters = script.Tags.Select( u =>
-                    {
-                        var tempParams = new DynamicParameters();
-                        tempParams.Add( "@tag", u, DbType.String, ParameterDirection.Input );
+                    var tempParams = new DynamicParameters();
+                    tempParams.Add( "@tag", u, DbType.String, ParameterDirection.Input );
                         
-                        return tempParams;
-                    });
-                    string sqlTags = "INSERT INTO Tags (Name, ScriptsHistoryId) VALUES(@tag, " + HistoryId + " );";
-                    db.Execute( sqlTags, parameters );
-                }
+                    return tempParams;
+                });
+                string sqlTags = "INSERT INTO Tags (Name, ScriptsHistoryId) VALUES(@tag, " + HistoryId + " );";
+                db.Execute( sqlTags, parameters );
             }
         }
 

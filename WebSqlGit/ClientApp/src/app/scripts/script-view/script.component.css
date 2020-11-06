@@ -42,6 +42,10 @@ pre::-webkit-scrollbar-thumb {
   padding: 5px 10px;
 }
 
+.lable-category {
+    margin: 19px 0 0 10px;
+}
+
 .row {
   margin-top: 10px;
   margin-right: 0;
