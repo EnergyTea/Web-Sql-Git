@@ -2,10 +2,10 @@
   <div class="col-sm-10">
     <div>
       <h3>{{script.name}}</h3>
-      <label class="lable-category">Категория: {{categoryName}}</label>
+      <label class="label-category">Категория: {{categoryName}}</label>
     </div>
-    <div class="script-tags row">
-      <label>Теги: </label>
+    <div class="script-tags d-flex">
+      <p class="p-tags">Теги: </p>
       <div *ngFor="let tag of script.tags" class="tag">{{tag}}</div>
     </div>
     <div *ngIf="script.body !== null" class="border rounded">
