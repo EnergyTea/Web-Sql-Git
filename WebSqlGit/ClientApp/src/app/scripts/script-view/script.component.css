@@ -1,5 +1,5 @@
 h3 {
-  margin: 10px 0 0 20px;
+  margin: 10px 0 0 0;
 }
 
 .script-tags {
@@ -40,10 +40,6 @@ pre::-webkit-scrollbar-thumb {
   background-color: #f9f9f9;
   margin: 0 20px;
   padding: 5px 10px;
-}
-
-.lable-category {
-    margin-left: 10px;
 }
 
 .row {
