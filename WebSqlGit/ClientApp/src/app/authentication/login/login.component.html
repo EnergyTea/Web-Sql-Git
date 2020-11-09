@@ -6,7 +6,7 @@
       <input ngModel name="email" class="form-control" placeholder="Почта" required="" autofocus="">
       <label for="inputPassword" class="sr-only">Пароль</label>
       <input ngModel name="password" type="password"class="form-control" placeholder="Пароль" required="">
-      <button (click)="loginIn(script, IngressModul)"  class="btn btn-lg btn-primary btn-block" type="button">Войти</button>
+      <button (click)="loginIn(user, IngressModul)"  class="btn btn-lg btn-primary btn-block" type="button">Войти</button>
       <button [routerLink]="['/registration']" class="btn btn-lg btn-primary btn-block" type="button">Зарегистрироваться</button>
     </form>
   </div>

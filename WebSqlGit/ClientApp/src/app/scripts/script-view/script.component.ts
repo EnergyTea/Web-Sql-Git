@@ -1,9 +1,11 @@
 import { Location } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../authentication/shared/user.service';
 import { Script } from '../shared/Script';
 import { ScriptService } from '../shared/script.service';
+import { CategoryService } from '../../categories/shared/category.service';
+import { Category } from '../../categories/shared/Category';
 
 @Component({
     selector: 'app-script',
@@ -14,8 +16,11 @@ import { ScriptService } from '../shared/script.service';
 /** script component*/
 export class ScriptComponent implements OnInit {
 /** script ctor */
+  @Input() activeCategory: number;
   script = <Script>{};
   scripts: Script[];
+  categories: Category[];
+  categoryName: string;
   edit: boolean;
   isAurorize = true;
   public highlightedDiv: number;
@@ -24,6 +29,7 @@ export class ScriptComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private route: ActivatedRoute,
     private scriptScrvice: ScriptService,
+    private categoryService: CategoryService,
     private location: Location,
     private userService: UserService
   ) { }
@@ -35,14 +41,20 @@ export class ScriptComponent implements OnInit {
   ngOnInit(): void {
     this.getScript();
     this.getAll();
+    this.toggleHighlight(0);
   }
 
   getScript(): void {
     const ScriptId = + this.route.snapshot.paramMap.get('ScriptId');
+    this.categoryService.getCategories().subscribe(categories => this.categories = categories);
     this.scriptScrvice.getScript(ScriptId)
       .subscribe(script => {
         this.script = script;
+        this.activeCategory = script.categoryId;
         this.highlight();
+        for (let category of this.categories) 
+          if (category.id == script.categoryId)
+            this.categoryName = category.name;
       })
     this.userService.getUser().subscribe(user => {
       if (user.name == null) {
@@ -57,6 +69,9 @@ export class ScriptComponent implements OnInit {
     this.scriptScrvice.getStoryScript(id)
       .subscribe(script => {
         this.script = script;
+        if (!script.isLastVersion) {
+          this.script.isAuthor = false;
+        }
         this.highlight();
       });
     this.userService.getUser().subscribe(user => {

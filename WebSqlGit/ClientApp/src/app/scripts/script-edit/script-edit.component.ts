@@ -38,7 +38,7 @@ export class EditScriptComponent implements OnInit {
 
   createTags(tagNew: string) {
     tagNew = tagNew.trim();
-    if (tagNew !== "") {
+    if (tagNew !== "" && this.tags.length < 7) {
       this.tags.push(tagNew);
     }
   }

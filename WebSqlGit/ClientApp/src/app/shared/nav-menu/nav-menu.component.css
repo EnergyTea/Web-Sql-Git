@@ -1,7 +1,17 @@
+a {
+  cursor: pointer;
+}
+
 a .navbar-brand {
+
   white-space: normal;
   text-align: center;
   word-break: break-all;
+}
+
+a:not([href]):not([tabindex]) {
+  color: #fff;
+  text-decoration: none;
 }
 
 html {

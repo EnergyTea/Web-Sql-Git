@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Script } from '../shared/Script';
 import { ScriptService } from '../shared/script.service';
+import { Category } from '../../categories/shared/Category';
+import { CategoryService } from '../../categories/shared/category.service';
 
 
 @Component({
@@ -12,8 +15,13 @@ import { ScriptService } from '../shared/script.service';
 /** scripts component*/
 export class ScriptsComponent implements OnInit {
   scripts: Script[];
+  categories: Category[];
 
-  constructor(private scriptService: ScriptService) { }
+  constructor(
+    private router: Router,
+    private scriptService: ScriptService,
+    private categoryService: CategoryService
+  ) { }
 
   ngOnInit() {
     this.getScripts();
@@ -21,6 +29,12 @@ export class ScriptsComponent implements OnInit {
 
   getScripts(): void {
     this.scriptService.getScripts()
-      .subscribe(scripts => this.scripts = scripts.reverse())
+      .subscribe(scripts => this.scripts = scripts.reverse());
+    this.categoryService.getCategories()
+      .subscribe(categories => this.categories = categories);
+  }
+
+  goTo(id: number): void {
+    this.router.navigate(['scripts/' + id]);
   }
 }

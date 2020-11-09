@@ -12,7 +12,7 @@ namespace WebSqlGit.Data
     public class ScriptRepository : IScriptRepository
     {
         readonly string connectionString;
-        
+
         public ScriptRepository( string connection )
         {
             connectionString = connection;
@@ -22,14 +22,16 @@ namespace WebSqlGit.Data
         {
             using ( IDbConnection db = new SqlConnection( connectionString ) ) 
             {
-                string sqlQuery = "SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory " +
+                string sqlQuery = "SELECT ScriptsHistory.ScriptId, Scripts.CategoryId, ScriptsHistory.Name, ScriptsHistory.Id FROM ScriptsHistory " +
                                   "JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1";
                 List<Script> scripts = db.Query<Script>( sqlQuery ).ToList();
                 List<Script> scriptsPush = scripts.Select( script => new Script
                 {
-                    Id = script.Id,
+                    Id = script.ScriptId,
                     Name = script.Name,
                     CategoryId = script.CategoryId,
+                    Tags = db.Query<String>( "SELECT Name FROM Tags WHERE ScriptsHistoryId = @Id", new { script.Id } ).ToArray(),
+                    Body = db.Query<String>( "SELECT Name FROM Categories WHERE Id = @CategoryId AND Deleted IS NULL", new { script.CategoryId } ).FirstOrDefault(),
                     CreationDataTime = script.CreationDataTime,
                 } ).ToList();
 
@@ -99,34 +101,32 @@ namespace WebSqlGit.Data
         public void UpdateScript( Script script, string author ) 
         {
             using ( IDbConnection db = new SqlConnection( connectionString ) ) 
-            {             
-                if ( CheckAuthoriz( script.ScriptId, author ) )
+            {
+                int id = script.ScriptId;
+                string sqlScript = "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 'true'";
+                Script scriptUpdate = db.Query<Script>( sqlScript, new { id } ).First();
+                scriptUpdate.Version += 1;
+                scriptUpdate.UpdateDataTime = DateTime.Now;
+                scriptUpdate.Name = script.Name;
+                scriptUpdate.Id = 0;
+                scriptUpdate.Author = author;
+                scriptUpdate.Body = script.Body;
+                string sqlLastVersion = "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id";
+                db.Execute( sqlLastVersion, new { id } );
+                scriptUpdate.IsLastVersion = true;
+                string sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, AuthorId, UpdateDataTime, IsLastVersion) " +
+                                    "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @AuthorId, @UpdateDataTime, @IsLastVersion);" +
+                                    "SELECT CAST(SCOPE_IDENTITY() as int) ";
+                int HistoryId = db.Query<int>( sqlQuery, scriptUpdate ).First();
+                var parameters = script.Tags.Select( u =>
                 {
-                    int id = script.ScriptId;
-                    string sqlScript = "SELECT * FROM ScriptsHistory WHERE ScriptId = @id AND IsLastVersion = 'true'";
-                    Script scriptUpdate = db.Query<Script>( sqlScript, new { id } ).First();
-                    scriptUpdate.Version += 1;
-                    scriptUpdate.UpdateDataTime = DateTime.Now;
-                    scriptUpdate.Name = script.Name;
-                    scriptUpdate.Id = 0;
-                    scriptUpdate.Body = script.Body;
-                    string sqlLastVersion = "UPDATE ScriptsHistory SET IsLastVersion = 'false' WHERE ScriptId = @id";
-                    db.Execute( sqlLastVersion, new { id } );
-                    scriptUpdate.IsLastVersion = true;
-                    string sqlQuery = "INSERT INTO ScriptsHistory (ScriptId, CreationDataTime, CategoryId, Version, Name, Body, Author, AuthorId, UpdateDataTime, IsLastVersion) " +
-                                      "VALUES(@ScriptId, @CreationDataTime, @CategoryId, @Version, @Name, @Body, @Author, @AuthorId, @UpdateDataTime, @IsLastVersion);" +
-                                      "SELECT CAST(SCOPE_IDENTITY() as int) ";
-                    int HistoryId = db.Query<int>( sqlQuery, scriptUpdate ).First();
-                    var parameters = script.Tags.Select( u =>
-                    {
-                        var tempParams = new DynamicParameters();
-                        tempParams.Add( "@tag", u, DbType.String, ParameterDirection.Input );
+                    var tempParams = new DynamicParameters();
+                    tempParams.Add( "@tag", u, DbType.String, ParameterDirection.Input );
                         
-                        return tempParams;
-                    });
-                    string sqlTags = "INSERT INTO Tags (Name, ScriptsHistoryId) VALUES(@tag, " + HistoryId + " );";
-                    db.Execute( sqlTags, parameters );
-                }
+                    return tempParams;
+                });
+                string sqlTags = "INSERT INTO Tags (Name, ScriptsHistoryId) VALUES(@tag, " + HistoryId + " );";
+                db.Execute( sqlTags, parameters );
             }
         }
 
@@ -134,10 +134,22 @@ namespace WebSqlGit.Data
         {
             using ( IDbConnection db = new SqlConnection( connectionString ) ) 
             {
-                string sqlQuery = "SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory " +
+                string sqlQuery = "SELECT ScriptsHistory.ScriptId, Scripts.CategoryId, ScriptsHistory.Name, ScriptsHistory.Id FROM ScriptsHistory " +
                                   "LEFT JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1 AND Scripts.CategoryId = @id";
-                
-                return db.Query<Script>( sqlQuery, new { id } ).ToList();
+
+                List<Script> scripts = db.Query<Script>( sqlQuery, new { id } ).ToList();
+
+                List<Script> scriptsPush = scripts.Select( script => new Script
+                {
+                    Id = script.ScriptId,
+                    Name = script.Name,
+                    CategoryId = script.CategoryId,
+                    Tags = db.Query<String>( "SELECT Name FROM Tags WHERE ScriptsHistoryId = @Id", new { script.Id } ).ToArray(),
+                    Body = db.Query<String>( "SELECT Name FROM Categories WHERE Id = @CategoryId AND Deleted IS NULL", new { script.CategoryId } ).FirstOrDefault(),
+                    CreationDataTime = script.CreationDataTime,
+                } ).ToList();
+
+                return scriptsPush;
             }
         }
 
@@ -169,17 +181,19 @@ namespace WebSqlGit.Data
             using ( IDbConnection db = new SqlConnection( connectionString ) )
             {
                 int id = db.Query<int>( "SELECT Id FROM Users WHERE Login = @author", new { author } ).First();
-                string sqlQuery = "SELECT Scripts.Id, Scripts.CategoryId, ScriptsHistory.Name FROM ScriptsHistory " +
+                string sqlQuery = "SELECT ScriptsHistory.ScriptId, Scripts.CategoryId, ScriptsHistory.Name, ScriptsHistory.Id FROM ScriptsHistory " +
                                   "JOIN Scripts ON Scripts.Id = ScriptsHistory.ScriptId WHERE Scripts.AuthorId = @id AND ScriptsHistory.Deleted IS NULL AND ScriptsHistory.IsLastVersion = 1";
                 List<Script> scripts = db.Query<Script>( sqlQuery, new { id } ).ToList();
                 List<Script> scriptsPush = scripts.Select( script => new Script
                 {
-                    Id = script.Id,
+                    Id = script.ScriptId,
                     Name = script.Name,
                     CategoryId = script.CategoryId,
+                    Tags = db.Query<String>( "SELECT Name FROM Tags WHERE ScriptsHistoryId = @Id", new { script.Id } ).ToArray(),
+                    Body = db.Query<String>( "SELECT Name FROM Categories WHERE Id = @CategoryId AND Deleted IS NULL", new { script.CategoryId } ).FirstOrDefault(),
                     CreationDataTime = script.CreationDataTime,
                 } ).ToList();
-                
+
                 return scriptsPush;
             }
         }
@@ -190,7 +204,11 @@ namespace WebSqlGit.Data
             {
                 List<Script> scriptsByName = SearchScriptsByNameEntry( pattern );
                 List<Script> scriptsByTag = SearchScriptsByTagEntry( pattern );
-                scriptsByName.Union( scriptsByTag ).Take( 10 ).ToList();
+                scriptsByName.AddRange( scriptsByTag );
+                if ( scriptsByName.Count == 0)
+                {
+                    scriptsByName = scriptsByTag;
+                }
                 List<Script> scriptsPush = scriptsByName.Select( script => new Script
                 {
                     Id = script.ScriptId,
@@ -216,11 +234,20 @@ namespace WebSqlGit.Data
         {
             using ( IDbConnection db = new SqlConnection( connectionString ) )
             {
-                List<int> scriptsByTag = db.Query<int>( "SELECT ScriptsHistoryId FROM Tags WHERE Name LIKE  @Pattern", new { Pattern = "%" + pattern + "%" } ).ToList();
-                string sqlTags = "SELECT * FROM ScriptsHistory WHERE IsLastVersion = 'True' AND Deleted IS NULL AND ScriptId IN @scriptsByTag";
-                List<Script> scriptInTags = db.Query<Script>( sqlTags, new { scriptsByTag } ).ToList();
+                int[] scriptsByTag = db.Query<int>( "SELECT ScriptsHistoryId FROM Tags WHERE Name LIKE  @Pattern", new { Pattern = "%" + pattern + "%" } ).ToArray();
+                string sqlTags = "SELECT * FROM ScriptsHistory WHERE Id = @id AND IsLastVersion = 'True' AND ScriptsHistory.Deleted IS NULL";
+                List<Script> scriptInTags = new List<Script> { };
+                for (int scriptByTag = 0; scriptByTag < scriptsByTag.Length; scriptByTag++ )
+                {
+                    int id = scriptsByTag[scriptByTag];
+                    Script script = db.Query<Script>( sqlTags, new { id } ).FirstOrDefault();
+                    if (script != null)
+                    {
+                        scriptInTags.Add( script );
+                    }
+                }
                 
-                return scriptInTags;
+                return scriptInTags.ToList();
             }
         }
 

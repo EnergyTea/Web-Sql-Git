@@ -18,6 +18,8 @@ export class LoginComponent {
     private location: Location
   ) { }
 
+  user: User;
+
   reg(): void {
     window.location.href = "/registration"; 
   }

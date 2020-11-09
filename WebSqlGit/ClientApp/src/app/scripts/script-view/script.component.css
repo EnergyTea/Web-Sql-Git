@@ -1,5 +1,17 @@
 h3 {
-  margin: 10px 0 0 20px;
+  margin: 5px 0 0 0;
+}
+
+.script-tags {
+  margin: 0;
+}
+
+.label-category {
+  margin: 5px 0 0 0;
+}
+
+.p-tags {
+  margin: auto 0;
 }
 
 .btn {
@@ -39,8 +51,9 @@ pre::-webkit-scrollbar-thumb {
 }
 
 .row {
-  width: 1068px;
   margin-top: 10px;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .script-version {
@@ -52,14 +65,14 @@ pre::-webkit-scrollbar-thumb {
     border: 3px solid rgba(0,0,0,0.1);
     border-radius: 5px;
     height: 30px;
-    width: 70px;
+    padding: 0 10px;
     margin: 10px;    
 }
 
 .right {
   overflow: auto;
   max-height: 580px;
-  max-width: 150px;
+  max-width: 200px;
   padding: 0;
 }
 
@@ -96,7 +109,9 @@ pre::-webkit-scrollbar-thumb {
 }
 
 .main-version {
+  cursor: pointer;
   margin: 10px;
+  max-width: 150px;
 }
 
 .sql {

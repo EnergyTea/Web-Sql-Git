@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../authentication/shared/user.service';
 import { Category } from '../../categories/shared/Category';
 import { CategoryService } from '../../categories/shared/category.service';
@@ -14,11 +14,14 @@ import { CategoryService } from '../../categories/shared/category.service';
 export class NavCategoryComponent implements OnInit {
 /** category ctor */
   categories: Category[];
+  @Input() activeCategory: number;
   public highlightedDiv: number;
   isEditCategory: boolean;
+  isAdd: boolean;
   isAurorize = true;
 
   constructor(
+    private router: Router,
     private categoryService: CategoryService,
     private userService: UserService) { }
 

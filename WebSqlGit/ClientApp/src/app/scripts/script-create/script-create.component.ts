@@ -15,6 +15,7 @@ import { CategoryService } from '../../categories/shared/category.service';
 export class CreateScriptComponent implements OnInit {
   /** create ctor */
   scripts: Script[];
+  script: Script;
   categories: Category[] = [] ;
   open = false;
   isError = false;
@@ -32,10 +33,11 @@ export class CreateScriptComponent implements OnInit {
 
   createTags(tagNew: string) {
     tagNew = tagNew.trim();
-    if (tagNew !== "") {
+    if (tagNew !== "" && this.tags.length < 7) {
       this.tags.push(tagNew);
     }
   }
+
   deleteTag(i: number) {
     this.tags.splice(i, 1);
   }
